@@ -1,28 +1,48 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+import UserInput from './User/UserInput'
+import UserOutput from './User/UserOutput';
+import ValidationComponent from './Validation/ValidationComponent';
+import CharComponent from './Char/CharComponent'
+
+const app = props => {
+  const [userState, setUserstate] = useState({
+    username: '',
+    userLength: 0
+  })
+
+  const userNameHandler = (event) => {
+    setUserstate({
+      username: event.target.value,
+      userLength: event.target.value.length
+    })
   }
+
+  const deleteChar = (charIndex) => {
+    let user = {...userState}
+    const username = user.username.slice(0, charIndex) + user.username.slice(charIndex + 1)
+
+    setUserstate({
+      username,
+      userLength: user.userLength -1
+    })
+  }
+
+  const charList = userState.username.split('').map((char, index) => {
+    return (
+      <CharComponent char={char} click={() => deleteChar(index)} key={index}></CharComponent>
+    )
+  })
+
+  return (
+    <div className="App">
+      <UserInput change={userNameHandler} value={userState.username}></UserInput>
+      <UserOutput username={userState.username} userLength={userState.userLength}></UserOutput>
+      <ValidationComponent userLength={userState.userLength}></ValidationComponent>
+      {charList}
+    </div>
+  );
 }
 
-export default App;
+export default app;
