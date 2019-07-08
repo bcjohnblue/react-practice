@@ -1,16 +1,18 @@
-import React, {Component} from 'react'
+import React from 'react';
 import './UserInput.css';
+import styles from './Test.module.sass';
 
-const userInput = (props) => {
-  const style = {
-    border: '1px solid red'
-  }
-
+const userInput = props => {
   return (
-   <div>
-     <input type="text" className="text" onChange={props.change} value={props.value} style={style}/>
-   </div> 
-  )
-}
+    <div>
+      <input
+        type="text"
+        className={[styles.border, 'text'].join(" ")}
+        onChange={props.change}
+        value={props.value}
+      />
+    </div>
+  );
+};
 
-export default userInput
+export default userInput;
