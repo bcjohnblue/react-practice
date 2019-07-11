@@ -1,0 +1,29 @@
+@import '../../../styles/var.sass'
+@import '../../../styles/mixins.sass'
+
+@mixin icon
+  fill: white
+  width: 36px
+  height: 36px
+  margin: 24px 0px
+  cursor: pointer
+
+.icon_container
+  position: absolute
+  right: 85px
+  display: flex
+  flex-direction: column
+  .icon_list
+    +icon
+  .icon_assessment
+    +icon
+  .icon_music
+    +icon
+  .logo
+    writing-mode: vertical-lr
+    display: flex
+    align-items: center
+    color: white
+    font-size: 24px
+    font-weight: bold
+    margin-top: 335px

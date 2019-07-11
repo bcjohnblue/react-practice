@@ -1,34 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Main.module.sass';
 
+import LeftPanel from '../../layouts/Panels/LeftPanel/LeftPanel';
+import Clock from '../../layouts/Clock/Clock';
+import RightPanel from '../../layouts/Panels/RightPanel/RightPanel';
+
 const TomatoClockMain = props => {
-  const style = {
-    width: '1280px',
-    height: '800px'
-  };
+  const OtherThingsData = [
+    'the second thing to do today',
+    'the third thing to do today',
+    'the forth thing to do today'
+  ];
 
   return (
-    <React.Fragment>
-      <div style={style}>
-        <div className={styles.left_panel}>
-          <div className={styles.vertical_container}>
-            <div className={styles.input_container}>
-              <input
-                type="text"
-                placeholder="ADD A NEW MISSION..."
-                className={styles.input}
-              />
-              <div className={styles.cross_container}>
-                <div className={styles.cross}>+</div>
-              </div>
-            </div>
-            <div className={styles.circle} />
-          </div>
-        </div>
-
-        <div className={styles.right_panel}>right</div>
-      </div>
-    </React.Fragment>
+    <div className={styles.main}>
+      <LeftPanel
+        className={styles.left_panel}
+        OtherThingsData={OtherThingsData}
+      />
+      <Clock className={styles.clock} />
+      <RightPanel className={styles.right_panel} />
+    </div>
   );
 };
 
