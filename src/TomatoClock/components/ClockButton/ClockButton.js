@@ -11,6 +11,14 @@ import styles from './ClockButton.module.sass';
 const ClockButton = props => {
   const playButtonStyle = styles[props.clockState];
 
+  // const playClick = () => {
+  //   console.log('play');
+
+  //   setInterval(() => {
+  //     props.setTimeState(props.timeState--);
+  //   }, 1000);
+  // };
+
   const playButton = (
     <div className={[styles.play_button, playButtonStyle].join(' ')} />
   );

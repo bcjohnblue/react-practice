@@ -5,24 +5,40 @@
   height: 100%
   transform-origin: 100% 50%
   position: absolute
-  // background: $pink-color
   border: 5px
   &.main
     background-color: $pink-color
   &.break
     background-color: $blue-color
 .spinner
+  width: 50%
+  height: 100%
   border-radius: 100% 0 0 100% / 50% 0 0 50%
   z-index: 200
-  border-right: none
-  animation: rota 5s linear infinite
+  // border-right: none
+  // animation: rota 5s linear infinite
+  // animation-name: rota
+  animation-timing-function: linear
+  animation-iteration-count: infinite
+  // animation-duration: 5s
+  // transform: rotate(30deg)
+  // transform-origin: 100% 50%
+  // &.main
+  //   animation-name: main-rotate
+  // &.break
+  //   animation-name: break-rotate
 .filter
   border-radius: 0 100% 100% 0 / 0 50% 50% 0
   left: 50%
-  opacity: 0
+  // opacity: 0
   z-index: 100
-  animation: opa 5s steps(1, end) infinite reverse
   border-left: none
+  // animation: opa 5s steps(1, end) infinite reverse
+  // animation-name: opa
+  animation-timing-function: steps(1, end)
+  animation-iteration-count: infinite
+  animation-direction: reverse
+  // animation-duration: 5s
   &.main
     background-color: $pink-color
   &.break
@@ -31,24 +47,33 @@
   width: 50%
   height: 100%
   position: absolute
-  // background: $light-pink-color
-  opacity: 1
+  // opacity: 1
   z-index: 300
-  animation: opa 5s steps(1, end) infinite
+  // animation: opa 5s steps(1, end) infinite
+  // animation-name: opa
+  animation-timing-function: steps(1, end)
+  animation-iteration-count: infinite
+  // animation-duration: 5s
   &.main
     background-color: $light-pink-color
   &.break
     background-color: $light-blue-color
 
-@keyframes rota
-  0%
-    transform: rotate(0deg)
-  100%
-    transform: rotate(360deg)
+// @keyframes main-rotate
+//   0%
+//     transform: rotate(0deg)
+//   100%
+//     transform: rotate(360deg)
 
-@keyframes opa
-  0%
-    opacity: 1
-  50%,
-  100%
-    opacity: 0
+// @keyframes break-rotate
+//   0%
+//     transform: rotate(0deg)
+//   100%
+//     transform: rotate(360deg)
+
+// @keyframes opa
+//   0%
+//     opacity: 1
+//   50%,
+//   100%
+//     opacity: 0

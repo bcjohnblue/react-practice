@@ -5,6 +5,21 @@ import FirstThingNumber from '../../../components/FirstThingNumber/FirstThingNum
 import OtherThings from '../../../components/OtherThings/OtherThings';
 
 const LeftPanel = props => {
+  const clockStateStyle = styles[props.clockState];
+  const OtherThingsData = [
+    'the second thing to do today',
+    'the third thing to do today',
+    'the forth thing to do today'
+  ];
+  const convertTimeToText = timeState => {
+    const time = timeState[props.clockState].second;
+    const minute = parseInt(time / 60);
+    const second = ((time % 60) + '').padStart(2, 0);
+
+    return `${minute}:${second}`;
+  };
+  const timeText = convertTimeToText(props.timeState);
+
   return (
     <div className={props.className}>
       <div className={styles.vertical_container}>
@@ -12,9 +27,9 @@ const LeftPanel = props => {
           <input
             type="text"
             placeholder="ADD A NEW MISSION..."
-            className={styles.input}
+            className={[styles.input, clockStateStyle].join(' ')}
           />
-          <div className={styles.cross_container}>
+          <div className={[styles.cross_container, clockStateStyle].join(' ')}>
             <div className={styles.cross}>+</div>
           </div>
         </div>
@@ -25,8 +40,10 @@ const LeftPanel = props => {
             <div className={styles.pink_circle} />
           </div>
         </div>
-        <FirstThingNumber style={{ color: '#FF4384' }}>25:00</FirstThingNumber>
-        <OtherThings data={props.OtherThingsData} />
+        <FirstThingNumber clockState={props.clockState}>
+          {timeText}
+        </FirstThingNumber>
+        <OtherThings data={OtherThingsData} clockState={props.clockState} />
       </div>
     </div>
   );
