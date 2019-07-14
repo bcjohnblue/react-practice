@@ -55,7 +55,7 @@ const app = props => {
   return (
     <div className="App">
       {/* <Route path="/test" render={() => comp} /> */}
-      <Route path="/" component={TomatoClockMain} />
+      <Route path="/tomato-clock" component={TomatoClockMain} />
       {/* <Route path="/tomato-clock/main" component={TomatoClockMain} /> */}
     </div>
   );
