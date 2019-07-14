@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
 import TomatoClockMain from './TomatoClock/pages/Main/Main';
 
@@ -53,11 +53,13 @@ const app = props => {
   // );
 
   return (
-    <div className="App">
-      {/* <Route path="/test" render={() => comp} /> */}
-      <Route path="/tomato-clock" component={TomatoClockMain} />
-      {/* <Route path="/tomato-clock/main" component={TomatoClockMain} /> */}
-    </div>
+    <HashRouter basename="/">
+      <div className="App">
+        {/* <Route path="/test" render={() => comp} /> */}
+        <Route path="/tomato-clock" component={TomatoClockMain} />
+        {/* <Route path="/tomato-clock/main" component={TomatoClockMain} /> */}
+      </div>
+    </HashRouter>
   );
 };
 
