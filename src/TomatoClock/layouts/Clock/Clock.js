@@ -3,9 +3,9 @@
  * @Author: bcjohn
  * @Date: 2019-07-10 16:24:24
  * @LastEditors: bcjohn
- * @LastEditTime: 2019-07-12 18:01:13
+ * @LastEditTime: 2019-07-16 11:43:20
  */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Clock.module.sass';
 import ClockButton from '../../components/ClockButton/ClockButton';
 import ClockBackground from '../../components/ClockBackground/ClockBackground';
@@ -13,41 +13,40 @@ import PlayAnimation from '../../components/PlayAnimation/PlayAnimation';
 
 const Clock = props => {
   const [isPlay, setIsPlay] = useState(false);
-  const [timer, setTimer] = useState({
+  const [isTimeup, setIsTimeup] = useState(false);
+  const timerRef = useRef({
     main: undefined,
     break: undefined
   });
-  const [isTimeup, setTimeup] = useState(false);
+  const second = props.timeState[props.clockState].second;
 
-  // console.log(props.timeState[props.clockState].second);
+  useEffect(() => {
+    if (second === 0) {
+      clearInterval(timerRef.current[props.clockState]);
+      setIsPlay(false);
+      props.dispatchTimeState({
+        clockState: props.clockState,
+        type: 'RESET'
+      });
+
+      setIsTimeup(true);
+      alert('時間到!');
+      setIsTimeup(false);
+    }
+  }, [second]);
 
   const countDown = isStart => {
-    const nowSecond = props.timeState[props.clockState].second;
-
     if (isStart) {
-      const timerInterval = setInterval(() => {
-        // FIXME: setInterval 沒辦法獲取新的state.
-        // console.log(props.timeState[props.clockState].second);
-
-        if (props.timeState[props.clockState].second === 0) {
-          // setTimeup(true);
-          setIsPlay(false);
-          clearInterval(timer[props.clockState]);
-          return;
-        }
+      timerRef.current[props.clockState] = setInterval(() => {
+        console.log('setInterval');
 
         props.dispatchTimeState({
           clockState: props.clockState,
           type: 'DECREMENT'
         });
       }, 1000);
-
-      setTimer({
-        ...timer,
-        [props.clockState]: timerInterval
-      });
     } else {
-      clearInterval(timer[props.clockState]);
+      clearInterval(timerRef.current[props.clockState]);
     }
   };
   const clockClick = () => {
@@ -81,9 +80,9 @@ const Clock = props => {
       <PlayAnimation
         className={styles.play_animation}
         isPlay={isPlay}
+        isTimeup={isTimeup}
         clockState={props.clockState}
         timeState={props.timeState}
-        timer={timer}
         initialTimeState={props.initialTimeState}
       />
     </div>

@@ -3,7 +3,7 @@
  * @Author: bcjohn
  * @Date: 2019-07-11 16:02:15
  * @LastEditors: bcjohn
- * @LastEditTime: 2019-07-12 17:58:01
+ * @LastEditTime: 2019-07-16 11:36:24
  */
 import React from 'react';
 import styles from './PlayAnimation.module.sass';
@@ -41,8 +41,8 @@ const PlayAnimation = props => {
     return { opacity };
   };
 
-  return (
-    <div className={props.className}>
+  const animationDOM = props.isTimeup ? null : (
+    <>
       <div
         className={[styles.pie, styles.spinner, clockStyle].join(' ')}
         style={{ ...playAnimationStyle, ...rotateStyle }}
@@ -51,6 +51,12 @@ const PlayAnimation = props => {
         className={[styles.pie, styles.filter, clockStyle].join(' ')}
         style={{ ...playAnimationStyle, ...opacityStyle('filter') }}
       />
+    </>
+  );
+
+  return (
+    <div className={props.className}>
+      {animationDOM}
       <div
         className={[styles.mask, clockStyle].join(' ')}
         style={{ ...playAnimationStyle, ...opacityStyle('mask') }}

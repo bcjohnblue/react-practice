@@ -22,21 +22,22 @@ const TomatoClockMain = props => {
 
   const timeReducer = (timeState, action) => {
     const clockState = action.clockState;
-    console.log(timeState);
-    // FIXME: setInterval 沒辦法獲取新的state.
-    const isTimeup = timeState[clockState].second === 0;
-    // if (isTimeup) {
-    //   alert('時間到!');
-
-    // }
 
     switch (action.type) {
       case 'DECREMENT':
         return {
           ...timeState,
           [clockState]: {
-            second: isTimeup ? 0 : timeState[clockState].second - 1,
-            count: isTimeup ? 0 : timeState[clockState].count + 1
+            second: timeState[clockState].second - 1,
+            count: timeState[clockState].count + 1
+          }
+        };
+      case 'RESET':
+        return {
+          ...timeState,
+          [clockState]: {
+            second: initialTimeState[clockState].second,
+            count: initialTimeState[clockState].count
           }
         };
       default:
