@@ -3,7 +3,7 @@
  * @Author: bcjohn
  * @Date: 2019-07-11 16:02:15
  * @LastEditors: bcjohn
- * @LastEditTime: 2019-07-16 11:36:24
+ * @LastEditTime: 2019-07-16 11:52:29
  */
 import React from 'react';
 import styles from './PlayAnimation.module.sass';
@@ -16,7 +16,6 @@ const PlayAnimation = props => {
   const playAnimationStyle = {
     animationPlayState: props.isPlay ? 'running' : 'paused',
     animationDuration: `${props.initialTimeState[props.clockState].second}s`
-    // animationDuration: `${clockTimeState.second}s`
   };
 
   const degree = clockTimeState.count * (360 / initialClockTimeState.second);
