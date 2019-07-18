@@ -1,6 +1,6 @@
 module.exports = function(plop) {
-  const projectFolderName = 'Solitaire'
-  const path = `../src/${projectFolderName}/{{folderName}}/{{fileName}}/{{fileName}}`
+  const projectFolderName = 'Solitaire';
+  const path = `../src/${projectFolderName}/{{folderName}}/{{fileName}}/{{fileName}}`;
 
   // controller generator
   plop.setGenerator('controller', {
@@ -22,7 +22,11 @@ module.exports = function(plop) {
       {
         type: 'input',
         name: 'fileName',
-        message: 'Please enter file name'
+        message: 'Please enter file name',
+        filter: fileName => {
+          const firstLetter = fileName.charAt(0).toUpperCase();
+          return firstLetter + fileName.slice(1);
+        }
       }
     ],
     actions: [
