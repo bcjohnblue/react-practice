@@ -6,7 +6,9 @@ const CardColumnContainer = props => {
   console.log(props.cardList);
 
   const DOM = props.cardList.map((card, index) => {
-    return <Card card={card} position={index} key={index} />;
+    const canDrag = index + 1 >= props.cardList.length;
+
+    return <Card card={card} position={index} key={index} canDrag={canDrag} />;
   });
 
   return <div className={styles.card_column_container}>{DOM}</div>;
