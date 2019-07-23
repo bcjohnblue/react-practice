@@ -7,6 +7,7 @@ const RightTop = props => {
   const DOM = array.map((item, index) => (
     <CardDropZone styles={'right_top'} key={index} />
   ));
+
   return (
     <div className={[props.className, styles.right_top].join(' ')}>{DOM}</div>
   );

@@ -1,8 +1,8 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 
-import TomatoClock from './TomatoClock/pages/Main/Main';
-import Solitaire from './Solitaire/pages/Main/Main.jsx';
+import TomatoClock from './projects/TomatoClock/pages/Main/Main';
+import Solitaire from './projects/Solitaire/pages/Main/Main.jsx';
 
 const app = props => {
   return (

@@ -1,0 +1,4 @@
+export const REMOVE_CARD = 'REMOVE_CARD';
+export const DROP_CARD = 'DROP_CARD';
+export const DBCLICK_REMOVE_CARD = 'DBCLICK_REMOVE_CARD';
+export const DROP_CARD_COLUMN = 'DROP_CARD_COLUMN';
