@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './LeftTop.module.sass';
+import styles from './CardDropZoneContainer.module.sass';
 import CardDropZone from '../CardDropZone/CardDropZone.jsx';
 import { connect } from 'react-redux';
 
-const LeftTop = props => {
+const CardDropZoneContainer = props => {
   const DOM = props.dropZoneCardList.map((_, index) => (
     <CardDropZone dropZoneIndex={index} styles={'left_top'} key={index} />
   ));
@@ -23,6 +23,6 @@ const mapStateToProps = ({ card }) => {
 export default connect(
   mapStateToProps
   // mapDispatchToProps
-)(LeftTop);
+)(CardDropZoneContainer);
 
 // export default LeftTop;

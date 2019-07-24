@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Body.module.sass';
-import LeftTop from '../../components/LeftTop/LeftTop.jsx';
-import RightTop from '../../components/RightTop/RightTop.jsx';
+
+import CardDropZoneContainer from '../../components/CardDropZoneContainer/CardDropZoneContainer.jsx';
+import CardCollectZoneContainer from '../../components/CardCollectZoneContainer/CardCollectZoneContainer.jsx';
 import CardContainer from '../../components/CardContainer/CardContainer.jsx';
 
 // import initCardList from '../../components/CardContainer/cardList';
@@ -13,8 +14,8 @@ const Body = () => {
   return (
     <div className={styles.body}>
       <div className={styles.top}>
-        <LeftTop className={styles.left_top} />
-        <RightTop className={styles.right_top} />
+        <CardDropZoneContainer className={styles.left_top} />
+        <CardCollectZoneContainer className={styles.right_top} />
       </div>
       <CardContainer />
     </div>

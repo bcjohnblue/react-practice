@@ -1,17 +1,26 @@
 import cardList from '../../../projects/Solitaire/cardList';
 import * as actionTypes from './actionTypes';
 
+const CARD_TYPE = ['Spade', 'Club', 'Heart', 'Diamond'];
+const initCollectZoneCardList = CARD_TYPE.map(type => ({
+  type,
+  number: 0
+}));
+
 const dropZoneCardList = Array.from({ length: 4 }, () => null);
+const collectZoneCardList = initCollectZoneCardList;
 
 const initState = {
   cardList,
-  dropZoneCardList
+  dropZoneCardList,
+  collectZoneCardList
 };
 
 const reducer = (state = initState, action) => {
-  let { cardList, dropZoneCardList } = state;
+  let { cardList, dropZoneCardList, collectZoneCardList } = state;
   cardList = JSON.parse(JSON.stringify(cardList));
   dropZoneCardList = JSON.parse(JSON.stringify(dropZoneCardList));
+  collectZoneCardList = JSON.parse(JSON.stringify(collectZoneCardList));
 
   console.log(action);
   // console.log(cardList);
@@ -64,6 +73,41 @@ const reducer = (state = initState, action) => {
         cardList,
         dropZoneCardList
       };
+    }
+    case actionTypes.WATCH_COLLECT_CARD: {
+      let targetIndex = null;
+      let hasCollectCard = false;
+
+      const canCollectCard = card => {
+        const { type, number } = card;
+        targetIndex = collectZoneCardList.findIndex(
+          collectCard => collectCard.type === type
+        );
+
+        return number === collectZoneCardList[targetIndex].number + 1;
+      };
+      const addCollectCard = (card, columnIndex) => {
+        cardList[columnIndex].pop();
+        collectZoneCardList[targetIndex] = card;
+      };
+
+      cardList.map((cardColumn, columnIndex) => {
+        const lastColumnCard = cardColumn.slice(-1)[0];
+
+        if (canCollectCard(lastColumnCard)) {
+          addCollectCard(lastColumnCard, columnIndex);
+          hasCollectCard = true;
+        }
+      });
+      // watch dropZone card
+
+      const newObj = {
+        ...state,
+        collectZoneCardList
+      };
+      if (hasCollectCard) newObj.cardList = cardList;
+
+      return newObj;
     }
     default:
       return state;

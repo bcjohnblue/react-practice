@@ -3,7 +3,7 @@
  * @Author: bcjohn
  * @Date: 2019-07-17 17:45:49
  * @LastEditors: bcjohn
- * @LastEditTime: 2019-07-18 09:01:08
+ * @LastEditTime: 2019-07-24 17:31:40
  */
 
 /*
@@ -19,7 +19,7 @@
  * @return: Array<CardItem>
  */
 const getAllCard = () => {
-  const CARD_TYPE = ['Spade', 'Heart', 'Diamond', 'Club'];
+  const CARD_TYPE = ['Spade', 'Club', 'Heart', 'Diamond'];
   const CARD_NUMBER_PER_TYPE = 13;
 
   return CARD_TYPE.reduce((accu, curr) => {
