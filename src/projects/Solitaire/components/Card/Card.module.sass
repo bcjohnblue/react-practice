@@ -1,10 +1,28 @@
 @import '../../styles/mixin.sass'
 
+// @mixin backgroundImage
+//   background-repeat: 'no-repeat'
+//   background-position: 'center center'
+//   background-size: '80% 60%'
+
 .card
   +card
-  border-color: blue
+  // border-color: blue
   position: absolute
 .drop_card
   +card($isDropCard: true)
-  border-color: blue
+  // border-color: blue
   position: absolute
+.right_top_image
+  width: 100%
+  height: 100%
+  position: absolute
+.left_bottom_image
+  width: 100%
+  height: 100%
+  position: absolute
+.card_number
+  margin-left: 10%
+  margin-top: 6%
+  font-weight: bold
+  font-size: 1.05rem

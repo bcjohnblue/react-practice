@@ -1,5 +1,14 @@
+@import '../../styles/var.sass'
+
 .card_column_container
+  @media screen and (min-width: 1600px)
+    width: map-get($card-width, max)
+  @media screen and (max-width: 1600px)
+    width: map-get($card-width, min)
   position: relative
-  margin-right: 190px
+  box-sizing: border-box
+  // margin-right: 1vw
+  // height: 100px
+  // display: inline
   &:last-child
     margin-right: 0px

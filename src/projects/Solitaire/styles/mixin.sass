@@ -2,15 +2,16 @@
 
 @mixin card($isDropCard: false)
   @media screen and (min-width: 1600px)
-    height: 20vh
-    width: 7vw
+    height: map-get($card-height, max)
+    width: map-get($card-width, max)
   @media screen and (max-width: 1600px)
-    height: 27vh
-    width: 9vw
-  margin: 2vh
+    height: map-get($card-height, min)
+    width: map-get($card-width, min)
+  // margin: 1vh
   border-width: $card-border-width
   border-style: solid
-  border-radius: 10px
+  border-color: transparent
+  border-radius: 15px
   box-sizing: border-box
   @if $isDropCard == true
     margin-top: -$card-border-width

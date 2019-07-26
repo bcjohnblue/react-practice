@@ -15,6 +15,8 @@ const CardDropZone = props => {
   const [collectedProps, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item, monitor) => {
+      console.log(props);
+
       setDropCard(item.card, dropZoneIndex);
       // console.log(item, monitor);
     },
