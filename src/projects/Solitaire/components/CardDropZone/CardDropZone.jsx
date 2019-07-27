@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './CardDropZone.module.sass';
 
 import { connect } from 'react-redux';
@@ -11,18 +11,14 @@ import Card from '../Card/Card.jsx';
 
 const CardDropZone = props => {
   const { dropCard, dropZoneIndex, setDropCard } = props;
-  // const [dropCard, setDropCard] = useState(null);
-  const [collectedProps, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: ItemTypes.CARD,
-    drop: (item, monitor) => {
-      console.log(props);
-
+    drop: item => {
       setDropCard(item.card, dropZoneIndex);
-      // console.log(item, monitor);
+      item.card.dropZoneIndex = dropZoneIndex;
     },
-    canDrop: (item, monitor) => {
+    canDrop: () => {
       return dropCard ? false : true;
-      // console.log(item, monitor);
     },
     collect: monitor => ({
       cardItem: monitor.cardItem

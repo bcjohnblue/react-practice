@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Body.module.sass';
 
 import CardDropZoneContainer from '../../components/CardDropZoneContainer/CardDropZoneContainer.jsx';
 import CardCollectZoneContainer from '../../components/CardCollectZoneContainer/CardCollectZoneContainer.jsx';
 import CardContainer from '../../components/CardContainer/CardContainer.jsx';
 import TimeCount from '../../components/TimeCount/TimeCount';
-// import initCardList from '../../components/CardContainer/cardList';
 
 const Body = () => {
-  // const [cardList, setCardList] = useState(initCardList)
-  // console.log(cardList);
-
   return (
     <div className={styles.body}>
       <div className={styles.top}>

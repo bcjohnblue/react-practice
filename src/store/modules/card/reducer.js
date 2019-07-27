@@ -17,44 +17,19 @@ const initState = {
 };
 
 const reducer = (state = initState, action) => {
-  console.log(state);
-  // FIXME:
-
   let { cardList, dropZoneCardList, collectZoneCardList } = state;
   cardList = JSON.parse(JSON.stringify(cardList));
   dropZoneCardList = JSON.parse(JSON.stringify(dropZoneCardList));
   collectZoneCardList = JSON.parse(JSON.stringify(collectZoneCardList));
 
-  const isCardInDropZone = card => {
-    console.log(dropZoneCardList);
-
-    return dropZoneCardList.filter(Boolean).some(dropZoneCard => {
-      return Object.keys(card).every(key => card[key] === dropZoneCard[key]);
-    });
-  };
-
-  console.log(action);
-  // console.log(cardList);
-
   switch (action.type) {
     case actionTypes.REMOVE_CARD: {
       const { card, cardColumnIndex, isDropCard } = action;
-      console.log(isDropCard);
 
       if (isDropCard) {
-        const removeIndex = dropZoneCardList.findIndex(dropZoneCard => {
-          if (dropZoneCard) {
-            return (
-              dropZoneCard.type === card.type &&
-              dropZoneCard.number === card.number
-            );
-          }
-        });
-        console.log(dropZoneCardList);
-
-        dropZoneCardList.splice(removeIndex, 1, null);
-        console.log(removeIndex);
-        console.log(dropZoneCardList);
+        dropZoneCardList.splice(card.dropZoneIndex, 1, null);
+        // console.log(dropZoneCardList);
+        // action.card.dropZoneIndex = dropZoneIndex;
 
         return {
           ...state,
@@ -72,7 +47,6 @@ const reducer = (state = initState, action) => {
     }
     case actionTypes.DROP_CARD: {
       const { card, dropZoneIndex } = action;
-
       dropZoneCardList[dropZoneIndex] = card;
 
       return {
@@ -82,26 +56,32 @@ const reducer = (state = initState, action) => {
     }
     case actionTypes.DROP_CARD_COLUMN: {
       const { card, cardColumnIndex } = action;
-
       cardList[cardColumnIndex].push(card);
-      console.warn(cardList);
 
       return {
         ...state,
         cardList
       };
     }
-    case actionTypes.DBCLICK_REMOVE_CARD: {
+    case actionTypes.CLICK_REMOVE_CARD: {
       const { card, cardColumnIndex } = action;
 
-      // const isCardInDropZone = (() => {
-      //   return dropZoneCardList.filter(Boolean).some(dropZoneCard => {
-      //     return Object.keys(card).every(
-      //       key => card[key] === dropZoneCard[key]
-      //     );
-      //   });
-      // })();
+      const isCardInDropZone = card => {
+        return dropZoneCardList.filter(Boolean).some(dropZoneCard => {
+          return Object.keys(card).every(
+            key => card[key] === dropZoneCard[key]
+          );
+        });
+      };
       if (isCardInDropZone(card)) return { ...state };
+
+      const isLastColumnCard = () => {
+        const lastColumnCard = cardList[cardColumnIndex].slice(-1)[0];
+        return Object.keys(card).every(
+          key => card[key] === lastColumnCard[key]
+        );
+      };
+      if (!isLastColumnCard()) return { ...state };
 
       const replaceIndex = dropZoneCardList.findIndex(
         dropZoneCard => !dropZoneCard
@@ -109,6 +89,7 @@ const reducer = (state = initState, action) => {
       if (~replaceIndex) {
         cardList[cardColumnIndex].splice(-1, 1);
         dropZoneCardList[replaceIndex] = card;
+        action.card.dropZoneIndex = replaceIndex;
       }
 
       return {
@@ -119,36 +100,69 @@ const reducer = (state = initState, action) => {
     }
     case actionTypes.WATCH_COLLECT_CARD: {
       let targetIndex = null;
-      let hasCollectCard = false;
-
-      const canCollectCard = card => {
-        const { type, number } = card;
-        targetIndex = collectZoneCardList.findIndex(
-          collectCard => collectCard.type === type
-        );
-
-        return number === collectZoneCardList[targetIndex].number + 1;
-      };
-      const addCollectCard = (card, columnIndex) => {
-        cardList[columnIndex].pop();
-        collectZoneCardList[targetIndex] = card;
+      let hasCollect = {
+        columnCard: false,
+        dropZoneCard: false
       };
 
-      cardList.map((cardColumn, columnIndex) => {
-        const lastColumnCard = cardColumn.slice(-1)[0];
+      const collectColumnCard = () => {
+        cardList.map((cardColumn, columnIndex) => {
+          const lastColumnCard = cardColumn.slice(-1)[0];
 
-        if (canCollectCard(lastColumnCard)) {
-          addCollectCard(lastColumnCard, columnIndex);
-          hasCollectCard = true;
-        }
-      });
-      // watch dropZone card
+          const canCollectCard = card => {
+            if (!card) return false;
+            const { type, number } = card;
+            targetIndex = collectZoneCardList.findIndex(
+              collectCard => collectCard.type === type
+            );
+
+            return number === collectZoneCardList[targetIndex].number + 1;
+          };
+          const addCollectCard = (card, columnIndex) => {
+            cardList[columnIndex].pop();
+            collectZoneCardList[targetIndex] = card;
+          };
+
+          if (canCollectCard(lastColumnCard)) {
+            addCollectCard(lastColumnCard, columnIndex);
+            hasCollect.columnCard = true;
+          }
+        });
+      };
+
+      const collectDropZoneCard = () => {
+        dropZoneCardList.map((dropZoneCard, dropZoneIndex) => {
+          const canCollectCard = dropZoneCard => {
+            if (!dropZoneCard) return;
+
+            const { type, number } = dropZoneCard;
+            targetIndex = collectZoneCardList.findIndex(
+              collectCard => collectCard.type === type
+            );
+
+            return number === collectZoneCardList[targetIndex].number + 1;
+          };
+          const addCollectCard = (dropZoneCard, dropZoneIndex) => {
+            dropZoneCardList[dropZoneIndex] = null;
+            collectZoneCardList[targetIndex] = dropZoneCard;
+          };
+
+          if (canCollectCard(dropZoneCard)) {
+            addCollectCard(dropZoneCard, dropZoneIndex);
+            hasCollect.dropZoneCard = true;
+          }
+        });
+      };
+
+      collectColumnCard();
+      collectDropZoneCard();
 
       const newState = {
         ...state,
         collectZoneCardList
       };
-      if (hasCollectCard) newState.cardList = cardList;
+      if (hasCollect.columnCard) newState.cardList = cardList;
+      if (hasCollect.dropZoneCard) newState.dropZoneCardList = dropZoneCardList;
 
       return newState;
     }

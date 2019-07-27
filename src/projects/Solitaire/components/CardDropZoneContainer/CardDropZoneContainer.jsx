@@ -20,9 +20,4 @@ const mapStateToProps = ({ card }) => {
   };
 };
 
-export default connect(
-  mapStateToProps
-  // mapDispatchToProps
-)(CardDropZoneContainer);
-
-// export default LeftTop;
+export default connect(mapStateToProps)(CardDropZoneContainer);

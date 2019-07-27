@@ -10,12 +10,11 @@ import * as actionTypes from '../../../../store/modules/card/actionTypes';
 import { mapCardToImage } from './backgroundImages';
 
 const Card = props => {
-  // console.log(props);
   const {
     card,
     cardColumnIndex,
     removeCard,
-    dbClickRemoveCard,
+    clickRemoveCard,
     canDrag,
     isDropCard
   } = props;
@@ -44,6 +43,10 @@ const Card = props => {
     });
   }, []);
 
+  // FIXME:
+  // Warning: Can't perform a React state update on an unmounted component.
+  // This is a no-op, but it indicates a memory leak in your application.
+  // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
   const [backgroundStyle, setBackgroundStyle] = useState({});
   useEffect(() => {
     mapCardToImage(card).then(imgResult => {
@@ -88,22 +91,13 @@ const Card = props => {
     }
   };
 
-  const [collectedProps, drag] = useDrag({
+  const [, drag] = useDrag({
     item: { card: card, type: ItemTypes.CARD },
     canDrag,
-    collect: monitor => ({
-      card: card
-    }),
     end: (item, monitor) => {
       if (monitor.didDrop()) {
-        console.log(props);
-
         removeCard(card, cardColumnIndex, isDropCard);
-        // props.dispatchCardState({
-        //   type: 'DECREMENT'
-        // });
       }
-      console.log(item, monitor);
     }
   });
 
@@ -111,7 +105,7 @@ const Card = props => {
 
   return (
     <div
-      onDoubleClick={() => dbClickRemoveCard(card, cardColumnIndex)}
+      onClick={() => clickRemoveCard(card, cardColumnIndex)}
       ref={drag}
       className={className}
       style={style.card}
@@ -137,18 +131,16 @@ const mapDispatchToProps = dispatch => {
         cardColumnIndex,
         isDropCard
       }),
-    dbClickRemoveCard: (card, cardColumnIndex) =>
+    clickRemoveCard: (card, cardColumnIndex) =>
       dispatch({
-        type: actionTypes.DBCLICK_REMOVE_CARD,
+        type: actionTypes.CLICK_REMOVE_CARD,
         card,
         cardColumnIndex
       })
   };
 };
-// mapStateToProps
+
 export default connect(
   null,
   mapDispatchToProps
 )(Card);
-
-// export default Card;

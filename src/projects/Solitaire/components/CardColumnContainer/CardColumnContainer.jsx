@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import styles from './CardColumnContainer.module.sass';
 import Card from '../Card/Card.jsx';
 
@@ -9,11 +9,10 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/modules/card/actionTypes';
 
 const CardColumnContainer = props => {
-  console.log(props);
-
   const { cardColumnList, cardColumnIndex, setDropCardColumn } = props;
 
   const canDrop = (card, lastCard) => {
+    if (!lastCard) return true;
     const { type, number } = card;
     const { type: lastType, number: lastNumber } = lastCard;
 
@@ -34,13 +33,11 @@ const CardColumnContainer = props => {
       : false;
   };
 
-  const [collectedProps, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item, monitor) => {
       const card = item.card;
-
       setDropCardColumn(card, cardColumnIndex);
-      console.log(item, monitor);
     },
     canDrop: item => {
       const card = item.card;
@@ -52,7 +49,6 @@ const CardColumnContainer = props => {
 
   const DOM = cardColumnList.map((card, index) => {
     const canDrag = index + 1 >= cardColumnList.length;
-
     return (
       <Card
         card={card}
