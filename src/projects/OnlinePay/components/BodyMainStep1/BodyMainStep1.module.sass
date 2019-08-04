@@ -1,0 +1,27 @@
+@import '../../styles/var.sass'
+
+.img_block
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-basis: 45%
+  // width: 200px
+  height: 160px
+  text-align: center
+  margin: 20px 0px
+  padding: 10px
+  background-color: $gray
+  border-radius: 10px
+  cursor: pointer
+  box-sizing: border-box
+  .svg
+    width: 60px
+    height: 60px
+    fill: $icon-black
+  .img_text
+    // font-size: 1.33rem
+  &:hover
+    background-color: $green
+    color: $icon-white
+    .svg
+      fill: $icon-white

@@ -1,0 +1,21 @@
+@import '../../styles/var.sass'
+
+.title
+  display: flex
+  justify-content: center
+  .text
+    font-weight: bold
+    font-size: 1.22rem
+    letter-spacing: 3px
+    position: relative
+    &::after
+      content: ''
+      position: absolute
+      top: 1.05rem
+      left: -5%
+      z-index: -1
+      display: block
+      height: 1.05rem
+      width: 110%
+      background-color: $light-green
+  
