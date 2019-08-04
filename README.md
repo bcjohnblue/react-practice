@@ -2,7 +2,7 @@
 
 ## 第一關-蕃茄鐘
 
-線上網址: https://bcjohnblue.github.io/F2E_2nd/#/tomato-clock  
+<a href="https://bcjohnblue.github.io/F2E_2nd/#/tomato-clock" target="_blank">線上展示</a>  
 原始碼: https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/TomatoClock
 
 練習技術: `React` `React CSS Modules` `CSS Animation`
