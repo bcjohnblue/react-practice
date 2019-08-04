@@ -9,7 +9,7 @@
 
 ## 第二關-新接龍
 
-線上網址: https://bcjohnblue.github.io/F2E_2nd/#/tomato-clock  
+線上網址: https://bcjohnblue.github.io/F2E_2nd/#/solitaire  
 原始碼: https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/Solitaire
 
 練習技術: `React Redux` `React DnD (Drag and Drop)`
@@ -18,7 +18,7 @@
 
 ## 第四關-線上支付
 
-線上網址: https://bcjohnblue.github.io/F2E_2nd/#/pay  
+線上網址: https://bcjohnblue.github.io/F2E_2nd/#/online-pay  
 原始碼: https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/OnlinePay
 
 練習技術: `React Bootstrap`

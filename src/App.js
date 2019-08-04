@@ -12,7 +12,7 @@ const app = props => {
         {/* <Route path="/test" render={() => comp} /> */}
         <Route path="/tomato-clock" component={TomatoClock} />
         <Route path="/solitaire" component={Solitaire} />
-        <Route path="/pay" component={OnlinePay} />
+        <Route path="/online-pay" component={OnlinePay} />
       </div>
     </HashRouter>
   );
