@@ -42,23 +42,7 @@ const BodyMainStep1 = props => {
       </div>
     );
   });
-  return (
-    <>
-      {DOM}
-      {/* <div className={styles.img_block}>
-        <div>
-          <CreditCart className={styles.svg} />
-          <div className={styles.img_text}>信用卡 / 金融卡</div>
-        </div>
-      </div> */}
-      {/* <div className={styles.img_block}>
-        <div>
-          <CreditCart className={styles.svg} />
-          <div className={styles.img_text}>信用卡 / 金融卡</div>
-        </div>
-      </div> */}
-    </>
-  );
+  return <>{DOM}</>;
 };
 
 export default BodyMainStep1;

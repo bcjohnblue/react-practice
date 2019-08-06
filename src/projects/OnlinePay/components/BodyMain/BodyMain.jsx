@@ -1,19 +1,22 @@
 import React from 'react';
 import styles from './BodyMain.module.sass';
-// import atm from '../../assets/atm.svg';
 import BodyMainStep1 from '../BodyMainStep1/BodyMainStep1';
-import { ReactComponent as CreditCart } from '../../assets/credit-card.svg';
+import BodyMainStep2 from '../BodyMainStep2/BodyMainStep2';
 
 const BodyMain = props => {
+  const { activeStep } = props;
+
+  const Component = (() => {
+    const mapActiveStepToDOM = {
+      1: BodyMainStep1,
+      2: BodyMainStep2
+    };
+
+    return mapActiveStepToDOM[activeStep];
+  })();
   return (
     <div className={styles.body_main}>
-      <BodyMainStep1 />
-      {/* <div className={styles.img_block}>
-        <div>
-          <CreditCart className={styles.svg} />
-          <div className={styles.img_text}>信用卡 / 金融卡</div>
-        </div>
-      </div> */}
+      <Component />
     </div>
   );
 };

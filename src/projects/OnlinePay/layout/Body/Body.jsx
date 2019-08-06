@@ -5,11 +5,16 @@ import BodyMain from '../../components/BodyMain/BodyMain';
 import BodyActions from '../../components/BodyActions/BodyActions';
 
 const Body = props => {
+  const { activeStep, dispatchActiveStep } = props;
+
   return (
     <div className={styles.body}>
-      <BodyTitle>STEP1. 選擇付款方式</BodyTitle>
-      <BodyMain />
-      <BodyActions />
+      <BodyTitle activeStep={activeStep} />
+      <BodyMain activeStep={activeStep} />
+      <BodyActions
+        activeStep={activeStep}
+        dispatchActiveStep={dispatchActiveStep}
+      />
     </div>
   );
 };
