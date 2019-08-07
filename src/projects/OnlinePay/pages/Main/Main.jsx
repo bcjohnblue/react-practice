@@ -21,7 +21,7 @@ const Main = props => {
     }
   };
 
-  const [activeStep, dispatchActiveStep] = useReducer(stepReducer, 1);
+  const [activeStep, dispatchActiveStep] = useReducer(stepReducer, 2);
 
   return (
     <div className={styles.Main}>
