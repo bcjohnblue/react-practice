@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './BodyMainStep1.module.sass';
+
+import Button from 'react-bootstrap/Button';
+
 import { ReactComponent as CreditCart } from '../../assets/credit-card.svg';
 // FIXME: Why can not display?
 import { ReactComponent as UnionPay } from '../../assets/unionpay.svg';
@@ -8,6 +11,8 @@ import { ReactComponent as WebAtm } from '../../assets/web-atm.svg';
 import { ReactComponent as Atm } from '../../assets/atm.svg';
 
 const BodyMainStep1 = props => {
+  const { activeStep, dispatchActiveStep } = props;
+
   const blocks = [
     {
       Component: CreditCart,
@@ -42,7 +47,19 @@ const BodyMainStep1 = props => {
       </div>
     );
   });
-  return <>{DOM}</>;
+  return (
+    <>
+      <div className={styles.block_container}>{DOM}</div>
+      <div className={styles.body_actions}>
+        <Button
+          className={styles.button}
+          onClick={() => dispatchActiveStep('INCREMENT')}
+        >
+          下一步
+        </Button>
+      </div>
+    </>
+  );
 };
 
 export default BodyMainStep1;

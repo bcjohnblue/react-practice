@@ -6,6 +6,53 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const BodyMainStep2 = props => {
+  const { activeStep, dispatchActiveStep } = props;
+
+  const style = (() => {
+    const mapActiveStepToStyle = {
+      1: {
+        justifyContent: 'flex-end'
+      },
+      2: {
+        justifyContent: 'space-between'
+      },
+      3: {
+        justifyContent: 'center'
+      }
+    };
+    return mapActiveStepToStyle[activeStep];
+  })();
+
+  // const buttons = [
+  //   {
+  //     text: '回上一步',
+  //     variant: 'outline-primary',
+  //     onClick: () => {
+  //       dispatchActiveStep('DECREMENT');
+  //     }
+  //   },
+  //   {
+  //     text: '確認付款',
+  //     onClick: () => {
+  //       dispatchActiveStep('INCREMENT');
+  //     }
+  //   }
+  // ];
+
+  // const buttonDOM = buttons[activeStep].map((button, index) => {
+  //   const { text, variant, onClick } = button;
+  //   return (
+  //     <Button
+  //       variant={variant}
+  //       className={styles.button}
+  //       onClick={onClick}
+  //       key={index}
+  //     >
+  //       {text}
+  //     </Button>
+  //   );
+  // });
+
   return (
     <div className={styles.body_main_step2}>
       <Form>
@@ -111,9 +158,26 @@ const BodyMainStep2 = props => {
             </Form.Control.Feedback>
           </Form.Check>
         </Form.Group>
-        <Button variant="primary" type="submit">
+
+        <div className={styles.body_actions}>
+          <Button
+            variant="outline-primary"
+            className={styles.button}
+            onClick={() => dispatchActiveStep('DECREMENT')}
+          >
+            回上一步
+          </Button>
+          <Button
+            className={styles.button}
+            onClick={() => dispatchActiveStep('INCREMENT')}
+          >
+            確認付款
+          </Button>
+        </div>
+
+        {/* <Button variant="primary" type="submit">
           Submit
-        </Button>
+        </Button> */}
       </Form>
     </div>
   );

@@ -10,11 +10,14 @@ const Body = props => {
   return (
     <div className={styles.body}>
       <BodyTitle activeStep={activeStep} />
-      <BodyMain activeStep={activeStep} />
-      <BodyActions
+      <BodyMain
         activeStep={activeStep}
         dispatchActiveStep={dispatchActiveStep}
       />
+      {/* <BodyActions
+        activeStep={activeStep}
+        dispatchActiveStep={dispatchActiveStep}
+      /> */}
     </div>
   );
 };

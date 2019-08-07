@@ -4,7 +4,7 @@ import BodyMainStep1 from '../BodyMainStep1/BodyMainStep1';
 import BodyMainStep2 from '../BodyMainStep2/BodyMainStep2';
 
 const BodyMain = props => {
-  const { activeStep } = props;
+  const { activeStep, dispatchActiveStep } = props;
 
   const Component = (() => {
     const mapActiveStepToDOM = {
@@ -16,7 +16,10 @@ const BodyMain = props => {
   })();
   return (
     <div className={styles.body_main}>
-      <Component />
+      <Component
+        activeStep={activeStep}
+        dispatchActiveStep={dispatchActiveStep}
+      />
     </div>
   );
 };
