@@ -7,6 +7,8 @@ import Footer from '../../layout/Footer/Footer.jsx';
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+document.title = '新接龍';
+
 const Main = () => {
   return (
     <DndProvider backend={HTML5Backend}>

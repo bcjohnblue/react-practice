@@ -5,6 +5,8 @@ import LeftPanel from '../../layouts/Panels/LeftPanel/LeftPanel';
 import Clock from '../../layouts/Clock/Clock';
 import RightPanel from '../../layouts/Panels/RightPanel/RightPanel';
 
+document.title = '蕃茄鐘';
+
 const TomatoClockMain = props => {
   const [clockState, setClockState] = useState('main');
   const clockStateStyle = styles[clockState];

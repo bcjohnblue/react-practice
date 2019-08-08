@@ -9,6 +9,8 @@ import Header from '../../layout/Header/Header';
 import Body from '../../layout/Body/Body';
 import Footer from '../../layout/Footer/Footer';
 
+document.title = '線上支付';
+
 const Main = props => {
   const stepReducer = (activeStep, action) => {
     window.scrollTo(0, 0);
