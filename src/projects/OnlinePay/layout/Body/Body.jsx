@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Body.module.sass';
 import BodyTitle from '../../components/BodyTitle/BodyTitle';
 import BodyMain from '../../components/BodyMain/BodyMain';
-import BodyActions from '../../components/BodyActions/BodyActions';
 
 const Body = props => {
   const { activeStep, dispatchActiveStep } = props;
@@ -14,10 +13,6 @@ const Body = props => {
         activeStep={activeStep}
         dispatchActiveStep={dispatchActiveStep}
       />
-      {/* <BodyActions
-        activeStep={activeStep}
-        dispatchActiveStep={dispatchActiveStep}
-      /> */}
     </div>
   );
 };

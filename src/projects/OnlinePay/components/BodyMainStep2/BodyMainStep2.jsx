@@ -6,52 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const BodyMainStep2 = props => {
-  const { activeStep, dispatchActiveStep } = props;
-
-  const style = (() => {
-    const mapActiveStepToStyle = {
-      1: {
-        justifyContent: 'flex-end'
-      },
-      2: {
-        justifyContent: 'space-between'
-      },
-      3: {
-        justifyContent: 'center'
-      }
-    };
-    return mapActiveStepToStyle[activeStep];
-  })();
-
-  // const buttons = [
-  //   {
-  //     text: '回上一步',
-  //     variant: 'outline-primary',
-  //     onClick: () => {
-  //       dispatchActiveStep('DECREMENT');
-  //     }
-  //   },
-  //   {
-  //     text: '確認付款',
-  //     onClick: () => {
-  //       dispatchActiveStep('INCREMENT');
-  //     }
-  //   }
-  // ];
-
-  // const buttonDOM = buttons[activeStep].map((button, index) => {
-  //   const { text, variant, onClick } = button;
-  //   return (
-  //     <Button
-  //       variant={variant}
-  //       className={styles.button}
-  //       onClick={onClick}
-  //       key={index}
-  //     >
-  //       {text}
-  //     </Button>
-  //   );
-  // });
+  const { dispatchActiveStep } = props;
 
   return (
     <div className={styles.body_main_step2}>
