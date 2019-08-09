@@ -2,11 +2,26 @@ import React from 'react';
 import styles from './Aside.module.sass';
 import OrderInfomation from '../../components/OrderInfomation/OrderInfomation';
 
+import Button from 'react-bootstrap/Button';
+
 const Aside = props => {
-  const { activeStep } = props;
+  const { activeStep, dispatchActiveStep } = props;
   return (
-    <div className={styles.Aside}>
-      <OrderInfomation activeStep={activeStep} />
+    <div className={styles.aside}>
+      <OrderInfomation
+        activeStep={activeStep}
+        dispatchActiveStep={dispatchActiveStep}
+      />
+      <div className={styles.button_container}>
+        <Button
+          variant="dark"
+          onClick={() => {
+            dispatchActiveStep('RESET');
+          }}
+        >
+          返回商店
+        </Button>
+      </div>
     </div>
   );
 };

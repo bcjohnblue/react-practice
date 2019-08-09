@@ -7,23 +7,43 @@
   background-color: #F3F3F3
   border-radius: 0px 0px 10px 0px
   z-index: 2
+  @media (min-width: 992px)
+    position: initial
+    margin-top: 13vh
+    padding: 20px 15px
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2)
   &.active
     left: 0px
   .main
     .item
       margin: 25px 20px
+      @media (min-width: 992px)
+        margin: 20px 20px
       .item_title
         color: #5E5E5E
       .item_text
+        color: #000000
         letter-spacing: 1.7px
     .title
       position: absolute
       right: -40px
       padding: 16px 10px
-      border-top-right-radius: 10px
-      border-bottom-right-radius: 10px
+      border-radius: 0px 10px 10px 0px
       background-color: #F3F3F3
       box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2)
       font-weight: bold
       writing-mode: vertical-lr
       letter-spacing: 5px
+      @media (min-width: 992px)
+        position: relative
+        right: 0px
+        writing-mode: horizontal-tb
+        border-radius: 0px
+        box-shadow: none
+        letter-spacing: 3px
+        padding: 0px 0px 0px 20px
+        font-size: 1.32rem
+
+
+
+

@@ -9,9 +9,9 @@ import Header from '../../layout/Header/Header';
 import Body from '../../layout/Body/Body';
 import Footer from '../../layout/Footer/Footer';
 
-document.title = '線上支付';
+const Main = () => {
+  document.title = '線上支付';
 
-const Main = props => {
   const stepReducer = (activeStep, action) => {
     window.scrollTo(0, 0);
 
@@ -30,11 +30,18 @@ const Main = props => {
   const [activeStep, dispatchActiveStep] = useReducer(stepReducer, 1);
 
   return (
-    <div className={styles.Main}>
-      <Aside activeStep={activeStep} />
-      <Header activeStep={activeStep} />
-      <Body activeStep={activeStep} dispatchActiveStep={dispatchActiveStep} />
-      <Footer />
+    <div className={styles.main}>
+      <div className={styles.left_containter}>
+        <Aside
+          activeStep={activeStep}
+          dispatchActiveStep={dispatchActiveStep}
+        />
+      </div>
+      <div className={styles.right_containter}>
+        <Header activeStep={activeStep} />
+        <Body activeStep={activeStep} dispatchActiveStep={dispatchActiveStep} />
+        <Footer dispatchActiveStep={dispatchActiveStep} />
+      </div>
     </div>
   );
 };

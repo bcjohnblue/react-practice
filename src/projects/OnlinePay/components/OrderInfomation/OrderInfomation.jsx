@@ -47,7 +47,6 @@ const OrderInfomation = props => {
       ].join(' ')}
     >
       <div className={styles.main}>
-        {mainDOM}
         <div
           className={styles.title}
           style={style.title}
@@ -55,6 +54,7 @@ const OrderInfomation = props => {
         >
           訂單資訊
         </div>
+        {mainDOM}
       </div>
     </div>
   );
