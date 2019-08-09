@@ -12,6 +12,7 @@
     margin-top: 13vh
     padding: 20px 15px
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2)
+    border-radius: 10px 0px 0px 10px
   &.active
     left: 0px
   .main
@@ -31,7 +32,7 @@
       border-radius: 0px 10px 10px 0px
       background-color: #F3F3F3
       box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2)
-      font-weight: bold
+      font-weight: bolder
       writing-mode: vertical-lr
       letter-spacing: 5px
       @media (min-width: 992px)
@@ -43,6 +44,22 @@
         letter-spacing: 3px
         padding: 0px 0px 0px 20px
         font-size: 1.32rem
+  .finish_container
+    position: absolute
+    top: 65px
+    left: -55%
+    font-weight: bold
+    .top_slash
+      transform: rotateX(60deg)
+      zoom: 3
+    .text
+      margin-left: -60px
+      font-size: 1.33rem
+      letter-spacing: 3px
+    .bottom_slash
+      transform: rotateX(-60deg)
+      zoom: 3
+
 
 
 

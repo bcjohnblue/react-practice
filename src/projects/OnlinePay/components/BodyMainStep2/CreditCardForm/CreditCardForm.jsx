@@ -274,7 +274,7 @@ const CreditCardForm = props => {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>填寫付款人信箱</Form.Label>
+              <Form.Label>填寫付款人信箱：</Form.Label>
               <Form.Control
                 name="email"
                 value={values.email}

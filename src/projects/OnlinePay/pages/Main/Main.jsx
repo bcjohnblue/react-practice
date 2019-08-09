@@ -13,7 +13,8 @@ const Main = () => {
   document.title = '線上支付';
 
   const stepReducer = (activeStep, action) => {
-    window.scrollTo(0, 0);
+    const scrollDOM = document.querySelector('#scroll_DOM');
+    scrollDOM.scrollTo(0, 0);
 
     switch (action) {
       case 'DECREMENT':
@@ -31,17 +32,22 @@ const Main = () => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.left_containter}>
-        <Aside
-          activeStep={activeStep}
-          dispatchActiveStep={dispatchActiveStep}
-        />
+      <div id="scroll_DOM" className={styles.top}>
+        <div className={styles.left_containter}>
+          <Aside
+            activeStep={activeStep}
+            dispatchActiveStep={dispatchActiveStep}
+          />
+        </div>
+        <div className={styles.right_containter}>
+          <Header activeStep={activeStep} />
+          <Body
+            activeStep={activeStep}
+            dispatchActiveStep={dispatchActiveStep}
+          />
+        </div>
       </div>
-      <div className={styles.right_containter}>
-        <Header activeStep={activeStep} />
-        <Body activeStep={activeStep} dispatchActiveStep={dispatchActiveStep} />
-        <Footer dispatchActiveStep={dispatchActiveStep} />
-      </div>
+      <Footer dispatchActiveStep={dispatchActiveStep} />
     </div>
   );
 };

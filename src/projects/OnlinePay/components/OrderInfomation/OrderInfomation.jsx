@@ -5,6 +5,8 @@ const OrderInfomation = props => {
   const { activeStep } = props;
   const [isMainVisible, setIsMainVisible] = useState(false);
 
+  const isMobile = window.matchMedia('(max-width: 992px)').matches;
+
   const data = {
     name: 'Iphone XR手機殼 x1',
     sn: '17485739',
@@ -25,12 +27,38 @@ const OrderInfomation = props => {
       </div>
     );
   });
+  const finishDOM = (() => {
+    return (
+      <div className={styles.finish_container}>
+        <div className={styles.top_slash}>\</div>
+        <div className={styles.text}>Finish</div>
+        <div className={styles.bottom_slash}>/</div>
+      </div>
+    );
+  })();
 
   const showMainOrder = () => {
     setIsMainVisible(!isMainVisible);
   };
 
   const style = {
+    orderInfomation: (() => {
+      const toRightStyle = {
+        zIndex: -1,
+        position: 'absolute',
+        left: '90%',
+        marginTop: '20px',
+        width: '5vw',
+        height: '300px'
+      };
+      return !isMobile && activeStep === 3 ? toRightStyle : {};
+    })(),
+    main: (() => {
+      const finishMainStyle = {
+        display: isMobile ? 'block' : 'none'
+      };
+      return activeStep === 3 ? finishMainStyle : {};
+    })(),
     title: (() => {
       const hiddenTitleStyle = {
         display: 'none'
@@ -45,8 +73,10 @@ const OrderInfomation = props => {
         styles.order_infomation,
         isMainVisible ? styles.active : ''
       ].join(' ')}
+      style={style.orderInfomation}
     >
-      <div className={styles.main}>
+      {isMobile ? null : finishDOM}
+      <div className={styles.main} style={style.main}>
         <div
           className={styles.title}
           style={style.title}

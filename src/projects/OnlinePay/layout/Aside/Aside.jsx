@@ -6,6 +6,16 @@ import Button from 'react-bootstrap/Button';
 
 const Aside = props => {
   const { activeStep, dispatchActiveStep } = props;
+
+  const style = {
+    button: (() => {
+      const removeStyle = {
+        display: 'none'
+      };
+      return activeStep === 3 ? removeStyle : {};
+    })()
+  };
+
   return (
     <div className={styles.aside}>
       <OrderInfomation
@@ -18,6 +28,7 @@ const Aside = props => {
           onClick={() => {
             dispatchActiveStep('RESET');
           }}
+          style={style.button}
         >
           返回商店
         </Button>

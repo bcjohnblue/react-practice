@@ -3,28 +3,12 @@ import styles from './ShopForm.module.sass';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
 const schema = yup.object({
-  pay: yup.string().required('必填'),
-  creditCart: yup.array().of(
-    yup
-      .string()
-      .required('必填')
-      .length(4, '請輸入4位數字 ')
-  ),
-  validTime: yup.object().shape({
-    month: yup.string().required('必填'),
-    year: yup.string().required('必填')
-  }),
-  lastNumber: yup
-    .string()
-    .required('必填')
-    .length(3, '請輸入背面末三碼'),
+  shop: yup.string().required('必填'),
   email: yup
     .string()
     .required('必填')
@@ -35,6 +19,29 @@ const schema = yup.object({
 const ShopForm = props => {
   const { dispatchActiveStep } = props;
 
+  const shops = [
+    {
+      Text: '選擇',
+      Value: ''
+    },
+    {
+      Text: '7-11',
+      Value: 1
+    },
+    {
+      Text: '全家',
+      Value: 2
+    },
+    {
+      Text: '萊爾富',
+      Value: 3
+    },
+    {
+      Text: 'OK',
+      Value: 4
+    }
+  ];
+
   return (
     <Formik
       validationSchema={schema}
@@ -43,13 +50,7 @@ const ShopForm = props => {
         dispatchActiveStep('INCREMENT');
       }}
       initialValues={{
-        pay: '',
-        creditCart: Array.from({ length: 4 }, () => ''),
-        validTime: {
-          month: '',
-          year: ''
-        },
-        lastNumber: '',
+        shop: '',
         email: '',
         isConfirm: false
       }}
@@ -66,99 +67,35 @@ const ShopForm = props => {
         <div className={styles.shop_form}>
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label>有效月年：</Form.Label>
-              <Row>
-                <Col>
-                  <Form.Control
-                    as="select"
-                    placeholder="選擇"
-                    name="validTime.month"
-                    value={values.validTime.month}
-                    onChange={handleChange}
-                    isValid={isValid}
-                    isInvalid={
-                      touched.validTime &&
-                      !!errors.validTime &&
-                      !!errors.validTime.month
-                    }
-                  >
-                    {Array.from({ length: 13 }, (_, index) => {
-                      return index === 0 ? (
-                        <option key={index} value={''}>
-                          選擇
-                        </option>
-                      ) : (
-                        <option key={index} value={index}>
-                          {index}
-                        </option>
-                      );
-                    })}
-                  </Form.Control>
-                  <Form.Control.Feedback type="invalid">
-                    {errors.validTime && errors.validTime.month}
-                  </Form.Control.Feedback>
-                </Col>
-                <Col className={styles.divide_line}>
-                  <Form.Text style={{ fontSize: '1.23rem' }}>/</Form.Text>
-                </Col>
-                <Col>
-                  <Form.Control
-                    as="select"
-                    placeholder="選擇"
-                    name="validTime.year"
-                    value={values.validTime.year}
-                    onChange={handleChange}
-                    isValid={isValid}
-                    isInvalid={
-                      touched.validTime &&
-                      !!errors.validTime &&
-                      !!errors.validTime.year
-                    }
-                  >
-                    {Array.from({ length: 13 }, (_, index) => {
-                      return index === 0 ? (
-                        <option key={index} value={''}>
-                          選擇
-                        </option>
-                      ) : (
-                        <option key={index} value={index + 2018}>
-                          {index + 2018}
-                        </option>
-                      );
-                    })}
-                  </Form.Control>
-                  <Form.Control.Feedback type="invalid">
-                    {errors.validTime && errors.validTime.year}
-                  </Form.Control.Feedback>
-                </Col>
-                <Col className={styles.divide_line}>
-                  <Form.Text style={{ fontSize: '1rem', marginLeft: '10px' }}>
-                    年
-                  </Form.Text>
-                </Col>
-              </Row>
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>背面末三碼</Form.Label>
+              <Form.Label>付款超商：</Form.Label>
               <Form.Control
-                className={styles.last_three_number}
-                type="text"
-                name="lastNumber"
-                maxLength={3}
-                value={values.lastNumber}
+                as="select"
+                placeholder="選擇"
+                className={styles.select}
+                name="shop"
+                value={values.shop}
                 onChange={handleChange}
                 isValid={isValid}
-                isInvalid={touched.lastNumber && !!errors.lastNumber}
-              />
+                isInvalid={touched.shop && !!errors.shop}
+              >
+                {shops.map(item => {
+                  const { Text, Value } = item;
+                  return (
+                    <option key={Value} value={Value}>
+                      {Text}
+                    </option>
+                  );
+                })}
+              </Form.Control>
               <Form.Control.Feedback type="invalid">
-                {errors.lastNumber}
+                {errors.shop && errors.shop}
               </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>填寫付款人信箱</Form.Label>
+              <Form.Label>填寫付款人信箱：</Form.Label>
               <Form.Control
+                className={styles.select}
                 name="email"
                 value={values.email}
                 onChange={handleChange}
@@ -209,10 +146,6 @@ const ShopForm = props => {
                 確認付款
               </Button>
             </div>
-            {/* onClick={() => dispatchActiveStep('INCREMENT')} */}
-            {/* <Button variant="primary" type="submit">
-            Submit
-          </Button> */}
           </Form>
         </div>
       )}

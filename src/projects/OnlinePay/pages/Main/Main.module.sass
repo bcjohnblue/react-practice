@@ -1,11 +1,17 @@
 .main
   display: flex
-  @media (min-width: 992px)
-    margin-right: 10%
-  .left_containter
+  flex-wrap: wrap
+  .top
+    display: flex
+    width: 100vw
+    height: 90vh
+    overflow: auto
     @media (min-width: 992px)
-      flex-basis: 25%
-  .right_containter
-    flex-basis: 100%
-    @media (min-width: 992px)
-      flex-basis: 75%
+      padding-right: 10%
+    .left_containter
+      @media (min-width: 992px)
+        flex-basis: 25%
+    .right_containter
+      flex-basis: 100%
+      @media (min-width: 992px)
+        flex-basis: 75%

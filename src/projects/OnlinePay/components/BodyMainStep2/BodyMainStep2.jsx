@@ -7,7 +7,6 @@ import WebATMForm from './WebATMForm/WebATMForm';
 
 const BodyMainStep2 = props => {
   const { dispatchActiveStep, payMethod } = props;
-  const isMobile = window.matchMedia('(max-width: 992px)').matches;
 
   const Component = (() => {
     const mapPayMethodToComponet = {
@@ -18,7 +17,7 @@ const BodyMainStep2 = props => {
       ATM: WebATMForm
     };
 
-    if (isMobile) return CreditCardForm;
+    // if (isMobile) return CreditCardForm;
     return mapPayMethodToComponet[payMethod];
   })();
 

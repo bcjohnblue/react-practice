@@ -13,7 +13,8 @@ import { ReactComponent as WebAtm } from '../../assets/web-atm.svg';
 import { ReactComponent as Atm } from '../../assets/atm.svg';
 
 const BodyMainStep1 = props => {
-  const { dispatchActiveStep, payMethod, setPayMethod } = props;
+  const { dispatchActiveStep } = props;
+  const { payMethod, setPayMethod } = props;
 
   const blocks = [
     {
