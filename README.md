@@ -10,7 +10,7 @@
 2. 學習使用 React Hooks
 3. 使用 CSS Animation 做出時鐘倒數效果
 
-**使用技術** &nbsp;&nbsp;&nbsp;`React` `React Hooks` `React CSS Modules` `CSS Animation`
+**使用技術** &nbsp;`React` `React Hooks` `React CSS Modules` `CSS Animation`
 
 ## 第二關-新接龍
 
@@ -21,7 +21,7 @@
 1. 學習 HTML5 的拖拉操作
 2. 使用 React Redux 管理組件狀態
 
-**使用技術** &nbsp;&nbsp;&nbsp;`React Redux` `React DnD (Drag and Drop)`
+**使用技術** &nbsp;`React Redux` `React DnD (Drag and Drop)`
 
 ## 第三關-MP3 (未完成)
 
@@ -34,4 +34,4 @@
 1. 表單驗證
 2. RWD
 
-**使用技術** &nbsp;&nbsp;&nbsp;`React Bootstrap` `Formik and Yup` `Material UI`
+**使用技術** &nbsp;`React Bootstrap` `Formik and Yup` `Material UI`
