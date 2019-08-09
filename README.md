@@ -2,8 +2,7 @@
 
 ## 第一關-蕃茄鐘
 
-<a href="https://bcjohnblue.github.io/F2E_2nd/#/tomato-clock" target="_blank">線上展示</a>  
-<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/TomatoClock" target="_blank">原始碼</a>
+<a href="https://bcjohnblue.github.io/F2E_2nd/#/tomato-clock" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/TomatoClock" target="_blank">原始碼</a>
 
 **練習目標**
 
@@ -25,7 +24,7 @@
 2. 使用 React Redux 管理組件狀態
 
 **使用技術**  
-`React Redux` `React DnD (Drag and Drop)`
+ `React Redux` `React DnD (Drag and Drop)`
 
 ## 第三關-MP3 (未完成)
 
@@ -40,4 +39,4 @@
 2. RWD
 
 **使用技術**  
-`React Bootstrap` `Formik and Yup` `Material UI`
+ `React Bootstrap` `Formik and Yup` `Material UI`
