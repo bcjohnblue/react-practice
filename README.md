@@ -31,7 +31,7 @@
 
 **練習目標**
 
-1. 表單驗證
-2. RWD
+1. 使用 React Bootstrap、Formik、Yup 進行表單驗證
+2. 根據使用者螢幕大小改變頁面呈現方式 (RWD)
 
 **使用技術** &nbsp;`React Bootstrap` `Formik and Yup` `Material UI`
