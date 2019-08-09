@@ -1,6 +1,6 @@
 ## 2019 六角學院 The F2E 挑戰賽
 
-## 第一關 蕃茄鐘
+## 第一關--蕃茄鐘
 
 <a href="https://bcjohnblue.github.io/F2E_2nd/#/tomato-clock" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/TomatoClock" target="_blank">原始碼</a>
 
