@@ -4,6 +4,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import TomatoClock from './projects/TomatoClock/pages/Main/Main';
 import Solitaire from './projects/Solitaire/pages/Main/Main';
 import OnlinePay from './projects/OnlinePay/pages/Main/Main';
+import Game from './projects/Game/pages/Main/Main';
 
 const app = props => {
   return (
@@ -13,6 +14,7 @@ const app = props => {
         <Route path="/tomato-clock" component={TomatoClock} />
         <Route path="/solitaire" component={Solitaire} />
         <Route path="/online-pay" component={OnlinePay} />
+        <Route path="/game" component={Game} />
       </div>
     </HashRouter>
   );
