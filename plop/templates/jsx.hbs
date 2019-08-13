@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './{{ fileName }}.module.sass';
+import styles from './{{ fileName.capital }}.module.sass';
 
-const {{ fileName }} = props => {
+const {{ fileName.capital }} = props => {
   return (
-    <div className={ styles.{{ fileName }} }>
-      
+    <div className={ styles.{{ fileName.styles }} }>
+      <div></div>
     </div>
   )
 }
 
-export default {{ fileName }};
+export default {{ fileName.capital }};

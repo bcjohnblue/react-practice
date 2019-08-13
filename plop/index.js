@@ -1,6 +1,6 @@
 module.exports = function(plop) {
   const projectFolderName = 'Game';
-  const path = `../src/projects/${projectFolderName}/{{folderName}}/{{fileName}}/{{fileName}}`;
+  const path = `../src/projects/${projectFolderName}/{{folderName}}/{{fileName.capital}}/{{fileName.capital}}`;
 
   // controller generator
   plop.setGenerator('controller', {
@@ -25,7 +25,14 @@ module.exports = function(plop) {
         message: 'Please enter file name',
         filter: fileName => {
           const firstLetter = fileName.charAt(0).toUpperCase();
-          return firstLetter + fileName.slice(1);
+          const upperToHyphenLower = (match, offset, string) => {
+            return (offset ? '_' : '') + match.toLowerCase();
+          }
+
+          return {
+            capital: firstLetter + fileName.slice(1),
+            styles: fileName.replace(/[A-Z]/g, upperToHyphenLower)
+          };
         }
       }
     ],
