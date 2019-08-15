@@ -1,38 +1,55 @@
-import React, { useState, useEffect, useRef, useReducer } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useReducer,
+  createRef
+} from 'react';
 import styles from './Body.module.sass';
 import clsx from 'clsx';
+
+import { generateRandom } from '../../utils';
 
 import Start from '../../components/Start/Start';
 import HanGuoYu from '../../components/HanGuoYu/HanGuoYu';
 
-import { ReactComponent as Rock } from '../../assets/石頭.svg';
+import {
+  ObstaclesContext
+  // obstacles
+} from '../../components/Obstacles/Obstacles';
 
 const Body = props => {
   const { rolePosition } = props;
-  const [moveState, setMoveState] = useState(0);
+  const [obstaclesDOMList, setobstaclesDOMList] = useState([]);
   const timerRef = useRef(null);
 
-  useEffect(() => {
-    clearInterval(timerRef.current);
-    if (moveState >= 100) return;
-    timerRef.current = setInterval(() => {
-      console.log(moveState);
+  clearInterval(timerRef.current);
+  timerRef.current = setInterval(() => {
+    // const length = obstacles.buff.length;
+    // const selectIndex = parseInt(Math.random() * length);
+    // const Component = obstacles.buff[selectIndex];
+    const Component = generateRandom('component');
 
-      setMoveState(moveState + 40);
-    }, 1000);
-  }, [moveState]);
-  const style = {
-    rock: {
-      right: moveState + '%'
-    }
-  };
-  // console.log(moveState);
+    const DOM = (
+      <ObstaclesContext.Provider
+        value={{
+          position: generateRandom('position')
+        }}
+      >
+        <Component />
+      </ObstaclesContext.Provider>
+    );
+    setobstaclesDOMList([...obstaclesDOMList, DOM]);
+  }, 2000);
 
   return (
     <div className={styles.body}>
       <Start />
       <HanGuoYu rolePosition={rolePosition} />
-      <Rock className={clsx(styles.rock, styles.top)} style={style.rock} />
+      {obstaclesDOMList}
+      {/* <Rock className={clsx(styles.rock, styles.top)} style={style.rock} /> */}
+      {/* <ZhongTianMushroom className={clsx(styles.rock, styles.top)} /> */}
+      {/* {ZhongTianMushroom} */}
     </div>
   );
 };
