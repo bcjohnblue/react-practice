@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext, useContext } from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, forwardRef } from 'react';
 
 import styles from './Obstacles.module.sass';
 import clsx from 'clsx';
@@ -17,15 +17,45 @@ import { ReactComponent as GouTaiMin } from '../../assets/老郭.svg';
 import { ReactComponent as Mosquito } from '../../assets/蚊子.svg';
 import { ReactComponent as Flood } from '../../assets/淹大水.svg';
 
-const buffList = [ZhongTianMushroom, Star, KoWenJe];
-const debuffList = [CyberWarrior1450, TsaiIngWen, GouTaiMin, Mosquito, Flood];
+const buffList = [
+  {
+    Component: ZhongTianMushroom
+  },
+  {
+    Component: Star
+  },
+  {
+    Component: KoWenJe,
+    className: 'left_to_right'
+  }
+];
+const debuffList = [
+  {
+    Component: CyberWarrior1450
+  },
+  {
+    Component: TsaiIngWen
+  },
+  {
+    Component: GouTaiMin
+  },
+  {
+    Component: Mosquito
+  },
+  {
+    Component: Flood
+  }
+];
 
 const ObstaclesContext = createContext({
   position: ''
 });
 
-const setObstacleComponent = Component => {
-  return () => {
+const setObstacleComponent = item => {
+  return props => {
+    const { Component, className = 'right_to_left' } = item;
+    const { obstaclesDOMList, setobstaclesDOMList, forwardRef } = props;
+
     const { position } = useContext(ObstaclesContext);
     const [moveState, setMoveState] = useState(0);
 
@@ -33,26 +63,52 @@ const setObstacleComponent = Component => {
 
     useEffect(() => {
       clearInterval(timerRef.current);
-      if (moveState >= 100) return;
+      if (moveState >= 100) {
+        // setobstaclesDOMList(obstaclesDOMList.slice(1));
+        // console.log(obstaclesDOMList);
+        // console.log(forwardRef.current);
+        return;
+      }
       timerRef.current = setInterval(() => {
-        console.log(moveState);
+        // console.log(moveState);
+        console.log('s');
+
         setMoveState(moveState + 40);
       }, 1000);
     }, [moveState]);
-    const style = {
-      right: moveState + '%'
-    };
+    const style = (() => {
+      const initStyle = {};
+
+      switch (className) {
+        case 'right_to_left':
+          initStyle.right = moveState + '%';
+          break;
+        case 'left_to_right':
+          initStyle.left = moveState + '%';
+          break;
+        default:
+          break;
+      }
+      console.log(initStyle);
+
+      return initStyle;
+    })();
 
     return (
       <Component
-        className={clsx(styles.obstacles, styles[position])}
+        className={clsx(
+          styles.obstacles,
+          className ? styles[className] : styles['right_to_left'],
+          styles[position]
+        )}
         style={style}
+        ref={forwardRef}
       />
     );
   };
 };
-const buff = buffList.map(component => setObstacleComponent(component));
-const debuff = debuffList.map(component => setObstacleComponent(component));
+const buff = buffList.map(item => setObstacleComponent(item));
+const debuff = debuffList.map(item => setObstacleComponent(item));
 
 export { ObstaclesContext };
 export const obstacles = {

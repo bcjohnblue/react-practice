@@ -3,8 +3,10 @@ import React, {
   useEffect,
   useRef,
   useReducer,
-  createRef
+  createRef,
+  forwardRef
 } from 'react';
+import { findDOMNode } from 'react-dom';
 import styles from './Body.module.sass';
 import clsx from 'clsx';
 
@@ -22,12 +24,10 @@ const Body = props => {
   const { rolePosition } = props;
   const [obstaclesDOMList, setobstaclesDOMList] = useState([]);
   const timerRef = useRef(null);
+  const domRef = useRef(null);
 
   clearInterval(timerRef.current);
   timerRef.current = setInterval(() => {
-    // const length = obstacles.buff.length;
-    // const selectIndex = parseInt(Math.random() * length);
-    // const Component = obstacles.buff[selectIndex];
     const Component = generateRandom('component');
 
     const DOM = (
@@ -35,10 +35,36 @@ const Body = props => {
         value={{
           position: generateRandom('position')
         }}
+        ref={domRef}
       >
-        <Component />
+        <Component
+          forwardRef={domRef}
+          obstaclesDOMList={obstaclesDOMList}
+          setobstaclesDOMList={setobstaclesDOMList}
+        />
       </ObstaclesContext.Provider>
     );
+    // const DOM = forwardRef((props, ref) => (
+    //   <ObstaclesContext.Provider
+    //     value={{
+    //       position: generateRandom('position')
+    //     }}
+    //   >
+    //     <Component ref={ref}/>
+    //   </ObstaclesContext.Provider>
+    // ));
+    // console.log(domRef.current && domRef.current.getBoundingClientRect());
+
+    var observer = new IntersectionObserver(changes => {
+      console.log(changes);
+    });
+    // observer.observe(domRef);
+    obstaclesDOMList.map(DOM => {
+      console.log(DOM);
+      // observer.observe(DOM._self);
+    });
+    // console.log(obstaclesDOMList);
+
     setobstaclesDOMList([...obstaclesDOMList, DOM]);
   }, 2000);
 
