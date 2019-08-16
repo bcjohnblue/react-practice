@@ -25,8 +25,10 @@ const Body = props => {
   const [obstaclesDOMList, setobstaclesDOMList] = useState([]);
   const timerRef = useRef(null);
   const domRef = useRef(null);
+  const roleRef = useRef(null);
 
   clearInterval(timerRef.current);
+
   timerRef.current = setInterval(() => {
     const Component = generateRandom('component');
 
@@ -41,9 +43,13 @@ const Body = props => {
           forwardRef={domRef}
           obstaclesDOMList={obstaclesDOMList}
           setobstaclesDOMList={setobstaclesDOMList}
+          clearTimer={() => {
+            clearInterval(timerRef.current);
+          }}
         />
       </ObstaclesContext.Provider>
     );
+
     // const DOM = forwardRef((props, ref) => (
     //   <ObstaclesContext.Provider
     //     value={{
@@ -53,25 +59,26 @@ const Body = props => {
     //     <Component ref={ref}/>
     //   </ObstaclesContext.Provider>
     // ));
-    // console.log(domRef.current && domRef.current.getBoundingClientRect());
 
     var observer = new IntersectionObserver(changes => {
       console.log(changes);
     });
     // observer.observe(domRef);
     obstaclesDOMList.map(DOM => {
-      console.log(DOM);
+      // console.log(DOM);
       // observer.observe(DOM._self);
     });
     // console.log(obstaclesDOMList);
 
     setobstaclesDOMList([...obstaclesDOMList, DOM]);
-  }, 2000);
+  }, 5000);
+  // console.log(domRef.current && domRef.current.getBoundingClientRect());
+  // console.log(roleRef.current && roleRef.current.offsetTop);
 
   return (
     <div className={styles.body}>
       <Start />
-      <HanGuoYu rolePosition={rolePosition} />
+      <HanGuoYu rolePosition={rolePosition} forwardRef={roleRef} />
       {obstaclesDOMList}
       {/* <Rock className={clsx(styles.rock, styles.top)} style={style.rock} /> */}
       {/* <ZhongTianMushroom className={clsx(styles.rock, styles.top)} /> */}

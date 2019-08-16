@@ -54,7 +54,12 @@ const ObstaclesContext = createContext({
 const setObstacleComponent = item => {
   return props => {
     const { Component, className = 'right_to_left' } = item;
-    const { obstaclesDOMList, setobstaclesDOMList, forwardRef } = props;
+    const {
+      obstaclesDOMList,
+      setobstaclesDOMList,
+      forwardRef,
+      clearTimer
+    } = props;
 
     const { position } = useContext(ObstaclesContext);
     const [moveState, setMoveState] = useState(0);
@@ -64,6 +69,7 @@ const setObstacleComponent = item => {
     useEffect(() => {
       clearInterval(timerRef.current);
       if (moveState >= 100) {
+        // clearTimer();
         // setobstaclesDOMList(obstaclesDOMList.slice(1));
         // console.log(obstaclesDOMList);
         // console.log(forwardRef.current);
@@ -73,18 +79,23 @@ const setObstacleComponent = item => {
         // console.log(moveState);
         console.log('s');
 
-        setMoveState(moveState + 40);
-      }, 1000);
+        setMoveState(moveState + 2);
+      }, 16);
     }, [moveState]);
+
+    console.log(
+      forwardRef.current && forwardRef.current.getBoundingClientRect()
+    );
+
     const style = (() => {
       const initStyle = {};
 
       switch (className) {
         case 'right_to_left':
-          initStyle.right = moveState + '%';
+          initStyle.transform = `translateX(${-moveState}vw)`;
           break;
         case 'left_to_right':
-          initStyle.left = moveState + '%';
+          initStyle.transform = `translateX(${moveState}vw)`;
           break;
         default:
           break;
