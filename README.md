@@ -11,6 +11,8 @@
 3. 使用 CSS Animation 做出時鐘倒數效果
 
 **使用技術** &nbsp;`React` `React Hooks` `React CSS Modules` `CSS Animation`
+<br />
+<br />
 
 ## 第二關--新接龍
 
@@ -22,8 +24,13 @@
 2. 使用 React Redux 管理組件狀態
 
 **使用技術** &nbsp;`React Redux` `React DnD (Drag and Drop)`
+<br />
+<br />
 
-## 第三關--MP3 (未完成)
+## 第三關--MP3 (未做)
+
+<br />
+<br />
 
 ## 第四關--線上支付
 
@@ -35,3 +42,14 @@
 2. 根據使用者螢幕大小改變頁面呈現方式 (RWD)
 
 **使用技術** &nbsp;`React Bootstrap` `Formik and Yup` `Material UI`
+<br />
+<br />
+
+## 第五關--90 秒遊戲 (未完成)
+
+<a href="https://bcjohnblue.github.io/F2E_2nd/#/game" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/Game" target="_blank">原始碼</a>
+
+**待完成部分**
+
+1. 碰撞判定
+2. Keyboard event block setInterval
