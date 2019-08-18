@@ -23,61 +23,57 @@ import {
 const Body = props => {
   const { rolePosition } = props;
   const [obstaclesDOMList, setobstaclesDOMList] = useState([]);
+  const [playState, setPlayState] = useState('start');
   const timerRef = useRef(null);
   const domRef = useRef(null);
   const roleRef = useRef(null);
 
-  clearInterval(timerRef.current);
+  const initGame = () => {
+    clearInterval(timerRef.current);
 
-  timerRef.current = setInterval(() => {
-    const Component = generateRandom('component');
+    timerRef.current = setInterval(() => {
+      const Component = generateRandom('component');
 
-    const DOM = (
-      <ObstaclesContext.Provider
-        value={{
-          position: generateRandom('position')
-        }}
-        ref={domRef}
-      >
-        <Component
-          forwardRef={domRef}
-          obstaclesDOMList={obstaclesDOMList}
-          setobstaclesDOMList={setobstaclesDOMList}
-          clearTimer={() => {
-            clearInterval(timerRef.current);
+      const DOM = (
+        <ObstaclesContext.Provider
+          value={{
+            position: generateRandom('position')
           }}
-        />
-      </ObstaclesContext.Provider>
-    );
+        >
+          <Component
+            forwardRef={domRef}
+            roleRef={roleRef}
+            obstaclesDOMList={obstaclesDOMList}
+            setobstaclesDOMList={setobstaclesDOMList}
+            clearTimer={() => {
+              clearInterval(timerRef.current);
+            }}
+          />
+        </ObstaclesContext.Provider>
+      );
 
-    // const DOM = forwardRef((props, ref) => (
-    //   <ObstaclesContext.Provider
-    //     value={{
-    //       position: generateRandom('position')
-    //     }}
-    //   >
-    //     <Component ref={ref}/>
-    //   </ObstaclesContext.Provider>
-    // ));
+      setobstaclesDOMList([...obstaclesDOMList, DOM]);
+    }, 5000);
+  };
 
-    var observer = new IntersectionObserver(changes => {
-      console.log(changes);
-    });
-    // observer.observe(domRef);
-    obstaclesDOMList.map(DOM => {
-      // console.log(DOM);
-      // observer.observe(DOM._self);
-    });
-    // console.log(obstaclesDOMList);
+  const watchPlayState = (() => {
+    console.log(playState);
 
-    setobstaclesDOMList([...obstaclesDOMList, DOM]);
-  }, 5000);
+    switch (playState) {
+      case 'processing':
+        initGame();
+        break;
+      default:
+        break;
+    }
+  })();
+
   // console.log(domRef.current && domRef.current.getBoundingClientRect());
   // console.log(roleRef.current && roleRef.current.offsetTop);
 
   return (
     <div className={styles.body}>
-      <Start />
+      {playState === 'start' ? <Start setPlayState={setPlayState} /> : null}
       <HanGuoYu rolePosition={rolePosition} forwardRef={roleRef} />
       {obstaclesDOMList}
       {/* <Rock className={clsx(styles.rock, styles.top)} style={style.rock} /> */}

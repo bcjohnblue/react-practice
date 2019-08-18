@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import RoleFront from '../../assets/韓導1.svg';
 import RoleBack from '../../assets/韓導2.svg';
+import { ReactComponent as Role } from '../../assets/韓導1.svg';
 
 const HanGuoYu = props => {
   let { rolePosition, forwardRef } = props;
@@ -29,13 +30,14 @@ const HanGuoYu = props => {
   // }, [roleImage])
 
   return (
-    <div className={styles.han_guo_yu}>
-      <div
-        className={clsx(styles.role, styles[rolePosition])}
-        style={style.role}
-        ref={forwardRef}
-      />
-    </div>
+    // <div className={styles.han_guo_yu}>
+    // style={style.role}
+
+    <Role
+      className={clsx(styles.han_guo_yu, styles[rolePosition])}
+      ref={forwardRef}
+    />
+    // </div>
   );
 };
 

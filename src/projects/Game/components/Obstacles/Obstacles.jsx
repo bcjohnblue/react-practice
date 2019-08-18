@@ -5,6 +5,8 @@ import { useState, useEffect, useRef, forwardRef } from 'react';
 import styles from './Obstacles.module.sass';
 import clsx from 'clsx';
 
+import { isCollide } from '../../utils';
+
 // 增益腳色
 import { ReactComponent as ZhongTianMushroom } from '../../assets/中天菇.svg';
 import { ReactComponent as Star } from '../../assets/無敵星星.svg';
@@ -57,7 +59,8 @@ const setObstacleComponent = item => {
     const {
       obstaclesDOMList,
       setobstaclesDOMList,
-      forwardRef,
+      forwardRef: obstacleRef,
+      roleRef,
       clearTimer
     } = props;
 
@@ -78,14 +81,15 @@ const setObstacleComponent = item => {
       timerRef.current = setInterval(() => {
         // console.log(moveState);
         console.log('s');
+        console.log(isCollide(roleRef, obstacleRef));
 
-        setMoveState(moveState + 2);
-      }, 16);
+        if (isCollide(roleRef, obstacleRef)) {
+          window.alert('撞到了');
+        }
+
+        setMoveState(moveState + 10);
+      }, 1000);
     }, [moveState]);
-
-    console.log(
-      forwardRef.current && forwardRef.current.getBoundingClientRect()
-    );
 
     const style = (() => {
       const initStyle = {};
@@ -113,12 +117,12 @@ const setObstacleComponent = item => {
           styles[position]
         )}
         style={style}
-        ref={forwardRef}
+        ref={obstacleRef}
       />
     );
   };
 };
-const buff = buffList.map(item => setObstacleComponent(item));
+const buff = buffList.map((item, index) => setObstacleComponent(item));
 const debuff = debuffList.map(item => setObstacleComponent(item));
 
 export { ObstaclesContext };

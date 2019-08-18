@@ -6,10 +6,18 @@ import { ReactComponent as UpArrow } from '../../assets/向上鍵.svg';
 import { ReactComponent as DownArrow } from '../../assets/向下鍵.svg';
 
 const Start = props => {
+  const { setPlayState } = props;
   return (
     <div className={styles.start}>
       <div className={styles.big_money} />
-      <div className={styles.start_text}>START</div>
+      <div
+        className={styles.start_text}
+        onClick={() => {
+          setPlayState('processing');
+        }}
+      >
+        START
+      </div>
       <div className={styles.arrow_container}>
         <UpArrow />
         <DownArrow />
