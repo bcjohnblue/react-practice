@@ -1,5 +1,5 @@
 module.exports = function(plop) {
-  const projectFolderName = 'Game';
+  const projectFolderName = 'Hotel';
   const path = `../src/projects/${projectFolderName}/{{folderName}}/{{fileName.capital}}/{{fileName.capital}}`;
 
   // controller generator
@@ -27,7 +27,7 @@ module.exports = function(plop) {
           const firstLetter = fileName.charAt(0).toUpperCase();
           const upperToHyphenLower = (match, offset, string) => {
             return (offset ? '_' : '') + match.toLowerCase();
-          }
+          };
 
           return {
             capital: firstLetter + fileName.slice(1),

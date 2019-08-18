@@ -6,9 +6,12 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-// import { createStore } from 'redux';
 import store from './store';
 
+import axios from './plugins/axios';
+Object.keys(axios).map(key => {
+  window[key] = axios[key];
+});
 // import * as serviceWorker from './serviceWorker';
 window.store = store;
 window.cardList = store.getState().card.cardList;

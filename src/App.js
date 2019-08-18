@@ -5,6 +5,7 @@ import TomatoClock from './projects/TomatoClock/pages/Main/Main';
 import Solitaire from './projects/Solitaire/pages/Main/Main';
 import OnlinePay from './projects/OnlinePay/pages/Main/Main';
 import Game from './projects/Game/pages/Main/Main';
+import Hotel from './projects/Hotel/pages/Main/Main';
 
 const app = props => {
   return (
@@ -15,6 +16,7 @@ const app = props => {
         <Route path="/solitaire" component={Solitaire} />
         <Route path="/online-pay" component={OnlinePay} />
         <Route path="/game" component={Game} />
+        <Route path="/hotel" component={Hotel} />
       </div>
     </HashRouter>
   );
