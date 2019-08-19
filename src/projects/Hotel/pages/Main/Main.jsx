@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Main.module.sass';
 
+import { Link } from 'react-router-dom';
+
 import Footer from '../../layout/Footer/Footer';
 
 // import Single from '../../assets/Single_1';
@@ -11,6 +13,7 @@ import Footer from '../../layout/Footer/Footer';
 // import DeluxeTwin from '../../assets/DeluxeTwin_1';
 
 const Main = props => {
+  const { location } = props;
   // const roomList = [
   //   {
   //     style: {
@@ -64,10 +67,16 @@ const Main = props => {
   const DOM = roomList.map(item => {
     const { id, name, imageUrl } = item;
     return (
-      <div className={styles.item} key={id}>
-        <img src={imageUrl} alt={name} />
-        <div className={styles.text}>{name}</div>
-      </div>
+      <Link
+        to={{
+          pathname: `${location.pathname}/room-detail/hello`
+        }}
+      >
+        <div className={styles.item} key={id}>
+          <img src={imageUrl} alt={name} />
+          <div className={styles.text}>{name}</div>
+        </div>
+      </Link>
     );
   });
 
