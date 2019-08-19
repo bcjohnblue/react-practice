@@ -1,2 +1,48 @@
 .room_detail
-  
+  width: 800px
+  margin-left: auto
+  margin-right: auto
+  \:global .swiper-container
+    // width: 800px
+  .room_img
+    // width: 100px
+    height: 50vh
+  .container
+    padding: 20px 0px
+    .left_container
+      width: 50%
+      .header
+        .name
+          font-family: AndaleMono
+          font-size: 30px
+          color: #4C5356
+          margin-right: 20px
+        svg
+          margin-left: 20px
+          margin-right: 8px
+          &:first-of-type
+            margin-left: 0px
+      .description
+        font-family: AndaleMono
+        font-size: 15px
+        color: #4C5356
+        text-align: justify
+        line-height: 19px
+        margin: 20px 0px
+      .time
+        font-family: AndaleMono
+        font-size: 16px
+        color: #4C5356
+      .utility
+        display: grid
+        grid-template-columns: repeat(4, 1fr)
+        grid-row-gap: 10px
+        margin-top: 20px
+        .item
+          font-family: AndaleMono
+          font-size: 12px
+          color: #C2C2C2
+          &.active
+            color: #272E31
+        svg
+          margin-right: 5px

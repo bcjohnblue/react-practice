@@ -69,10 +69,11 @@ const Main = props => {
     return (
       <Link
         to={{
-          pathname: `${location.pathname}/room-detail/hello`
+          pathname: `${location.pathname}/room-detail/${id}`
         }}
+        key={id}
       >
-        <div className={styles.item} key={id}>
+        <div className={styles.item}>
           <img src={imageUrl} alt={name} />
           <div className={styles.text}>{name}</div>
         </div>

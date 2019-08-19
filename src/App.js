@@ -17,10 +17,10 @@ const app = props => {
         <Route path="/solitaire" component={Solitaire} />
         <Route path="/online-pay" component={OnlinePay} />
         <Route path="/game" component={Game} />
-        <Route path="/hotel" exact component={Hotel} />
+        <Route exact path="/hotel" component={Hotel} />
         <Route
-          path="/hotel/room-detail/:roomType/"
           exact
+          path="/hotel/room-detail/:id"
           component={HotelRoomDetail}
         />
       </div>
