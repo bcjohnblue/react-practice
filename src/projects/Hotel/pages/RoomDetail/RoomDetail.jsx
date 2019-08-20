@@ -1,9 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import styles from './RoomDetail.module.sass';
 import clsx from 'clsx';
 
 import Swiper from 'react-id-swiper';
+
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import {
+  DateRangePicker,
+  SingleDatePicker,
+  DayPickerRangeController,
+  DateRangePickerWrapper
+} from 'react-dates';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -28,17 +39,38 @@ const RoomDetail = props => {
     amenities: {},
     imageUrl: []
   });
+  const [date, setDate] = useState({
+    start: null,
+    end: null
+  });
+  const [focusedInput, setFocusedInput] = useState('startDate');
+
+  const {
+    name,
+    descriptionShort,
+    description,
+    checkInAndOut,
+    normalDayPrice,
+    holidayPrice,
+    amenities
+  } = roomDetail;
+  const roomTax = 138;
+  const totalPrice =
+    date.end && (date.end.diff(date.start) / 1000 / 3600 / 24) * normalDayPrice;
+
   useEffect(() => {
     (async () => {
       try {
         const res = await window.callRoomAPI.get(`room/${id}`);
-        console.log(res);
-        setRoomDetail(res.data.room[0]);
+        console.log(res.data.room[0]);
+        setRoomDetail({ ...roomDetail, ...res.data.room[0] });
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
+
+  const orderClick = () => {};
 
   const swiperDOM = (() => {
     const params = {
@@ -59,15 +91,6 @@ const RoomDetail = props => {
     );
   })();
   const detailDOM = (() => {
-    const {
-      name,
-      descriptionShort,
-      description,
-      checkInAndOut,
-      normalDayPrice,
-      holidayPrice,
-      amenities
-    } = roomDetail;
     const iconDOM = (() => {
       return iconList.map(item => {
         const { icon, name } = item;
@@ -112,6 +135,42 @@ const RoomDetail = props => {
             </div>
           </div>
           <div className={styles.utility}>{iconDOM}</div>
+        </div>
+        <div className={styles.right_container}>
+          {/* <DateRangePickerWrapper numberOfMonths={1} autoFocus /> */}
+          <DayPickerRangeController
+            startDate={date.start} // momentPropTypes.momentObj or null,
+            // startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+            endDate={date.end} // momentPropTypes.momentObj or null,
+            // endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+            // { startDate: start, endDate: end }
+            onDatesChange={({ startDate: start, endDate: end }) => {
+              console.log({ ...date, start, end });
+
+              setDate({ start, end });
+            }} // PropTypes.func.isRequired,
+            focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+            onFocusChange={focusedInput => {
+              console.log(focusedInput);
+
+              setFocusedInput(!focusedInput ? 'startDate' : focusedInput);
+            }} // PropTypes.func.isRequired,
+          />
+          <div className={styles.price_container}>
+            <div>Room NT$ {normalDayPrice}</div>
+            <div>Tax NT$ {roomTax}</div>
+            <div>Total NT$ {totalPrice}</div>
+            <Link
+              to={{
+                pathname: '/hotel/reservation/',
+                query: { a: 'a' }
+              }}
+            >
+              <div className={styles.button} onClick={orderClick}>
+                Order
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     );

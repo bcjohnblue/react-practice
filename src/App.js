@@ -7,6 +7,7 @@ import OnlinePay from './projects/OnlinePay/pages/Main/Main';
 import Game from './projects/Game/pages/Main/Main';
 import Hotel from './projects/Hotel/pages/Main/Main';
 import HotelRoomDetail from './projects/Hotel/pages/RoomDetail/RoomDetail';
+import HotelReservation from './projects/Hotel/pages/Reservation/Reservation';
 
 const app = props => {
   return (
@@ -23,6 +24,7 @@ const app = props => {
           path="/hotel/room-detail/:id"
           component={HotelRoomDetail}
         />
+        <Route exact path="/hotel/reservation" component={HotelReservation} />
       </div>
     </HashRouter>
   );
