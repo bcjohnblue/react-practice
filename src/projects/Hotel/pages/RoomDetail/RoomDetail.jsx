@@ -9,12 +9,7 @@ import Swiper from 'react-id-swiper';
 
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
-import {
-  DateRangePicker,
-  SingleDatePicker,
-  DayPickerRangeController,
-  DateRangePickerWrapper
-} from 'react-dates';
+import { DayPickerRangeController } from 'react-dates';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -44,6 +39,9 @@ const RoomDetail = props => {
     end: null
   });
   const [focusedInput, setFocusedInput] = useState('startDate');
+  const isOutsideRange = date => {
+    return new Date() - new Date(date) > 0;
+  };
 
   const {
     name,
@@ -69,8 +67,6 @@ const RoomDetail = props => {
       }
     })();
   }, []);
-
-  const orderClick = () => {};
 
   const swiperDOM = (() => {
     const params = {
@@ -145,16 +141,13 @@ const RoomDetail = props => {
             // endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
             // { startDate: start, endDate: end }
             onDatesChange={({ startDate: start, endDate: end }) => {
-              console.log({ ...date, start, end });
-
               setDate({ start, end });
             }} // PropTypes.func.isRequired,
             focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={focusedInput => {
-              console.log(focusedInput);
-
               setFocusedInput(!focusedInput ? 'startDate' : focusedInput);
             }} // PropTypes.func.isRequired,
+            isOutsideRange={isOutsideRange}
           />
           <div className={styles.price_container}>
             <div>Room NT$ {normalDayPrice}</div>
@@ -162,13 +155,12 @@ const RoomDetail = props => {
             <div>Total NT$ {totalPrice}</div>
             <Link
               to={{
-                pathname: '/hotel/reservation/',
-                query: { a: 'a' }
+                pathname: `/hotel/reservation?id=${id}&date=${JSON.stringify(
+                  date
+                )}`
               }}
             >
-              <div className={styles.button} onClick={orderClick}>
-                Order
-              </div>
+              <div className={styles.button}>Order</div>
             </Link>
           </div>
         </div>
