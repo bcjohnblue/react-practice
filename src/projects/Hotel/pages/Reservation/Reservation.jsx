@@ -5,6 +5,13 @@ import clsx from 'clsx';
 import moment from 'moment';
 
 import Input from '../../components/Input/Input';
+import CustomDialog from '../../components/CustomDialog/CustomDialog';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { DateRangePicker } from 'react-dates';
 
@@ -55,6 +62,11 @@ const Reservation = props => {
   });
   const [focusedInput, setFocusedInput] = useState(null);
 
+  const [open, setOpen] = useState(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const roomTax = 138;
   const totalPrice =
     date.end &&
@@ -101,7 +113,9 @@ const Reservation = props => {
     <div className={styles.reservation}>
       <div className={styles.left}>
         <div className={styles.room_name}>{roomDetail.name}</div>
-        <img src={roomDetail.imageUrl[0]} alt="room picture" />
+        {roomDetail.imageUrl[0] ? (
+          <img src={roomDetail.imageUrl[0]} alt="room" />
+        ) : null}
       </div>
       <div className={styles.right}>
         <div className={styles.title}>Your Reservation</div>
@@ -140,6 +154,28 @@ const Reservation = props => {
           </div>
         </div>
       </div>
+      <CustomDialog open={open} setOpen={setOpen} confirmClick={confirmClick} />
+      {/* <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Success !
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <div className={styles.button} onClick={confirmClick}>
+            Check out the order
+          </div>
+        </DialogActions>
+      </Dialog> */}
     </div>
   );
 };
