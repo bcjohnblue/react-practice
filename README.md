@@ -29,9 +29,6 @@
 
 ## 第三關--MP3 (未做)
 
-<br />
-<br />
-
 ## 第四關--線上支付
 
 <a href="https://bcjohnblue.github.io/F2E_2nd/#/online-pay" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/OnlinePay" target="_blank">原始碼</a>
@@ -53,3 +50,17 @@
 
 1. 碰撞判定
 2. Keyboard event block setInterval
+   <br />
+   <br />
+
+## 第六關--旅館預約服務
+
+<a href="https://bcjohnblue.github.io/F2E_2nd/#/hotel" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/Hotel" target="_blank">原始碼</a>
+
+**練習目標**
+
+1. 使用 React 串接 API
+
+**使用技術** &nbsp;`Axios`
+<br />
+<br />
