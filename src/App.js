@@ -8,6 +8,7 @@ import Game from './projects/Game/pages/Main/Main';
 import Hotel from './projects/Hotel/pages/Main/Main';
 import HotelRoomDetail from './projects/Hotel/pages/RoomDetail/RoomDetail';
 import HotelReservation from './projects/Hotel/pages/Reservation/Reservation';
+import Chatroom from './projects/Chatroom/pages/Main/Main';
 
 const app = props => {
   return (
@@ -25,6 +26,7 @@ const app = props => {
           component={HotelRoomDetail}
         />
         <Route exact path="/hotel/reservation" component={HotelReservation} />
+        <Route exact path="/chatroom" component={Chatroom} />
       </div>
     </HashRouter>
   );
