@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext, useContext } from 'react';
-import { useState, useEffect, useRef, forwardRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import styles from './Obstacles.module.sass';
 import clsx from 'clsx';
@@ -56,13 +56,7 @@ const ObstaclesContext = createContext({
 const setObstacleComponent = item => {
   return props => {
     const { Component, className = 'right_to_left' } = item;
-    const {
-      obstaclesDOMList,
-      setobstaclesDOMList,
-      forwardRef: obstacleRef,
-      roleRef,
-      clearTimer
-    } = props;
+    const { forwardRef: obstacleRef, roleRef } = props;
 
     const { position } = useContext(ObstaclesContext);
     const [moveState, setMoveState] = useState(0);

@@ -7,12 +7,6 @@ import moment from 'moment';
 import Input from '../../components/Input/Input';
 import CustomDialog from '../../components/CustomDialog/CustomDialog';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
 import { DateRangePicker } from 'react-dates';
 
 const Reservation = props => {
@@ -61,11 +55,8 @@ const Reservation = props => {
     end: searchParams.date.end
   });
   const [focusedInput, setFocusedInput] = useState(null);
-
-  const [open, setOpen] = useState(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [open, setOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const roomTax = 138;
   const totalPrice =
@@ -82,6 +73,7 @@ const Reservation = props => {
         return Promise.reject(false);
       }
     };
+
     const data = (() => {
       const start = date.start.format('YYYY-MM-DD');
       const end = date.end.format('YYYY-MM-DD');
@@ -103,11 +95,14 @@ const Reservation = props => {
         data
       );
       console.log(res);
+      setIsSuccess(res.data.success);
     } catch (error) {
       if (error !== false) {
         console.log(error);
+        setIsSuccess(false);
       }
     }
+    setOpen(true);
   };
   return (
     <div className={styles.reservation}>
@@ -123,17 +118,17 @@ const Reservation = props => {
           <Input name="Name" value={name} setValue={setName} />
           <Input name="Phone" value={phone} setValue={setPhone} />
           <DateRangePicker
-            startDate={date.start} // momentPropTypes.momentObj or null,
-            startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-            endDate={date.end} // momentPropTypes.momentObj or null,
-            endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+            startDate={date.start}
+            startDateId="your_unique_start_date_id"
+            endDate={date.end}
+            endDateId="your_unique_end_date_id"
             onDatesChange={({ startDate: start, endDate: end }) => {
               setDate({ start, end });
-            }} // PropTypes.func.isRequired,
-            focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+            }}
+            focusedInput={focusedInput}
             onFocusChange={focusedInput => {
               setFocusedInput(focusedInput);
-            }} // PropTypes.func.isRequired,
+            }}
           />
           <div className={styles.price_container}>
             <div className={styles.item}>
@@ -154,28 +149,7 @@ const Reservation = props => {
           </div>
         </div>
       </div>
-      <CustomDialog open={open} setOpen={setOpen} confirmClick={confirmClick} />
-      {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          Success !
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <div className={styles.button} onClick={confirmClick}>
-            Check out the order
-          </div>
-        </DialogActions>
-      </Dialog> */}
+      <CustomDialog open={open} setOpen={setOpen} isSuccess={isSuccess} />
     </div>
   );
 };

@@ -1,22 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import styles from './HanGuoYu.module.sass';
 import clsx from 'clsx';
 
-import RoleFront from '../../assets/韓導1.svg';
-import RoleBack from '../../assets/韓導2.svg';
+// import RoleFront from '../../assets/韓導1.svg';
+// import RoleBack from '../../assets/韓導2.svg';
 import { ReactComponent as Role } from '../../assets/韓導1.svg';
 
 const HanGuoYu = props => {
   let { rolePosition, forwardRef } = props;
 
-  const roleImageList = [RoleFront, RoleBack];
-  const [roleImage, setRoleImage] = useState(RoleFront);
-  const style = {
-    role: {
-      backgroundImage: `url(${roleImage})`,
-      backgroundRepeat: 'no-repeat'
-    }
-  };
+  // const [roleImage] = useState(RoleFront);
+  // const style = {
+  //   role: {
+  //     backgroundImage: `url(${roleImage})`,
+  //     backgroundRepeat: 'no-repeat'
+  //   }
+  // };
 
   // const timerRef = useRef()
   // useEffect(() => {

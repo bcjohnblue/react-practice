@@ -133,20 +133,16 @@ const RoomDetail = props => {
           <div className={styles.utility}>{iconDOM}</div>
         </div>
         <div className={styles.right_container}>
-          {/* <DateRangePickerWrapper numberOfMonths={1} autoFocus /> */}
           <DayPickerRangeController
-            startDate={date.start} // momentPropTypes.momentObj or null,
-            // startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-            endDate={date.end} // momentPropTypes.momentObj or null,
-            // endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-            // { startDate: start, endDate: end }
+            startDate={date.start}
+            endDate={date.end}
             onDatesChange={({ startDate: start, endDate: end }) => {
               setDate({ start, end });
-            }} // PropTypes.func.isRequired,
-            focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+            }}
+            focusedInput={focusedInput}
             onFocusChange={focusedInput => {
               setFocusedInput(!focusedInput ? 'startDate' : focusedInput);
-            }} // PropTypes.func.isRequired,
+            }}
             isOutsideRange={isOutsideRange}
           />
           <div className={styles.price_container}>

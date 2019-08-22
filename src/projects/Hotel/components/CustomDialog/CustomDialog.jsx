@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './CustomDialog.module.sass';
+import { withRouter } from 'react-router-dom';
 
 import { ReactComponent as CheckCircle } from '../../assets/ant-design_check-circle-outline.svg';
 import { ReactComponent as ErrorOutline } from '../../assets/ic-baseline-error-outline.svg';
@@ -13,11 +14,12 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const CustomDialog = props => {
-  const { open, setOpen, confirmClick } = props;
-  const dialogStyles = theme => ({
+  const { open, setOpen, isSuccess } = props;
+  const { history } = props;
+
+  const dialogStyles = () => ({
     root: {
       '& .MuiPaper-root': {
         width: '600px'
@@ -42,7 +44,7 @@ const CustomDialog = props => {
     const { children, classes, onClose } = props;
     return (
       <MuiDialog
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="customized-dialog-title"
         open={open}
         className={classes.root}
@@ -55,7 +57,7 @@ const CustomDialog = props => {
   });
 
   const DialogTitle = withStyles(dialogTitleStyles)(props => {
-    const { children, classes, onClose } = props;
+    const { classes, onClose } = props;
     return (
       <MuiDialogTitle disableTypography className={classes.root}>
         {onClose ? (
@@ -99,14 +101,35 @@ const CustomDialog = props => {
     }
   }))(MuiDialogActions);
 
-  // const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
   const handleClose = () => {
     setOpen(false);
   };
+  const confirmClick = () => {
+    history.push('/hotel');
+  };
+
+  const successDOM = (() => {
+    return (
+      <>
+        <div className="title">Success!</div>
+        <div className="sub_title">Have a nice trip :)</div>
+        <CheckCircle style={{ zoom: 0.8 }} />
+      </>
+    );
+  })();
+  const failDOM = (() => {
+    return (
+      <>
+        <div className="title">Oops !</div>
+        <div className="sub_title">
+          The room has been booked.
+          <br />
+          Please choose another room.
+        </div>
+        <ErrorOutline style={{ zoom: 0.8 }} />
+      </>
+    );
+  })();
 
   return (
     <Dialog
@@ -117,18 +140,14 @@ const CustomDialog = props => {
       <DialogTitle id="customized-dialog-title" onClose={handleClose}>
         Modal title
       </DialogTitle>
-      <DialogContent>
-        <div className="title">Success!</div>
-        <div className="sub_title">Have a nice trip :)</div>
-        <CheckCircle style={{ zoom: 0.8 }} />
-      </DialogContent>
+      <DialogContent>{isSuccess ? successDOM : failDOM}</DialogContent>
       <DialogActions>
         <div className={styles.button} onClick={confirmClick}>
-          Check out the order
+          {isSuccess ? 'Check out the order' : 'Back'}
         </div>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default CustomDialog;
+export default withRouter(CustomDialog);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import styles from './Input.module.sass';
 
 const Input = props => {

@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 
 import Footer from '../../layout/Footer/Footer';
 
+import headerPhoto from '../../assets/Twin_3.jpg';
+
 const Main = props => {
   const { location } = props;
-  
+
   const [roomList, setRoomList] = useState([]);
   useEffect(() => {
     (async () => {
@@ -41,7 +43,7 @@ const Main = props => {
   return (
     <>
       <div className={styles.main}>
-        <div className={styles.header}>照片</div>
+        <img className={styles.header} src={headerPhoto} alt="header" />
         <div className={styles.body}>{DOM}</div>
       </div>
       <Footer />

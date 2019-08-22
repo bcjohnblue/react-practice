@@ -1,14 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useReducer,
-  createRef,
-  forwardRef
-} from 'react';
-import { findDOMNode } from 'react-dom';
+import React, { useState, useRef } from 'react';
 import styles from './Body.module.sass';
-import clsx from 'clsx';
 
 import { generateRandom } from '../../utils';
 
@@ -56,7 +47,7 @@ const Body = props => {
     }, 5000);
   };
 
-  const watchPlayState = (() => {
+  (() => {
     console.log(playState);
 
     switch (playState) {

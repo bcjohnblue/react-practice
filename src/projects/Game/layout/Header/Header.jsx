@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './Header.module.sass';
-import clsx from 'clsx';
 
 import { ReactComponent as Life } from '../../assets/生命.svg';
 import { ReactComponent as Money } from '../../assets/金幣數.svg';
