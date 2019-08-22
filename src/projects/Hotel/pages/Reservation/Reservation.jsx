@@ -10,6 +10,8 @@ import CustomDialog from '../../components/CustomDialog/CustomDialog';
 import { DateRangePicker } from 'react-dates';
 
 const Reservation = props => {
+  document.title = '訂房預約';
+
   const {
     location: { search }
   } = props;

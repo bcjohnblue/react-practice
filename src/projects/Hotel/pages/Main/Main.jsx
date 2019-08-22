@@ -8,6 +8,7 @@ import Footer from '../../layout/Footer/Footer';
 import headerPhoto from '../../assets/Twin_3.jpg';
 
 const Main = props => {
+  document.title = '旅館預約服務';
   const { location } = props;
 
   const [roomList, setRoomList] = useState([]);

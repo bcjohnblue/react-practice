@@ -20,6 +20,8 @@ import { faVectorSquare } from '@fortawesome/free-solid-svg-icons';
 import iconList from './iconList';
 
 const RoomDetail = props => {
+  document.title = '房間詳細資訊';
+
   const {
     match: {
       params: { id }
