@@ -53,6 +53,10 @@ const PreSelect = props => {
         />
         <BracketText
           onClick={() => {
+            if (!selfName.length) {
+              window.alert('請輸入名稱');
+              return;
+            }
             setStep(3);
           }}
         >

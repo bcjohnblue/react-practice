@@ -8,10 +8,11 @@ import TypeArea from '../../components/TypeArea/TypeArea';
 const Lobby = props => {
   return (
     <div className={styles.lobby}>
-      <div>lobby</div>
       <Drawer />
-      <ChatArea />
-      <TypeArea />
+      <div className={styles.right_container}>
+        <ChatArea />
+        {/* <TypeArea /> */}
+      </div>
     </div>
   );
 };

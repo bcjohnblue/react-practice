@@ -9,8 +9,9 @@ import PreSelect from '../../layout/PreSelect/PreSelect';
 import Lobby from '../../layout/Lobby/Lobby';
 
 const Main = () => {
+  document.title = 'VS Code 聊天室';
   const [chatType, setChatType] = useState('');
-  const [chatRoomType, setChatRoomType] = useState('');
+  const [chatRoomType, setChatRoomType] = useState('1to1');
   const [selfName, setSelfName] = useState('');
 
   return (
