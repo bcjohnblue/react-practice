@@ -12,12 +12,12 @@ const Main = () => {
   document.title = 'VS Code 聊天室';
   const [chatType, setChatType] = useState('');
   const [chatRoomType, setChatRoomType] = useState('1to1');
-  const [selfName, setSelfName] = useState('');
+  const [selfName, setSelfName] = useState('bcjohn');
 
   return (
     <div className={styles.main}>
       {chatRoomType ? (
-        <Lobby />
+        <Lobby selfName={selfName} />
       ) : (
         <PreSelect
           chatType={chatType}

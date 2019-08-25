@@ -1,0 +1,50 @@
+.emoji
+  position: relative
+  .icon
+    cursor: pointer
+    position: relative
+    z-index: 1
+  .dialog
+    position: absolute
+    top: -210px
+    background-color: #303030
+    display: flex
+    align-items: center
+    height: 194px
+    .direction
+      height: 100%
+      padding: 20px 10px
+      cursor: pointer
+      display: flex
+      align-items: center
+      &:hover
+        color: #D7BA7D
+    .emoji_container
+      display: grid
+      grid-template-columns: repeat(3, 1fr)
+      grid-template-rows: repeat(4, 1fr)
+      grid-row-gap: 20px
+      width: 400px
+      text-align: center
+      padding: 20px 0px 30px
+      div
+        cursor: pointer
+        &:hover
+          color: #D7BA7D
+      .pagination
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+        font-size: 14px
+        color: #707070
+  .bubble
+    &:after
+      content: ''
+      width: 0px
+      height: 0px
+      position: absolute
+      top: -16px
+      border: 15px solid transparent
+      border-top: 20px solid #303030
+      margin-left: 25px

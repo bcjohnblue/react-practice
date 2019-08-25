@@ -1,0 +1,43 @@
+.typing_area
+  background-color: #1E1E1E
+  padding-left: 20px
+  padding-top: 20px
+  height: 30vh
+  .typing_main
+    width: 100%
+    height: calc(30vh - 60px)
+    padding-right: 20px
+    display: flex
+    .text_area
+      vertical-align: top
+      margin-left: 10px
+      border: none
+      outline: none
+      width: 100%
+      resize: none
+      color: #ffffff
+      background-color: #1E1E1E
+      caret-color: #ffffff
+  .toolbar
+    height: 40px
+    display: flex
+    align-items: center
+    label
+      margin-bottom: 0px
+    svg
+      margin-right: 20px
+      font-size: 20px
+      height: 100%
+      cursor: pointer
+    .icon_paperclip
+      transform: rotateZ(180deg) scaleX(-1)
+    .send_button
+      height: 100%
+      padding: 5px 80px
+      margin-left: auto
+      background-color: #252526
+      display: flex
+      align-items: center
+      cursor: pointer
+      &:hover
+        color: #D7BA7D
