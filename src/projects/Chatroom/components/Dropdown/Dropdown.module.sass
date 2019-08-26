@@ -7,8 +7,22 @@
     .icon_caret
       margin-right: 10px
   .dropdown_container
-    padding: 10px 30px
+    padding: 0px 30px
+    transition: max-height 0.3s ease-in-out 0s, padding 0.3s ease-in-out 0s
     overflow: hidden
-    // display: none
-    // height: 0px
-    // transition: transform 5s
+    max-height: 0px
+    will-change: height, padding
+    &.open
+      max-height: 100vh
+      padding-top: 20px
+      padding-bottom: 20px
+    .item
+      margin-bottom: 10px
+      cursor: pointer
+      &:hover
+        color: #D7BA7d
+      .name
+        margin-left: 10px
+      .ratio
+        float: right
+      

@@ -30,8 +30,11 @@ const Drawer = props => {
             ></FontAwesomeIcon>
           </div>
         </div>
-        <Dropdown title="公開聊天室" data={roomList}></Dropdown>
+        <Dropdown title="公開聊天室" data={roomList} open></Dropdown>
         <Dropdown title="最近加入的聊天室" data={[]}></Dropdown>
+        <div className={clsx(styles.button, styles.add_chatroom_btn)}>
+          新增聊天室 (暫未開放)
+        </div>
       </>
     );
   })();

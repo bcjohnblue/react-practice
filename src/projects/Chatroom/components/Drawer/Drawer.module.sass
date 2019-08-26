@@ -1,6 +1,19 @@
+@mixin button
+  padding: 5px 10px
+  border: 1px solid #D4D4D4
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  user-select: none
+  &:hover
+    color: #D7BA7D
+    border-color: #D7BA7D
+
 .drawer
   width: 60px
   transition: width 0.3s
+  position: relative
   &.open
     width: 550px
   .title
@@ -29,6 +42,7 @@
         margin-left: 10px
     .direction
       zoom: 2
+      user-select: none
       cursor: pointer
       &.open
         position: absolute
@@ -41,16 +55,8 @@
       justify-content: space-between
       align-items: center
       .button
-        padding: 5px 10px
-        border: 1px solid #D4D4D4
+        +button
         width: 48%
-        display: flex
-        justify-content: center
-        align-items: center
-        cursor: pointer
-        &:hover
-          color: #D7BA7D
-          border-color: #D7BA7D
     .input_container
       position: relative
       margin-top: 20px
@@ -69,5 +75,14 @@
         top: 50%
         right: 15px
         transform: translateY(-50%)
-
+  .add_chatroom_btn
+    +button
+    position: absolute
+    bottom: 0
+    left: 5%
+    right: 5%
+    width: 90%
+    margin-bottom: 10px
+    cursor: not-allowed
+    
     
