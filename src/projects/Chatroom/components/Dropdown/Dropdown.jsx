@@ -8,14 +8,24 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const Dropdown = props => {
-  const { title, data, open } = props;
+  const { title, data, itemClick, activeId } = props;
+  const { open } = props;
   const [isOpen, setIsOpen] = useState(open ? true : false);
 
   const length = data.length;
   const DOM = data.map(item => {
     const { id, name, online, total } = item;
     return (
-      <div className={styles.item} key={id}>
+      <div
+        className={clsx({
+          [styles.item]: true,
+          [styles.active]: activeId === id
+        })}
+        key={id}
+        onClick={() => {
+          itemClick(id);
+        }}
+      >
         <span>{id}</span>
         <span className={styles.name}>{name}</span>
         <span className={styles.ratio}>
@@ -42,7 +52,7 @@ const Dropdown = props => {
       <div
         className={clsx({
           [styles.dropdown_container]: true,
-          [styles.open]: isOpen
+          [styles.open]: isOpen && length
         })}
       >
         {DOM}

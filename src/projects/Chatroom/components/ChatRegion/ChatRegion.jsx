@@ -5,10 +5,9 @@ import clsx from 'clsx';
 import colorStyle from '../../utils/colorStyle';
 
 const ChatRegion = props => {
-  console.log(colorStyle);
-
   const { data } = props;
-  const loginDOM = ({ name }) => {
+
+  const linkDOM = ({ name }) => {
     return (
       <>
         <span>&lt;</span>
@@ -44,7 +43,7 @@ const ChatRegion = props => {
     const { type, message } = item;
 
     const mapTypeToDOM = {
-      login: loginDOM(message),
+      link: linkDOM(message),
       message: messageDOM(message)
     };
 

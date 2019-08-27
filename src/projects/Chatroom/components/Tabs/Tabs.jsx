@@ -7,33 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Tabs = props => {
-  const { activeTab, setActiveTab, children } = props;
+  const { activeTab, setActiveTab, onRemoveTab, children } = props;
   const { closable } = props;
-  // console.log(props);
-  const [copyChildren, setCopyChildren] = useState([]);
-  useEffect(() => {
-    setCopyChildren(children);
-  }, []);
-  const contentDOM = copyChildren.filter(item => item.props.name === activeTab);
 
-  const tabsItemDOM = (() => {
+  const contentDOM = children.filter(item => item.props.name === activeTab);
+
+  const headerDOM = (() => {
     const tabsItemClick = name => {
       setActiveTab(name);
     };
     const closeClick = deleteIndex => {
-      setCopyChildren(copyChildren.filter((_, index) => index !== deleteIndex));
-      (() => {
-        const isCloseActiveTab =
-          activeTab === copyChildren[deleteIndex].props.name;
-        if (isCloseActiveTab) {
-          const newTab =
-            copyChildren[deleteIndex + 1] || copyChildren[deleteIndex - 1];
-          if (newTab) {
-            const newActiveTab = newTab.props.name;
-            setActiveTab(newActiveTab);
-          }
-        }
-      })();
+      onRemoveTab(deleteIndex);
     };
 
     const closeDOM = index => (
@@ -47,7 +31,7 @@ const Tabs = props => {
       </span>
     );
 
-    return copyChildren.map((item, index) => {
+    return children.map((item, index) => {
       const { name, label } = item.props;
       const isActive = name === activeTab;
 
@@ -68,7 +52,7 @@ const Tabs = props => {
 
   return (
     <div className="tabs">
-      <div className="tabs__header">{tabsItemDOM}</div>
+      <div className="tabs__header">{headerDOM}</div>
       <div className="tabs__content">{contentDOM}</div>
     </div>
   );

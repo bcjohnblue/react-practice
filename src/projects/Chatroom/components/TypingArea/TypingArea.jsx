@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './TypingArea.module.sass';
 
+import { useContext } from 'react';
+import ContextStore from '../../store/context';
+
 import Emoji from '../Emoji/Emoji';
 
 import colorStyle from '../../utils/colorStyle';
@@ -10,7 +13,8 @@ import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
 
 const TypingArea = props => {
-  const { selfName } = props;
+  const { selfName } = useContext(ContextStore);
+
   return (
     <div className={styles.typing_area}>
       <div className={styles.typing_main}>

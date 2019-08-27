@@ -1,3 +1,15 @@
+@mixin button
+  padding: 5px 10px
+  border: 1px solid #D4D4D4
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  user-select: none
+  &:hover
+    color: #D7BA7D
+    border-color: #D7BA7D
+
 .lobby
   background-color: #303030
   width: 100vw
@@ -5,3 +17,23 @@
   display: flex
   .right_container
     width: 100%
+    background-color: #1E1E1E
+    display: flex
+    flex-wrap: wrap
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    &.has_chatroom
+      display: block
+      background-color: #303030
+    .emoji
+      font-size: 30px
+      margin-bottom: 10px
+      color: #D4D4D4
+    .text
+      margin-bottom: 30px
+    .button
+      +button
+      margin-bottom: 20px
+      width: 200px
+      font-size: 18px

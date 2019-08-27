@@ -2,15 +2,17 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './PreSelect.module.sass';
 
+import { useContext } from 'react';
+import ContextStore from '../../store/context';
+
 import BracketText from '../../components/BracketText/BracketText';
 
 import { CHAT_TYPE_LIST, CHAT_ROOM_TYPE_LIST } from '../../utils/constant';
 
 const PreSelect = props => {
   const { chatType, setChatType } = props;
-  const { chatRoomType, setChatRoomType } = props;
-  const { selfName, setSelfName } = props;
-
+  const { setRenderComponent } = props;
+  const { selfName, dispatch } = useContext(ContextStore);
   const [step, setStep] = useState(1);
 
   const firstStepDOM = (() => {
@@ -36,7 +38,7 @@ const PreSelect = props => {
   })();
   const secondStepDOM = (() => {
     const onChange = event => {
-      setSelfName(event.target.value);
+      dispatch({ type: 'SET', field: 'selfName', value: event.target.value });
     };
     const chatTypeItem = CHAT_TYPE_LIST.find(item => item.type === chatType);
     const chatTypeText = chatTypeItem ? chatTypeItem.text : '';
@@ -67,7 +69,8 @@ const PreSelect = props => {
   })();
   const thirdStepDOM = (() => {
     const onClick = chatRoomType => {
-      setChatRoomType(chatRoomType);
+      console.log(chatRoomType);
+      setRenderComponent('Lobby');
     };
     return CHAT_ROOM_TYPE_LIST.map((item, index) => {
       let { type, text } = item;

@@ -1,43 +1,60 @@
 import React from 'react';
-import { useState } from 'react';
 import styles from './ChatArea.module.sass';
+
+import { useContext } from 'react';
+import ContextStore from '../../store/context';
 
 import Tabs from '../Tabs/Tabs';
 import TabPane from '../TabPane/TabPane';
 
 import ChatRegion from '../../components/ChatRegion/ChatRegion';
 
-const CHAT_LIST = [
-  {
-    type: 'login',
-    message: {
-      name: 'id22222'
-    }
-  },
-  {
-    type: 'message',
-    message: {
-      name: 'love5566',
-      text: '安安 今天要聊什麼'
-    }
-  }
-];
+// const CHAT_LIST = [
+//   {
+//     type: 'login',
+//     message: {
+//       name: 'id22222'
+//     }
+//   },
+//   {
+//     type: 'message',
+//     message: {
+//       name: 'love5566',
+//       text: '安安 今天要聊什麼'
+//     }
+//   }
+// ];
 
 const ChatArea = props => {
-  const [activeTab, setActiveTab] = useState(1);
+  const { activeChatroomList, activeTab, dispatch } = useContext(ContextStore);
+
+  const DOM = activeChatroomList.map(chatList => {
+    const { id, name, data } = chatList;
+
+    return (
+      <TabPane label={name} name={id} key={id}>
+        <ChatRegion data={data} />
+      </TabPane>
+    );
+  });
 
   return (
     <div className={styles.chat_area}>
-      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} closable>
-        <TabPane label={'tab 1'} name={1}>
-          <ChatRegion data={CHAT_LIST} />
-        </TabPane>
-        <TabPane label={'tab 2'} name={2}>
-          456
-        </TabPane>
-        <TabPane label={'tab 3'} name={3}>
-          789
-        </TabPane>
+      <Tabs
+        activeTab={activeTab}
+        setActiveTab={value => {
+          dispatch({ type: 'SET', field: 'activeTab', value });
+        }}
+        onRemoveTab={removeIndex => {
+          dispatch({
+            type: 'REMOVE',
+            field: 'activeChatroomList',
+            removeIndex
+          });
+        }}
+        closable
+      >
+        {DOM}
       </Tabs>
     </div>
   );

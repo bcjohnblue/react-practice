@@ -68,7 +68,7 @@ const Emoji = props => {
               &gt;
             </div>
           </div>
-          <div className={styles.bubble}></div>{' '}
+          <div className={styles.bubble}></div>
         </>
       ) : null}
     </div>
