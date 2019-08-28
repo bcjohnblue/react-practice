@@ -6,6 +6,23 @@ const activeChatroomListReducer = (chatroom, action) => {
   const { type } = action;
   console.log(activeChatroomList);
 
+  const addMessage = messange => {
+    const { activeTab } = chatroom;
+    const copyActiveChatroomList = JSON.parse(
+      JSON.stringify(activeChatroomList)
+    );
+    const activeChatroom = copyActiveChatroomList.find(
+      item => item.id === activeTab
+    );
+
+    activeChatroom.data.push(messange);
+
+    return {
+      ...chatroom,
+      activeChatroomList: copyActiveChatroomList
+    };
+  };
+
   const addNewChatroomById = id => {
     const hasExistChatroom = ~activeChatroomList.findIndex(
       item => item.id === id
@@ -90,6 +107,29 @@ const activeChatroomListReducer = (chatroom, action) => {
       const { id } = action;
 
       return addNewChatroomById(id);
+    }
+    case 'SENDMESSANGE': {
+      const { text } = action;
+      const message = {
+        type: 'message',
+        message: {
+          name: selfName,
+          text
+        }
+      };
+
+      return addMessage(message);
+    }
+    case 'ADDMOCKMESSANGE': {
+      const mockMessange = {
+        type: 'message',
+        message: {
+          name: getRandom('name'),
+          text: getRandom('message')
+        }
+      };
+
+      return addMessage(mockMessange);
     }
     default:
       return chatroom;

@@ -5,6 +5,7 @@ import styles from './Emoji.module.sass';
 import emojiList from '../../utils/emojiList';
 
 const Emoji = props => {
+  const { emojiClick } = props;
   const [isShow, setIsShow] = useState(false);
   const [page, setPage] = useState(1);
 
@@ -14,12 +15,18 @@ const Emoji = props => {
       EMOJI_NUMBER_PER_PAGE * (page - 1),
       EMOJI_NUMBER_PER_PAGE * page
     );
-    const emojiClick = () => {
+    const onEmojiClick = emoji => {
+      emojiClick(emoji);
       setIsShow(false);
     };
     const DOM = showEmojiList.map((emoji, index) => {
       return (
-        <div key={index} onClick={emojiClick}>
+        <div
+          key={index}
+          onClick={() => {
+            onEmojiClick(emoji);
+          }}
+        >
           {emoji}
         </div>
       );

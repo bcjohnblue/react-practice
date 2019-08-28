@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './TypingArea.module.sass';
 
+import { useState } from 'react';
+
 import { useContext } from 'react';
 import ContextStore from '../../store/context';
 
@@ -13,15 +15,25 @@ import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
 
 const TypingArea = props => {
-  const { selfName } = useContext(ContextStore);
+  const { selfName, dispatch } = useContext(ContextStore);
+  const [text, setText] = useState('');
+
+  const emojiClick = emoji => {
+    setText(text + emoji);
+  };
 
   return (
     <div className={styles.typing_area}>
       <div className={styles.typing_main}>
         <span style={colorStyle.self}>{selfName}</span>
         <span>&nbsp;&gt;</span>
-        {/* cols="30" rows="10" */}
-        <textarea className={styles.text_area}></textarea>
+        <textarea
+          className={styles.text_area}
+          value={text}
+          onChange={event => {
+            setText(event.target.value);
+          }}
+        ></textarea>
       </div>
       <div className={styles.toolbar}>
         <label htmlFor="upload_attachment">
@@ -35,8 +47,26 @@ const TypingArea = props => {
           <FontAwesomeIcon icon={faImage} />
         </label>
         <input type="file" id="upload_image" style={{ display: 'none' }} />
-        <Emoji></Emoji>
-        <span className={styles.send_button}>傳送&nbsp;&gt;</span>
+        <Emoji emojiClick={emojiClick}></Emoji>
+        <span
+          className={styles.send_button}
+          onClick={() => {
+            dispatch({
+              type: 'SENDMESSANGE',
+              field: 'activeChatroomList',
+              text
+            });
+            setTimeout(() => {
+              dispatch({
+                type: 'ADDMOCKMESSANGE',
+                field: 'activeChatroomList'
+              });
+            }, 1000);
+            setText('');
+          }}
+        >
+          傳送&nbsp;&gt;
+        </span>
       </div>
     </div>
   );

@@ -9,22 +9,6 @@ import TabPane from '../TabPane/TabPane';
 
 import ChatRegion from '../../components/ChatRegion/ChatRegion';
 
-// const CHAT_LIST = [
-//   {
-//     type: 'login',
-//     message: {
-//       name: 'id22222'
-//     }
-//   },
-//   {
-//     type: 'message',
-//     message: {
-//       name: 'love5566',
-//       text: '安安 今天要聊什麼'
-//     }
-//   }
-// ];
-
 const ChatArea = props => {
   const { activeChatroomList, activeTab, dispatch } = useContext(ContextStore);
 

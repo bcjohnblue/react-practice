@@ -2,6 +2,7 @@ const colors = {
   blue: '#499CD6',
   lightblue: '#9CDCFE',
   orange: '#CE9178',
+  green: '#6A9955',
   time: '#707070',
   self: '#6A9955'
 };

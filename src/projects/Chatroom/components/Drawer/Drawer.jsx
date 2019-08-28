@@ -29,10 +29,9 @@ const Drawer = props => {
       const filterRoomList = roomList.filter(item => {
         const { id, name } = item;
         const regex = new RegExp(searchText);
-        // console.log(regex.test(id) || regex.test(name));
+
         return regex.test(id) || regex.test(name);
       });
-      // console.log(filterRoomList);
 
       setCopyRoomList(filterRoomList);
     };

@@ -2,10 +2,14 @@ import React from 'react';
 import styles from './ChatRegion.module.sass';
 import clsx from 'clsx';
 
+import { useContext } from 'react';
+import ContextStore from '../../store/context';
+
 import colorStyle from '../../utils/colorStyle';
 
 const ChatRegion = props => {
   const { data } = props;
+  const { selfName } = useContext(ContextStore);
 
   const linkDOM = ({ name }) => {
     return (
@@ -23,21 +27,38 @@ const ChatRegion = props => {
     );
   };
   const messageDOM = ({ name, text }) => {
-    return (
+    const selfNameDOM = (
       <>
-        <div className={styles.line}>
-          <span>&lt;</span>
-          <span style={colorStyle.blue}>{name}</span>
-          <span>&gt;</span>
-        </div>
-        <div className={clsx(styles.line, styles.text)}>{text}</div>
-        <div className={styles.line}>
-          <span>&lt;/</span>
-          <span style={colorStyle.blue}>{name}</span>
-          <span>&gt;</span>
+        <div className={styles.self_name_message} style={colorStyle.green}>
+          <div className={styles.line}>
+            <span>&lt;!--{name}</span>
+          </div>
+          <div className={clsx(styles.line, styles.text)}>{text}</div>
+          <div className={styles.line}>
+            <span>--&gt;</span>
+          </div>
         </div>
       </>
     );
+    const otherNameDOM = (
+      <>
+        <div className={styles.other_name_message}>
+          <div className={styles.line}>
+            <span>&lt;</span>
+            <span style={colorStyle.orange}>{name}</span>
+            <span>&gt;</span>
+          </div>
+          <div className={clsx(styles.line, styles.text)}>{text}</div>
+          <div className={styles.line}>
+            <span>&lt;/</span>
+            <span style={colorStyle.orange}>{name}</span>
+            <span>&gt;</span>
+          </div>
+        </div>
+      </>
+    );
+
+    return name === selfName ? selfNameDOM : otherNameDOM;
   };
   const DOM = data.map((item, index) => {
     const { type, message } = item;
@@ -47,10 +68,17 @@ const ChatRegion = props => {
       message: messageDOM(message)
     };
 
+    const time = (() => {
+      const hours = new Date().getHours();
+      const minutes = new Date().getMinutes();
+
+      return `${hours}：${minutes}`;
+    })();
+
     return (
       <div className={styles.item} key={index}>
         <span className={styles.time} style={colorStyle.time}>
-          10：11
+          {time}
         </span>
         <div className={styles.message_item}>{mapTypeToDOM[type]}</div>
       </div>
