@@ -110,11 +110,25 @@ const activeChatroomListReducer = (chatroom, action) => {
     }
     case 'SENDMESSANGE': {
       const { text } = action;
+
       const message = {
         type: 'message',
         message: {
           name: selfName,
           text
+        }
+      };
+
+      return addMessage(message);
+    }
+    case 'SENDIMAGE': {
+      const { image } = action;
+
+      const message = {
+        type: 'image',
+        message: {
+          name: selfName,
+          image
         }
       };
 

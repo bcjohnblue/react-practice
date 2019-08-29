@@ -17,9 +17,24 @@ import { faImage } from '@fortawesome/free-regular-svg-icons';
 const TypingArea = props => {
   const { selfName, dispatch } = useContext(ContextStore);
   const [text, setText] = useState('');
+  const [image, setImage] = useState('');
 
   const emojiClick = emoji => {
     setText(text + emoji);
+  };
+  const sendClick = () => {
+    dispatch({
+      type: 'SENDMESSANGE',
+      field: 'activeChatroomList',
+      text
+    });
+    setTimeout(() => {
+      dispatch({
+        type: 'ADDMOCKMESSANGE',
+        field: 'activeChatroomList'
+      });
+    }, 1000);
+    setText('');
   };
 
   return (
@@ -46,25 +61,23 @@ const TypingArea = props => {
         <label htmlFor="upload_image">
           <FontAwesomeIcon icon={faImage} />
         </label>
-        <input type="file" id="upload_image" style={{ display: 'none' }} />
-        <Emoji emojiClick={emojiClick}></Emoji>
-        <span
-          className={styles.send_button}
-          onClick={() => {
+        <input
+          type="file"
+          id="upload_image"
+          accept="image/*"
+          style={{ display: 'none' }}
+          value={image}
+          onChange={event => {
             dispatch({
-              type: 'SENDMESSANGE',
+              type: 'SENDIMAGE',
               field: 'activeChatroomList',
-              text
+              image: event.target.files[0]
             });
-            setTimeout(() => {
-              dispatch({
-                type: 'ADDMOCKMESSANGE',
-                field: 'activeChatroomList'
-              });
-            }, 1000);
-            setText('');
+            // console.log();
           }}
-        >
+        />
+        <Emoji emojiClick={emojiClick}></Emoji>
+        <span className={styles.send_button} onClick={sendClick}>
           傳送&nbsp;&gt;
         </span>
       </div>
