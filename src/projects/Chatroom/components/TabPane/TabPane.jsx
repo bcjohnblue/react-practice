@@ -1,13 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
-import styles from './TabPane.sass';
+import './TabPane.sass';
 
 const TabPane = props => {
-  const { label, name, children } = props;
-  const { isRender = true, setIsRender } = props;
-  // const [isRender, setIsRender] = useState(true);
+  const { children } = props;
 
-  return isRender ? <div className="tab_pane">{children}</div> : null;
+  return <div className="tab_pane">{children}</div>;
 };
 
 export default TabPane;

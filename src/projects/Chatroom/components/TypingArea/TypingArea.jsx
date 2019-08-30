@@ -17,24 +17,57 @@ import { faImage } from '@fortawesome/free-regular-svg-icons';
 const TypingArea = props => {
   const { selfName, dispatch } = useContext(ContextStore);
   const [text, setText] = useState('');
-  const [image, setImage] = useState('');
+  const [file] = useState('');
+  const [image] = useState('');
 
-  const emojiClick = emoji => {
-    setText(text + emoji);
-  };
-  const sendClick = () => {
-    dispatch({
-      type: 'SENDMESSANGE',
-      field: 'activeChatroomList',
-      text
-    });
+  const dispatchMockMessange = () => {
     setTimeout(() => {
       dispatch({
         type: 'ADDMOCKMESSANGE',
         field: 'activeChatroomList'
       });
     }, 1000);
+  };
+
+  const emojiClick = emoji => {
+    setText(text + emoji);
+  };
+  const sendClick = () => {
+    if (!text.length) return;
+    dispatch({
+      type: 'SENDMESSANGE',
+      field: 'activeChatroomList',
+      text
+    });
+    dispatchMockMessange();
     setText('');
+  };
+
+  const fileChangeHandler = event => {
+    const fileName = event.target.files[0].name;
+
+    dispatch({
+      type: 'SENDMESSANGE',
+      field: 'activeChatroomList',
+      fileName: fileName
+    });
+    dispatchMockMessange();
+  };
+  const imageChangeHandler = event => {
+    const file = event.target.files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      dispatch({
+        type: 'SENDMESSANGE',
+        field: 'activeChatroomList',
+        imageUrl: e.target.result
+      });
+      dispatchMockMessange();
+    };
+
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -57,7 +90,13 @@ const TypingArea = props => {
             className={styles.icon_paperclip}
           />
         </label>
-        <input type="file" id="upload_attachment" style={{ display: 'none' }} />
+        <input
+          type="file"
+          id="upload_attachment"
+          style={{ display: 'none' }}
+          value={file}
+          onChange={fileChangeHandler}
+        />
         <label htmlFor="upload_image">
           <FontAwesomeIcon icon={faImage} />
         </label>
@@ -67,14 +106,7 @@ const TypingArea = props => {
           accept="image/*"
           style={{ display: 'none' }}
           value={image}
-          onChange={event => {
-            dispatch({
-              type: 'SENDIMAGE',
-              field: 'activeChatroomList',
-              image: event.target.files[0]
-            });
-            // console.log();
-          }}
+          onChange={imageChangeHandler}
         />
         <Emoji emojiClick={emojiClick}></Emoji>
         <span className={styles.send_button} onClick={sendClick}>

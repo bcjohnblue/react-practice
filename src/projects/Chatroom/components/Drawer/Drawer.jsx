@@ -19,7 +19,7 @@ const Drawer = props => {
   const [searchText, setSearchText] = useState('');
   const [copyRoomList, setCopyRoomList] = useState([]);
   const { activeTab, dispatch } = useContext(ContextStore);
-  console.log(roomList);
+
   useEffect(() => {
     setCopyRoomList(roomList);
   }, []);

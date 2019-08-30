@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import styles from './ChatRegion.module.sass';
 import clsx from 'clsx';
 
@@ -6,7 +6,6 @@ import { useContext } from 'react';
 import ContextStore from '../../store/context';
 
 import colorStyle from '../../utils/colorStyle';
-import { resolve } from 'path';
 
 const ChatRegion = props => {
   const { data } = props;
@@ -27,14 +26,31 @@ const ChatRegion = props => {
       </>
     );
   };
-  const messageDOM = ({ name, text }) => {
+  const messageDOM = ({ name, text, fileName, imageUrl }) => {
+    const textDOM = (() => {
+      if (imageUrl) {
+        return (
+          <img
+            src={imageUrl}
+            className={clsx(styles.line, styles.text)}
+            alt=""
+          />
+        );
+      } else {
+        return (
+          <div className={clsx(styles.line, styles.text)}>
+            {fileName ? `您傳送了${fileName}檔案` : text}
+          </div>
+        );
+      }
+    })();
     const selfNameDOM = (
       <>
         <div className={styles.self_name_message} style={colorStyle.green}>
           <div className={styles.line}>
             <span>&lt;!--{name}</span>
           </div>
-          <div className={clsx(styles.line, styles.text)}>{text}</div>
+          {textDOM}
           <div className={styles.line}>
             <span>--&gt;</span>
           </div>
@@ -61,26 +77,13 @@ const ChatRegion = props => {
 
     return name === selfName ? selfNameDOM : otherNameDOM;
   };
-  const imageDOM = ({ name, image }) => {
-    // var reader = new FileReader();
-
-    // let text = '';
-    // reader.onload = function(e) {
-    //   text = e.target.result;
-    //   console.log(text);
-    // };
-
-    // reader.readAsDataURL(image);
-    return <div>image</div>;
-  };
 
   const DOM = data.map((item, index) => {
     const { type, message } = item;
 
     const mapTypeToDOM = {
       link: linkDOM(message),
-      message: messageDOM(message),
-      image: imageDOM(message)
+      message: messageDOM(message)
     };
 
     const time = (() => {

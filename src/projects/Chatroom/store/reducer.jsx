@@ -109,26 +109,15 @@ const activeChatroomListReducer = (chatroom, action) => {
       return addNewChatroomById(id);
     }
     case 'SENDMESSANGE': {
-      const { text } = action;
+      const { text, fileName, imageUrl } = action;
 
       const message = {
         type: 'message',
         message: {
           name: selfName,
-          text
-        }
-      };
-
-      return addMessage(message);
-    }
-    case 'SENDIMAGE': {
-      const { image } = action;
-
-      const message = {
-        type: 'image',
-        message: {
-          name: selfName,
-          image
+          text,
+          fileName,
+          imageUrl
         }
       };
 

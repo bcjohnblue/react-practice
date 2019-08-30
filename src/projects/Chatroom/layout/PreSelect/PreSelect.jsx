@@ -69,7 +69,9 @@ const PreSelect = props => {
   })();
   const thirdStepDOM = (() => {
     const onClick = chatRoomType => {
-      console.log(chatRoomType);
+      if (chatRoomType === '1to1')
+        dispatch({ type: 'ONETOONE', field: 'activeChatroomList' });
+
       setRenderComponent('Lobby');
     };
     return CHAT_ROOM_TYPE_LIST.map((item, index) => {

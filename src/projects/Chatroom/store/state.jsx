@@ -1,5 +1,5 @@
 const state = {
-  selfName: 'bcjohn',
+  selfName: '',
   activeTab: null,
   activeChatroomList: []
 };
