@@ -64,3 +64,15 @@
 **使用技術** &nbsp;`Axios`
 <br />
 <br />
+
+## 第七關--匿名聊天室
+
+<a href="https://bcjohnblue.github.io/F2E_2nd/#/chatroom" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/Chatroom" target="_blank">原始碼</a>
+
+**練習目標**
+
+1. 利用 createContext、useContext、useReducer 管理 global state
+
+**使用技術** &nbsp;`React Hooks`
+<br />
+<br />
