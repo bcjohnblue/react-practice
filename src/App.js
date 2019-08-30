@@ -2,15 +2,6 @@ import React from 'react';
 import { Suspense, lazy } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 
-// import TomatoClock from './projects/TomatoClock/pages/Main/Main';
-// import Solitaire from './projects/Solitaire/pages/Main/Main';
-// import OnlinePay from './projects/OnlinePay/pages/Main/Main';
-// import Game from './projects/Game/pages/Main/Main';
-// import Hotel from './projects/Hotel/pages/Main/Main';
-// import HotelRoomDetail from './projects/Hotel/pages/RoomDetail/RoomDetail';
-// import HotelReservation from './projects/Hotel/pages/Reservation/Reservation';
-// import Chatroom from './projects/Chatroom/pages/Main/Main';
-
 const TomatoClock = lazy(() =>
   import('./projects/TomatoClock/pages/Main/Main')
 );
