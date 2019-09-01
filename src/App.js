@@ -16,6 +16,10 @@ const HotelReservation = lazy(() =>
   import('./projects/Hotel/pages/Reservation/Reservation')
 );
 const Chatroom = lazy(() => import('./projects/Chatroom/pages/Main/Main'));
+const HardDrive = lazy(() => import('./projects/HardDrive/pages/Main/Main'));
+const MyDrive = lazy(() =>
+  import('./projects/HardDrive/pages/MyDrive/MyDrive')
+);
 
 const app = props => {
   return (
@@ -35,6 +39,8 @@ const app = props => {
           />
           <Route exact path="/hotel/reservation" component={HotelReservation} />
           <Route exact path="/chatroom" component={Chatroom} />
+          <Route path="/hard-drive" component={HardDrive} />
+          <Route path="/hard-drive/my-drive" component={MyDrive} />
         </Suspense>
       </div>
     </HashRouter>
