@@ -3,6 +3,8 @@
   cursor: pointer
   margin: 20px
   position: relative
+  input
+    display: none
   .upload_icon
     display: flex
     align-items: center
@@ -10,6 +12,9 @@
     background-color: #fff
     border-radius: 30px 30px 30px 30px
     padding: 12px 25px
+    .upload_file_icon
+      width: 30px
+      height: 30px
     .text
       color: #4CB5F5
       margin-left: 10px
@@ -28,7 +33,9 @@
     padding-top: 10px
     padding-bottom: 10px
     .item
+      width: 100%
       padding: 20px 30px
+      cursor: pointer
       &:hover
         background-color: rgba(#4CB5F5, 0.5)
       img
@@ -37,3 +44,13 @@
         margin-left: 10px
         color: #858585
         font-weight: bold
+.dialog
+  border-radius: 5px
+  .text
+    color: #fff
+    font-size: 1.33rem
+    text-align: center
+    letter-spacing: 8px
+    margin-bottom: 10px
+    user-select: none
+

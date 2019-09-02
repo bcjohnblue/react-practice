@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import axios from './plugins/axios';
+import './plugins/firebase';
 Object.keys(axios).map(key => {
   window[key] = axios[key];
 });

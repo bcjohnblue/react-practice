@@ -9,8 +9,15 @@ import { ReactComponent as GarbageIcon } from '../../assets/garbage.svg';
 import PersonImage from '../../assets/afterglow-back-view-dawn-2825791.jpg';
 
 import UploadFile from '../../components/UploadFile/UploadFile';
+import ProgressBar from '../../components/ProgressBar/ProgressBar';
 
 const SideBar = props => {
+  const constant = {
+    name: 'Jennifer',
+    admin: 'User',
+    size: 1.2,
+    totalSize: 10
+  };
   const itemList = [
     {
       icon: FolderIcon,
@@ -51,11 +58,20 @@ const SideBar = props => {
         <div className={styles.person_container}>
           <img src={PersonImage} alt="person" />
           <div>
-            <div className={styles.name}>Jennifer</div>
-            <div className={styles.admin}>User</div>
+            <div className={styles.name}>{constant.name}</div>
+            <div className={styles.admin}>{constant.admin}</div>
           </div>
         </div>
-        <div className={styles.usage}></div>
+        <div className={styles.usage}>
+          <ProgressBar
+            size={constant.size}
+            totalSize={constant.totalSize}
+          ></ProgressBar>
+          <div className={styles.text}>
+            <span>容量 {constant.size} GB</span>
+            <span>&nbsp;/ {constant.totalSize} GB</span>
+          </div>
+        </div>
       </div>
     </div>
   );
