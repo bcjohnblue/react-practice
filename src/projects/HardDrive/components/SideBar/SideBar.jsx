@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './SideBar.module.sass';
 
+import { Link } from 'react-router-dom';
+
 import { ReactComponent as CloudIcon } from '../../assets/cloud_24px.svg';
 import { ReactComponent as FolderIcon } from '../../assets/folder.svg';
 import { ReactComponent as StarIcon } from '../../assets/star.svg';
@@ -21,19 +23,23 @@ const SideBar = props => {
   const itemList = [
     {
       icon: FolderIcon,
-      text: '我的檔案'
+      text: '我的檔案',
+      route: '/hard-drive/my-drive'
     },
     {
       icon: StarIcon,
-      text: '已加星號'
+      text: '已加星號',
+      route: '/hard-drive/my-drive'
     },
     {
       icon: ShareIcon,
-      text: '檔案共享'
+      text: '檔案共享',
+      route: '/hard-drive/my-drive'
     },
     {
       icon: GarbageIcon,
-      text: '垃圾桶'
+      text: '垃圾桶',
+      route: '/hard-drive/my-drive'
     }
   ];
   return (
@@ -45,12 +51,14 @@ const SideBar = props => {
       <UploadFile></UploadFile>
       <div className={styles.item_container}>
         {itemList.map((item, index) => {
-          const { icon: Icon, text } = item;
+          const { icon: Icon, text, route } = item;
           return (
-            <div className={styles.item} key={index}>
-              <Icon></Icon>
-              <span className={styles.text}>{text}</span>
-            </div>
+            <Link to={route} key={index} style={{ textDecoration: 'none' }}>
+              <div className={styles.item}>
+                <Icon></Icon>
+                <span className={styles.text}>{text}</span>
+              </div>
+            </Link>
           );
         })}
       </div>

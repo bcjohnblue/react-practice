@@ -40,7 +40,7 @@ const app = props => {
           <Route exact path="/hotel/reservation" component={HotelReservation} />
           <Route exact path="/chatroom" component={Chatroom} />
           <Route path="/hard-drive" component={HardDrive} />
-          <Route path="/hard-drive/my-drive" component={MyDrive} />
+          {/* <Route path="/hard-drive/my-drive" component={MyDrive} /> */}
         </Suspense>
       </div>
     </HashRouter>

@@ -19,6 +19,13 @@ const UploadFile = props => {
   const [uploadFolder, setUploadFolder] = useState('');
   const [addFolder, setAddFolder] = useState('');
 
+  const [file, setFile] = useState({
+    size: 0,
+    totalSize: 0
+  });
+
+  const [dialogVisible, setDialogVisible] = useState(false);
+
   const uploadList = [
     {
       icon: UploadFileImage,
@@ -43,26 +50,47 @@ const UploadFile = props => {
     }
   ];
   const uploadListDOM = uploadList.map((item, index) => {
-    const { icon, text, id, value, setValue } = item;
+    const { icon, text, id, value } = item;
+    const fileChangeHandler = event => {
+      const taskHandler = task => {
+        const event = 'state_changed';
+        const stateChangeHandler = snapshot => {
+          console.log('snapshot', snapshot);
+
+          const { bytesTransferred, totalBytes } = snapshot;
+          setFile({
+            size: bytesTransferred,
+            totalSize: totalBytes
+          });
+        };
+        const errorHandler = err => {
+          console.error('上傳失敗', err);
+        };
+        const successHandler = () => {
+          console.log('上傳成功');
+          setTimeout(() => {
+            setDialogVisible(false);
+          }, 1000);
+        };
+
+        setDialogVisible(true);
+        task.on(event, stateChangeHandler, errorHandler, successHandler);
+      };
+
+      const file = event.target.files[0];
+
+      const storageReference = firebase.storage().ref(file.name);
+      const task = storageReference.put(file);
+      taskHandler(task);
+    };
+
     return (
       <div key={index}>
         <label htmlFor={id} className={styles.item}>
           <img src={icon} alt="icon" />
           <span className={styles.text}>{text}</span>
         </label>
-        <input
-          type="file"
-          id={id}
-          value={value}
-          onChange={event => {
-            const file = event.target.files[0];
-            // setValue(file);
-            console.log(file);
-
-            const storageReference = firebase.storage().ref(file.name);
-            const task = storageReference.put(file);
-          }}
-        />
+        <input type="file" id={id} value={value} onChange={fileChangeHandler} />
       </div>
     );
   });
@@ -92,9 +120,9 @@ const UploadFile = props => {
           <div className={styles.upload_list}>{uploadListDOM}</div>
         ) : null}
       </div>
-      <Dialog className={styles.dialog}>
+      <Dialog className={styles.dialog} visible={dialogVisible}>
         <div className={styles.text}>上傳檔案中...</div>
-        <ProgressBar size={10} totalSize={100}></ProgressBar>
+        <ProgressBar size={file.size} totalSize={file.totalSize}></ProgressBar>
       </Dialog>
     </>
   );

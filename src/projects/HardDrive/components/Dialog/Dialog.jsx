@@ -4,10 +4,11 @@ import clsx from 'clsx';
 
 const Dialog = props => {
   const { children } = props;
-  const { className, width } = props;
+  const { className, width, visible } = props;
 
   const style = {
-    width
+    width,
+    display: visible ? 'block' : 'none'
   };
 
   return (
