@@ -31,7 +31,7 @@ const MyDrive = props => {
 
     const transformData = (fileList, folderList) => {
       const fileArray = fileList.map(fileData => {
-        const { name, size, updated } = fileData;
+        const { name, size, updated, fullPath, contentType } = fileData;
         // console.log(fileData);
 
         const fileSize = (size / 1024 ** 2).toFixed(2);
@@ -49,7 +49,9 @@ const MyDrive = props => {
           name,
           fileSize,
           lastModified,
-          owner: 'Jennifer'
+          owner: 'Jennifer',
+          fullPath,
+          contentType
         };
       });
       const folderArray = folderList.map(item => {

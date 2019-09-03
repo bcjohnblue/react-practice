@@ -4,7 +4,8 @@ const initState = {
   fileControlList: {
     isVisible: false,
     clientX: 0,
-    clientY: 0
+    clientY: 0,
+    fullPath: ''
   }
 };
 
@@ -21,14 +22,16 @@ const reducer = (state = initState, action) => {
     //   };
     // }
     case actionTypes.OPEN_FILE_CONTROL_LIST: {
-      const { clientX, clientY } = action;
+      const { clientX, clientY, fullPath } = action;
+
       return {
         ...state,
         fileControlList: {
           ...state.fileControlList,
           isVisible: true,
           clientX,
-          clientY
+          clientY,
+          fullPath
         }
       };
     }

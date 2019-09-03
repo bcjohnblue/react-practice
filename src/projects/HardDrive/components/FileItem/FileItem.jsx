@@ -50,7 +50,7 @@ const FileItem = props => {
 
   return (
     <tr
-      className={clsx({ [styles.active]: isActive })}
+      className={clsx({ [styles.file_item]: true, [styles.active]: isActive })}
       onClick={() => {
         setIsActive(!isActive);
       }}
@@ -72,7 +72,7 @@ const FileItem = props => {
         onClick={event => {
           event.stopPropagation();
           const { clientX, clientY } = event;
-          openFileControlList(clientX, clientY);
+          openFileControlList(clientX, clientY, fullPath);
         }}
       >
         ...
@@ -90,11 +90,12 @@ const mapStateToProps = ({ drive }, props) => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    openFileControlList: (clientX, clientY) =>
+    openFileControlList: (clientX, clientY, fullPath) =>
       dispatch({
         type: actionTypes.OPEN_FILE_CONTROL_LIST,
         clientX,
-        clientY
+        clientY,
+        fullPath
       })
   };
 };
