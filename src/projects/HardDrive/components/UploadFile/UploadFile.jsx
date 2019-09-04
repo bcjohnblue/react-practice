@@ -13,7 +13,7 @@ import firebase from '../../../../plugins/firebase';
 import UploadFileIcon from '../../assets/upload.svg';
 import UploadFileImage from '../../assets/upload-file@2x.png';
 import UploadFolderImage from '../../assets/Group 52@2x.png';
-import AddFolderImage from '../../assets/add-folder 拷貝@2x.png';
+// import AddFolderImage from '../../assets/add-folder 拷貝@2x.png';
 
 const UploadFile = props => {
   const {
@@ -27,7 +27,7 @@ const UploadFile = props => {
 
   const [uploadFile, setUploadFile] = useState('');
   const [uploadFolder, setUploadFolder] = useState('');
-  const [addFolder, setAddFolder] = useState('');
+  // const [addFolder, setAddFolder] = useState('');
 
   const uploadList = [
     {
@@ -43,17 +43,18 @@ const UploadFile = props => {
       id: 'upload_folder',
       value: uploadFolder,
       setValue: setUploadFolder
-    },
-    {
-      icon: AddFolderImage,
-      text: '新資料夾',
-      id: 'add_folder',
-      value: addFolder,
-      setValue: setAddFolder
     }
+    // {
+    //   icon: AddFolderImage,
+    //   text: '新資料夾',
+    //   id: 'add_folder',
+    //   value: addFolder,
+    //   setValue: setAddFolder
+    // }
   ];
   const uploadListDOM = uploadList.map((item, index) => {
     const { icon, text, id, value } = item;
+
     const fileChangeHandler = event => {
       const taskHandler = task => {
         const event = 'state_changed';
@@ -83,14 +84,46 @@ const UploadFile = props => {
 
       const storageRef = firebase.storage().ref();
       const folderPath = pathname.slice(pathname.indexOf('/', 1));
-      const myDriveRef = storageRef.child(folderPath);
+      const folderRef = storageRef.child(folderPath);
 
-      const file = event.target.files[0];
-      const fileRef = myDriveRef.child(file.name);
+      const fileList = event.target.files;
+      Array.from(fileList).map(file => {
+        console.log(file);
+        const fileFullPath = file.webkitRelativePath || file.name;
+        const fileRef = folderRef.child(fileFullPath);
 
-      const task = fileRef.put(file);
-      taskHandler(task);
+        const task = fileRef.put(file);
+        taskHandler(task);
+      });
     };
+
+    const inputDOM = (() => {
+      switch (id) {
+        case 'upload_file':
+          return (
+            <input
+              type="file"
+              multiple
+              id={id}
+              value={value}
+              onChange={fileChangeHandler}
+            />
+          );
+        case 'upload_folder':
+          return (
+            <input
+              type="file"
+              id={id}
+              value={value}
+              onChange={fileChangeHandler}
+              webkitdirectory="true"
+              mozdirectory="true"
+            />
+          );
+        default:
+          break;
+      }
+    })();
 
     return (
       <div key={index}>
@@ -98,7 +131,7 @@ const UploadFile = props => {
           <img src={icon} alt="icon" />
           <span className={styles.text}>{text}</span>
         </label>
-        <input type="file" id={id} value={value} onChange={fileChangeHandler} />
+        {inputDOM}
       </div>
     );
   });

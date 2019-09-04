@@ -8,14 +8,6 @@ import FileItem from '../FileItem/FileItem';
 const FileList = props => {
   const { title, data } = props;
 
-  // const colDOM = useMemo(() => {
-  //   const widthList = ['400px', '120px', '120px', '120px'];
-  //   const DOM = widthList.map((width, index) => (
-  //     <col width={width} key={index} />
-  //   ));
-
-  //   return <colgroup>{DOM}</colgroup>;
-  // }, []);
   const theadDOM = useMemo(() => {
     const theadList = [
       {
@@ -63,7 +55,6 @@ const FileList = props => {
     <div className={styles.file_list}>
       {title !== undefined ? <div className={styles.title}>{title}</div> : null}
       <table>
-        {/* {colDOM} */}
         {theadDOM}
         {tbodyDOM}
       </table>
