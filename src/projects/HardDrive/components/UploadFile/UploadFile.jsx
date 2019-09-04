@@ -2,10 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './UploadFile.module.sass';
 
-import firebase from '../../../../plugins/firebase';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../../store/modules/drive/actionTypes';
 
-import Dialog from '../../components/Dialog/Dialog';
-import ProgressBar from '../../components/ProgressBar/ProgressBar';
+import firebase from '../../../../plugins/firebase';
 
 import UploadFileIcon from '../../assets/upload.svg';
 import UploadFileImage from '../../assets/upload-file@2x.png';
@@ -13,18 +13,13 @@ import UploadFolderImage from '../../assets/Group 52@2x.png';
 import AddFolderImage from '../../assets/add-folder 拷貝@2x.png';
 
 const UploadFile = props => {
+  const { openProgressBarDialog, closeProgressBarDialog } = props;
+
   const [isShow, setIsShow] = useState(false);
 
   const [uploadFile, setUploadFile] = useState('');
   const [uploadFolder, setUploadFolder] = useState('');
   const [addFolder, setAddFolder] = useState('');
-
-  const [file, setFile] = useState({
-    size: 0,
-    totalSize: 0
-  });
-
-  const [dialogVisible, setDialogVisible] = useState(false);
 
   const uploadList = [
     {
@@ -58,10 +53,7 @@ const UploadFile = props => {
           console.log('snapshot', snapshot);
 
           const { bytesTransferred, totalBytes } = snapshot;
-          setFile({
-            size: bytesTransferred,
-            totalSize: totalBytes
-          });
+          openProgressBarDialog(bytesTransferred, totalBytes);
         };
         const errorHandler = err => {
           console.error('上傳失敗', err);
@@ -69,18 +61,21 @@ const UploadFile = props => {
         const successHandler = () => {
           console.log('上傳成功');
           setTimeout(() => {
-            setDialogVisible(false);
+            closeProgressBarDialog();
           }, 1000);
         };
 
-        setDialogVisible(true);
+        openProgressBarDialog();
         task.on(event, stateChangeHandler, errorHandler, successHandler);
       };
 
-      const file = event.target.files[0];
+      const storageRef = firebase.storage().ref();
+      const myDriveRef = storageRef.child('my-drive');
 
-      const storageReference = firebase.storage().ref(file.name);
-      const task = storageReference.put(file);
+      const file = event.target.files[0];
+      const fileRef = myDriveRef.child(file.name);
+
+      const task = fileRef.put(file);
       taskHandler(task);
     };
 
@@ -120,12 +115,27 @@ const UploadFile = props => {
           <div className={styles.upload_list}>{uploadListDOM}</div>
         ) : null}
       </div>
-      <Dialog className={styles.dialog} visible={dialogVisible}>
-        <div className={styles.text}>上傳檔案中...</div>
-        <ProgressBar size={file.size} totalSize={file.totalSize}></ProgressBar>
-      </Dialog>
     </>
   );
 };
 
-export default UploadFile;
+const mapDispatchToProps = dispatch => {
+  return {
+    openProgressBarDialog: (size, totalSize) =>
+      dispatch({
+        type: actionTypes.OPEN_PROGRESS_BAR_DIALOG,
+        size,
+        totalSize,
+        title: '上傳檔案中...'
+      }),
+    closeProgressBarDialog: () =>
+      dispatch({
+        type: actionTypes.CLOSE_PROGRESS_BAR_DIALOG
+      })
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UploadFile);

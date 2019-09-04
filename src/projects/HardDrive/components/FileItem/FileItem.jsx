@@ -21,7 +21,7 @@ const FileItem = props => {
   const [isActive, setIsActive] = useState(false);
 
   const image = useMemo(() => {
-    const imageTypes = ['png', 'jpeg', 'jpg'];
+    const imageTypes = ['png', 'jpeg', 'jpg', 'gif'];
     const docTypes = ['doc', 'docx'];
     const mapNameToImage = {
       ...imageTypes.reduce((accu, curr) => ({ ...accu, [curr]: ImgImage }), {}),

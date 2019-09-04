@@ -6,6 +6,13 @@ const initState = {
     clientX: 0,
     clientY: 0,
     fullPath: ''
+  },
+  progressBarDialog: {
+    isVisible: false,
+    // dialogType: 'upload', // ['upload', 'download']
+    size: 0,
+    totalSize: 1,
+    title: ''
   }
 };
 
@@ -40,6 +47,27 @@ const reducer = (state = initState, action) => {
         ...state,
         fileControlList: {
           ...state.fileControlList,
+          isVisible: false
+        }
+      };
+    }
+    case actionTypes.OPEN_PROGRESS_BAR_DIALOG: {
+      const { size = 0, totalSize = 1, title } = action;
+
+      return {
+        ...state,
+        progressBarDialog: {
+          isVisible: true,
+          size,
+          totalSize,
+          title
+        }
+      };
+    }
+    case actionTypes.CLOSE_PROGRESS_BAR_DIALOG: {
+      return {
+        ...state,
+        progressBarDialog: {
           isVisible: false
         }
       };

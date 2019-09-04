@@ -5,6 +5,7 @@ import { Suspense, lazy } from 'react';
 import { Route } from 'react-router-dom';
 
 import SideBar from '../../components/SideBar/SideBar';
+import ProgressBarDialogContainer from '../../container/ProgressBarDialogContainer/ProgressBarDialogContainer';
 
 const MyDrive = lazy(() => import('../../pages/MyDrive/MyDrive'));
 
@@ -17,6 +18,7 @@ const Main = props => {
       <Suspense fallback={<div></div>}>
         <Route path="/hard-drive/my-drive" component={MyDrive} />
       </Suspense>
+      <ProgressBarDialogContainer></ProgressBarDialogContainer>
     </div>
   );
 };

@@ -14,6 +14,7 @@ const FileControlList = props => {
     fileControlList: { isVisible, clientX, clientY, fullPath },
     closeFileControlList
   } = props;
+  const { openProgressBarDialog, closeProgressBarDialog } = props;
 
   useEffect(() => {
     const fn = () => {
@@ -35,32 +36,37 @@ const FileControlList = props => {
     {
       label: '下載',
       onClick: event => {
-        event.stopPropagation();
+        // event.stopPropagation();
+
+        const downloadFile = (blob, fileName) => {
+          const url = window.URL.createObjectURL(blob);
+
+          const linkDOM = document.createElement('a');
+          linkDOM.href = url;
+          linkDOM.download = fileName;
+          linkDOM.style.display = 'none';
+          linkDOM.click();
+
+          window.URL.revokeObjectURL(url);
+        };
 
         (async () => {
           const storageRef = firebase.storage().ref();
           const fileRef = storageRef.child(fullPath);
 
           const url = await fileRef.getDownloadURL();
-          console.log(url);
-          const linkDOM = document.createElement('a');
-          linkDOM.href = url;
-          linkDOM.download = fileRef.name;
-          linkDOM.target = '_blank';
-          linkDOM.style.display = 'none';
-          // document.body.appendChild(linkDOM);
-          // linkDOM.click();
-
+          openProgressBarDialog();
           const res = await axios.get(url, {
-            headers: {
-              responseType: 'blob'
+            responseType: 'blob',
+            onDownloadProgress: event => {
+              const { loaded, total } = event;
+              openProgressBarDialog(loaded, total);
             }
           });
+          closeProgressBarDialog();
           console.log(res);
 
-          // linkDOM.addEventListener('click', event => {
-          //   event.preventDefault();
-          // });
+          downloadFile(res.data, fileRef.name);
         })();
       }
     },
@@ -119,6 +125,17 @@ const mapDispatchToProps = dispatch => {
     closeFileControlList: () =>
       dispatch({
         type: actionTypes.CLOSE_FILE_CONTROL_LIST
+      }),
+    openProgressBarDialog: (size, totalSize) =>
+      dispatch({
+        type: actionTypes.OPEN_PROGRESS_BAR_DIALOG,
+        size,
+        totalSize,
+        title: '下載檔案中...'
+      }),
+    closeProgressBarDialog: () =>
+      dispatch({
+        type: actionTypes.CLOSE_PROGRESS_BAR_DIALOG
       })
   };
 };
