@@ -17,6 +17,7 @@ const FileControlList = props => {
     fileControlList: { isVisible, dataType, clientX, clientY, fullPath },
     closeFileControlList
   } = props;
+
   const { openProgressBarDialog, closeProgressBarDialog } = props;
   const { showMessange } = props;
   const { getFileList } = props;
@@ -118,8 +119,7 @@ const FileControlList = props => {
     {
       label: '檢視',
       onClick: () => {
-        history.push(fullPath);
-        // getFileList(fullPath);
+        history.push('/hard-drive/' + fullPath);
       },
       isRender: dataType === 'folder'
     }

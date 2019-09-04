@@ -78,7 +78,6 @@ const MyDrive = props => {
 
     (async () => {
       const folderPath = pathname.slice(pathname.indexOf('/', 1));
-      // console.log(folderPath);
       const folderRef = storageRef.child(folderPath);
       const folderList = await folderRef.listAll();
       console.log(folderList);
