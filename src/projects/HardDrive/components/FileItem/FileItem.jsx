@@ -24,8 +24,8 @@ const FileItem = props => {
     const imageTypes = ['png', 'jpeg', 'jpg', 'gif'];
     const docTypes = ['doc', 'docx'];
     const mapNameToImage = {
-      ...imageTypes.reduce((accu, curr) => ({ ...accu, [curr]: ImgImage }), {}),
-      ...docTypes.reduce((accu, curr) => ({ ...accu, [curr]: DOCImage }), {}),
+      ...imageTypes.reduce((accu, type) => ({ ...accu, [type]: ImgImage }), {}),
+      ...docTypes.reduce((accu, type) => ({ ...accu, [type]: DOCImage }), {}),
       mp4: Mp4Image,
       pdf: PDFImage
     };
@@ -35,7 +35,7 @@ const FileItem = props => {
         return FolderImage;
       case 'file':
         for (const fileType of Object.keys(mapNameToImage)) {
-          const regex = new RegExp(`\.${fileType}$`);
+          const regex = new RegExp(`.${fileType}$`);
           // console.log(name, fileType, regex.test(name.toLowerCase()));
 
           if (regex.test(name.toLowerCase())) {

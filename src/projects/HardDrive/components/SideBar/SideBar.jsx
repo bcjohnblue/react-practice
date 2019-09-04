@@ -43,7 +43,7 @@ const SideBar = props => {
     }
   ];
   return (
-    <div className={styles.side_bar}>
+    <aside className={styles.side_bar}>
       <div className={styles.logo_container}>
         <CloudIcon></CloudIcon>
         <span className={styles.logo}>MCloud.</span>
@@ -81,7 +81,7 @@ const SideBar = props => {
           </div>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

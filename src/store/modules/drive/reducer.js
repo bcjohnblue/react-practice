@@ -17,17 +17,9 @@ const initState = {
 };
 
 const reducer = (state = initState, action) => {
-  const { type, field, value } = action;
+  const { type } = action;
 
   switch (type) {
-    // case actionTypes.SET_VALUE: {
-    //   console.log(state[field]);
-
-    //   return {
-    //     ...state,
-    //     [field]: value
-    //   };
-    // }
     case actionTypes.OPEN_FILE_CONTROL_LIST: {
       const { clientX, clientY, fullPath } = action;
 
