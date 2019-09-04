@@ -3,15 +3,23 @@ import styles from './MyDrive.module.sass';
 
 import { useState, useEffect } from 'react';
 
+import { withRouter } from 'react-router-dom';
+
 import firebase from '../../../../plugins/firebase';
 
+import SideBar from '../../components/SideBar/SideBar';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import FileList from '../../components/FileList/FileList';
+import FileControlList from '../../components/FileControlList/FileControlList';
 
 const MyDrive = props => {
+  const {
+    location: { pathname }
+  } = props;
+
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+  const getFileList = () => {
     const storageRef = firebase.storage().ref();
 
     const getFileData = async fileList => {
@@ -69,23 +77,33 @@ const MyDrive = props => {
     };
 
     (async () => {
-      const folderRef = storageRef.child('my-drive');
+      const folderPath = pathname.slice(pathname.indexOf('/', 1));
+      // console.log(folderPath);
+      const folderRef = storageRef.child(folderPath);
       const folderList = await folderRef.listAll();
       console.log(folderList);
 
       const fileList = await getFileData(folderList.items);
       setData(transformData(fileList, folderList.prefixes));
     })();
-  }, []);
+  };
+
+  useEffect(() => {
+    getFileList();
+  }, [pathname]);
 
   return (
-    <div className={styles.my_drive}>
-      <div style={{ textAlign: 'right' }}>
-        <SearchInput></SearchInput>
+    <>
+      <SideBar getFileList={getFileList}></SideBar>
+      <div className={styles.my_drive}>
+        <div style={{ textAlign: 'right' }}>
+          <SearchInput></SearchInput>
+        </div>
+        <FileList title="我的檔案" data={data}></FileList>
+        <FileControlList getFileList={getFileList}></FileControlList>
       </div>
-      <FileList title="我的檔案" data={data}></FileList>
-    </div>
+    </>
   );
 };
 
-export default MyDrive;
+export default withRouter(MyDrive);

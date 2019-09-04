@@ -2,6 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './UploadFile.module.sass';
 
+import { withRouter } from 'react-router-dom';
+
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/modules/drive/actionTypes';
 
@@ -13,7 +16,12 @@ import UploadFolderImage from '../../assets/Group 52@2x.png';
 import AddFolderImage from '../../assets/add-folder 拷貝@2x.png';
 
 const UploadFile = props => {
+  const {
+    location: { pathname }
+  } = props;
   const { openProgressBarDialog, closeProgressBarDialog } = props;
+  const { showMessange } = props;
+  const { getFileList } = props;
 
   const [isShow, setIsShow] = useState(false);
 
@@ -56,12 +64,16 @@ const UploadFile = props => {
           openProgressBarDialog(bytesTransferred, totalBytes);
         };
         const errorHandler = err => {
-          console.error('上傳失敗', err);
-        };
-        const successHandler = () => {
-          console.log('上傳成功');
           setTimeout(() => {
             closeProgressBarDialog();
+            showMessange({ status: 'error', title: `上傳失敗 ${err}` });
+          }, 1000);
+        };
+        const successHandler = () => {
+          setTimeout(() => {
+            closeProgressBarDialog();
+            showMessange({ status: 'success', title: '上傳成功' });
+            getFileList();
           }, 1000);
         };
 
@@ -70,7 +82,8 @@ const UploadFile = props => {
       };
 
       const storageRef = firebase.storage().ref();
-      const myDriveRef = storageRef.child('my-drive');
+      const folderPath = pathname.slice(pathname.indexOf('/', 1));
+      const myDriveRef = storageRef.child(folderPath);
 
       const file = event.target.files[0];
       const fileRef = myDriveRef.child(file.name);
@@ -131,11 +144,20 @@ const mapDispatchToProps = dispatch => {
     closeProgressBarDialog: () =>
       dispatch({
         type: actionTypes.CLOSE_PROGRESS_BAR_DIALOG
+      }),
+    showMessange: ({ status, title }) =>
+      dispatch({
+        type: actionTypes.SHOW_MESSANGE,
+        status,
+        title
       })
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
+export default compose(
+  withRouter,
+  connect(
+    null,
+    mapDispatchToProps
+  )
 )(UploadFile);

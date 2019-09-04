@@ -4,7 +4,6 @@ import styles from './FileList.module.sass';
 import { useMemo } from 'react';
 
 import FileItem from '../FileItem/FileItem';
-import FileControlList from '../FileControlList/FileControlList';
 
 const FileList = props => {
   const { title, data } = props;
@@ -68,7 +67,6 @@ const FileList = props => {
         {theadDOM}
         {tbodyDOM}
       </table>
-      <FileControlList></FileControlList>
     </div>
   );
 };

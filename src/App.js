@@ -1,6 +1,6 @@
 import React from 'react';
 import { Suspense, lazy } from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Route, Redirect } from 'react-router-dom';
 
 const TomatoClock = lazy(() =>
   import('./projects/TomatoClock/pages/Main/Main')
@@ -37,6 +37,7 @@ const app = props => {
           <Route exact path="/hotel/reservation" component={HotelReservation} />
           <Route exact path="/chatroom" component={Chatroom} />
           <Route path="/hard-drive" component={HardDrive} />
+          <Redirect from="/hard-drive" to="/hard-drive/my-drive"></Redirect>
         </Suspense>
       </div>
     </HashRouter>

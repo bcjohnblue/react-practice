@@ -14,8 +14,8 @@ Object.keys(axios).map(key => {
   window[key] = axios[key];
 });
 // import * as serviceWorker from './serviceWorker';
-window.store = store;
-window.cardList = store.getState().card.cardList;
+// window.store = store;
+// window.cardList = store.getState().card.cardList;
 const app = (
   <Provider store={store}>
     <BrowserRouter>

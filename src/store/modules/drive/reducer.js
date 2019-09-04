@@ -1,17 +1,23 @@
 import * as actionTypes from './actionTypes';
+import store from '../../index';
 
 const initState = {
   fileControlList: {
     isVisible: false,
+    dataType: '', // ['file', 'folder']
     clientX: 0,
     clientY: 0,
     fullPath: ''
   },
   progressBarDialog: {
     isVisible: false,
-    // dialogType: 'upload', // ['upload', 'download']
     size: 0,
     totalSize: 1,
+    title: ''
+  },
+  message: {
+    isVisible: false,
+    status: '',
     title: ''
   }
 };
@@ -21,13 +27,14 @@ const reducer = (state = initState, action) => {
 
   switch (type) {
     case actionTypes.OPEN_FILE_CONTROL_LIST: {
-      const { clientX, clientY, fullPath } = action;
+      const { dataType, clientX, clientY, fullPath } = action;
 
       return {
         ...state,
         fileControlList: {
           ...state.fileControlList,
           isVisible: true,
+          dataType,
           clientX,
           clientY,
           fullPath
@@ -60,6 +67,32 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         progressBarDialog: {
+          isVisible: false
+        }
+      };
+    }
+    case actionTypes.SHOW_MESSANGE: {
+      const { status, title } = action;
+
+      // Is it ok?
+      setTimeout(() => {
+        store.dispatch({ type: actionTypes.CLOSE_MESSANGE });
+      }, 3000);
+
+      return {
+        ...state,
+        message: {
+          isVisible: true,
+          status,
+          title
+        }
+      };
+    }
+    case actionTypes.CLOSE_MESSANGE: {
+      return {
+        ...state,
+        message: {
+          ...state.message,
           isVisible: false
         }
       };

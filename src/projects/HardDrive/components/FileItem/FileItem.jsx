@@ -72,7 +72,7 @@ const FileItem = props => {
         onClick={event => {
           event.stopPropagation();
           const { clientX, clientY } = event;
-          openFileControlList(clientX, clientY, fullPath);
+          openFileControlList(type, clientX, clientY, fullPath);
         }}
       >
         ...
@@ -81,18 +81,12 @@ const FileItem = props => {
   );
 };
 
-const mapStateToProps = ({ drive }, props) => {
-  const { isFileControlListVisible } = drive;
-
-  return {
-    isFileControlListVisible
-  };
-};
 const mapDispatchToProps = dispatch => {
   return {
-    openFileControlList: (clientX, clientY, fullPath) =>
+    openFileControlList: (type, clientX, clientY, fullPath) =>
       dispatch({
         type: actionTypes.OPEN_FILE_CONTROL_LIST,
+        dataType: type,
         clientX,
         clientY,
         fullPath
@@ -101,6 +95,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(FileItem);
