@@ -57,6 +57,7 @@ const FileControlList = props => {
 
           linkDOM.click();
 
+          document.body.removeChild(linkDOM);
           window.URL.revokeObjectURL(url);
         };
 
