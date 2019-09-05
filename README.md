@@ -76,3 +76,16 @@
 **使用技術** &nbsp;`React Hooks`
 <br />
 <br />
+
+## 第八關--雲端硬碟
+
+<a href="https://bcjohnblue.github.io/F2E_2nd/#/hard-drive" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/HardDrive" target="_blank">原始碼</a>
+
+**練習目標**
+
+1. 串接 firebase storage API
+2. HTML 複數檔案、資料夾拖曳上傳
+
+**使用技術** &nbsp;`Firebase`
+<br />
+<br />
