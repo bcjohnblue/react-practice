@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './MyDrive.module.sass';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { withRouter } from 'react-router-dom';
 
 import firebase from '../../../../plugins/firebase';
+import upload from '../../utils/upload';
 
 import SideBar from '../../components/SideBar/SideBar';
 import SearchInput from '../../components/SearchInput/SearchInput';
@@ -17,9 +18,13 @@ const MyDrive = props => {
     location: { pathname }
   } = props;
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // 原始資料
+  const [filterdata, setFilterData] = useState([]); // 搜尋後篩選出的資料
+  const [search, setSearch] = useState({
+    fileName: ''
+  });
 
-  const getFileList = () => {
+  const getFileList = useCallback(() => {
     const storageRef = firebase.storage().ref();
 
     const getFileData = async fileList => {
@@ -32,7 +37,7 @@ const MyDrive = props => {
       for await (let fileData of promiseList) {
         const { name, size, updated, fullPath, contentType } = fileData;
         fileArray.push({ name, size, updated, fullPath, contentType });
-        console.log(fileData);
+        // console.log(fileData);
       }
       return fileArray;
     };
@@ -80,25 +85,61 @@ const MyDrive = props => {
       const folderPath = pathname.slice(pathname.indexOf('/', 1));
       const folderRef = storageRef.child(folderPath);
       const folderList = await folderRef.listAll();
-      console.log(folderList);
+      console.log('{資料夾, 檔案}', folderList);
 
       const fileList = await getFileData(folderList.items);
-      setData(transformData(fileList, folderList.prefixes));
+      const data = transformData(fileList, folderList.prefixes);
+      setData(data);
+      setFilterData(data);
     })();
-  };
+  }, [pathname]);
 
   useEffect(() => {
     getFileList();
   }, [pathname]);
 
+  const filterFileList = () => {
+    if (search.fileName.length) {
+      const filterData = data.filter(
+        item => ~item.name.toLowerCase().indexOf(search.fileName.toLowerCase())
+      );
+
+      setFilterData(filterData);
+    } else {
+      setFilterData(data);
+    }
+  };
+
+  useEffect(() => {
+    filterFileList();
+  }, [search]);
+
+  const onDragOver = event => {
+    event.preventDefault();
+  };
+  const onDrop = event => {
+    event.preventDefault();
+    const fileList = event.dataTransfer.items;
+
+    upload('drag', { pathname, fileList, callback: getFileList });
+  };
+
   return (
     <>
       <SideBar getFileList={getFileList}></SideBar>
-      <div className={styles.my_drive}>
+      <div className={styles.my_drive} onDragOver={onDragOver} onDrop={onDrop}>
         <div style={{ textAlign: 'right' }}>
-          <SearchInput></SearchInput>
+          <SearchInput
+            value={search.fileName}
+            onChange={event => {
+              setSearch({
+                ...search,
+                fileName: event.target.value
+              });
+            }}
+          ></SearchInput>
         </div>
-        <FileList title="我的檔案" data={data}></FileList>
+        <FileList title="我的檔案" data={filterdata}></FileList>
         <FileControlList getFileList={getFileList}></FileControlList>
       </div>
     </>
