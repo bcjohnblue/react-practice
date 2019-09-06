@@ -7,8 +7,10 @@ import Body from '../../layout/Body/Body';
 const Main = props => {
   return (
     <div className={styles.main}>
-      <Header></Header>
-      <Body></Body>
+      <div className={styles.container}>
+        <Header></Header>
+        <Body></Body>
+      </div>
     </div>
   );
 };

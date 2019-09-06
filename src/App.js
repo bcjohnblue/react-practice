@@ -1,6 +1,6 @@
 import React from 'react';
 import { Suspense, lazy } from 'react';
-import { HashRouter, Route, Redirect } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
 const TomatoClock = lazy(() =>
   import('./projects/TomatoClock/pages/Main/Main')
@@ -17,6 +17,7 @@ const HotelReservation = lazy(() =>
 );
 const Chatroom = lazy(() => import('./projects/Chatroom/pages/Main/Main'));
 const HardDrive = lazy(() => import('./projects/HardDrive/pages/Main/Main'));
+const Note = lazy(() => import('./projects/Note/pages/Main/Main'));
 
 const app = props => {
   return (
@@ -37,6 +38,7 @@ const app = props => {
           <Route exact path="/hotel/reservation" component={HotelReservation} />
           <Route exact path="/chatroom" component={Chatroom} />
           <Route path="/hard-drive" component={HardDrive} />
+          <Route path="/note" component={Note} />
         </Suspense>
       </div>
     </HashRouter>
