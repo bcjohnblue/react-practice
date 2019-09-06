@@ -37,7 +37,6 @@ const app = props => {
           <Route exact path="/hotel/reservation" component={HotelReservation} />
           <Route exact path="/chatroom" component={Chatroom} />
           <Route path="/hard-drive" component={HardDrive} />
-          <Redirect from="/hard-drive" to="/hard-drive/my-drive"></Redirect>
         </Suspense>
       </div>
     </HashRouter>

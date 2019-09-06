@@ -1,5 +1,5 @@
 module.exports = function(plop) {
-  const projectFolderName = 'HardDrive';
+  const projectFolderName = 'Note';
   const path = `../src/projects/${projectFolderName}/{{folderName}}/{{fileName.capital}}/{{fileName.capital}}`;
 
   // controller generator

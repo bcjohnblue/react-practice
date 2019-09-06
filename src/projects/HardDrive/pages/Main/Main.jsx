@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Main.module.sass';
 
 import { Suspense, lazy } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import ProgressBarDialogContainer from '../../container/ProgressBarDialogContainer/ProgressBarDialogContainer';
 import MessageContainer from '../../container/MessageContainer/MessageContainer';
@@ -15,7 +15,8 @@ const Main = props => {
   return (
     <div className={styles.main}>
       <Suspense fallback={<div></div>}>
-        <Route path="/hard-drive/my-drive" component={MyDrive} />
+        <Route exact path="/hard-drive/my-drive" component={MyDrive} />
+        <Redirect from="hard-drive" to="/hard-drive/my-drive"></Redirect>
       </Suspense>
       <ProgressBarDialogContainer></ProgressBarDialogContainer>
       <MessageContainer></MessageContainer>
