@@ -4,3 +4,18 @@
   grid-template-columns: repeat(4, 1fr)
   grid-column-gap: 5vh
   grid-row-gap: 7vh
+  position: relative
+  // .card_item
+  //   ::after
+  //     content: ' '
+  //     background-image: linear-gradient(180deg, #F1F0F0 0%, #F5F5F5 100%)
+  .background
+    position: absolute
+    background-image: linear-gradient(180deg, #F1F0F0 0%, #F5F5F5 100%)
+    width: 1000px
+    // top: 270px
+    top: 77px
+    transform: rotate3d(20, -1, 1, 70deg)
+    height: 350px
+    z-index: -1
+    margin-left: -50px

@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 
 import { ReactComponent as FillStar } from '../../assets/icon/star-solid.svg';
 import { ReactComponent as EmptyStar } from '../../assets/icon/star-regular.svg';
+import Star from '../../components/Star/Star';
 
 const StarButton = props => {
   const { children, position } = props;
@@ -43,7 +44,8 @@ const StarButton = props => {
 
   return (
     <div className={styles.star_button}>
-      <FillStar style={style.icon}></FillStar>
+      <Star isStar={true} style={style.icon}></Star>
+      {/* <FillStar style={style.icon}></FillStar> */}
       <span style={style.text}>{children}</span>
     </div>
   );
