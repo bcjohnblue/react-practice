@@ -1,0 +1,41 @@
+.add_note_dialog
+
+.form
+  & > div
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 20px
+  .error
+    color: red
+    font-size: 0.9rem
+    margin-top: 5px
+  .title
+    font-weight: bold
+    margin-right: 10px
+  input
+    background: #F4F4F4
+    border: 1px solid #000000
+    border-radius: 5px
+    outline: none
+  .cover_image_container
+    display: flex
+    justify-content: space-between
+    img
+      width: 100px
+      height: 100px
+      background-repeat: no-repeat
+      background-size: 100% 100%
+      margin: 0px 10px
+      cursor: pointer
+      border-radius: 5px
+      &:first-child
+        margin-left: 0px
+      &:last-child
+        margin-right: 0px
+.save_button
+  padding: 7px 25px
+  color: #fff
+  background: #000000
+  border-radius: 5px
+  cursor: pointer
+
