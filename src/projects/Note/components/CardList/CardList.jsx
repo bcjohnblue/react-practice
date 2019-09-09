@@ -9,7 +9,7 @@ const CardList = props => {
   const DOM = data.map((item, index) => {
     const rowBackgroundDOM = (() => {
       if ((index + 1) % 4 !== 0) return null;
-      return <div className={styles.background}></div>;
+      return <div className={styles.background}></div>; 
     })();
 
     return (
