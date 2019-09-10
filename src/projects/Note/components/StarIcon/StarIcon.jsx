@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './StarIcon.module.sass';
 import clsx from 'clsx';
 
-import { useMemo } from 'react';
-
 import { ReactComponent as FillStar } from '../../assets/icon/star-solid.svg';
 import { ReactComponent as EmptyStar } from '../../assets/icon/star-regular.svg';
 

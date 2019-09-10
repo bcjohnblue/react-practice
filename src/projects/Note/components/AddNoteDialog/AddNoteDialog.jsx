@@ -1,10 +1,11 @@
 import React from 'react';
+import { useState, useMemo } from 'react';
 import styles from './AddNoteDialog.module.sass';
 
-import { useState, useMemo } from 'react';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -60,57 +61,74 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 const AddNoteDialog = props => {
-  const [open, setOpen] = React.useState(false);
+  const [noteName, setNoteName] = useState('');
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    // if()
-    setOpen(false);
-  };
+  const { dialogVisible, setDialogVisible } = props;
 
-  const [formValidate, setFormValidate] = useState(true);
-  const saveClick = () => {
-    // if(!formValidate)
-    setOpen(false);
-  };
-
-  const [coverImgSelectIndex, setCoverImgSelectIndex] = useState(null);
-
+  const [coverImg, setCoverImg] = useState(null);
   const coverDOM = useMemo(() => {
-    // const { Triangle, Watercolor, Gradient } = coverImages;
-    const DOM = Object.values(coverImages).map((image, index) => {
+    const DOM = Object.entries(coverImages).map(([key, value]) => {
       const coverImgClick = () => {
-        setCoverImgSelectIndex(index);
+        setCoverImg(key);
       };
       const style = {};
-      if (index === coverImgSelectIndex) style.border = '1px dashed blue';
+      if (key === coverImg) style.border = '1px dashed blue';
 
       return (
         <img
-          src={image}
-          alt="cover image"
+          src={value}
+          alt="cover"
           style={style}
-          key={index}
+          key={key}
           onClick={coverImgClick}
         />
       );
     });
     return <div className={styles.cover_image_container}>{DOM}</div>;
-  }, [coverImages, coverImgSelectIndex]);
+  }, [coverImages, coverImg]);
+
+  const [formValidate, setFormValidate] = useState({
+    name: true,
+    cover: true
+  });
+  const { setNote, setDisplayCard } = props;
+  const saveClick = () => {
+    let isValid = true;
+
+    (() => {
+      setFormValidate({
+        name: noteName !== '',
+        cover: coverImg !== null
+      });
+      if (noteName === '' || coverImg === null) {
+        isValid = false;
+      }
+    })();
+    if (!isValid) return;
+
+    setDialogVisible(false);
+    setNote({
+      name: noteName,
+      cover: coverImg
+    });
+    setDisplayCard('edit');
+  };
 
   return (
     <div className={styles.add_note_dialog}>
-      <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
-        Open dialog
-      </Button>
       <Dialog
-        onClose={handleClose}
+        onClose={() => {
+          setDialogVisible(false);
+        }}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={dialogVisible}
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={() => {
+            setDialogVisible(false);
+          }}
+        >
           新增筆記
         </DialogTitle>
         <DialogContent dividers>
@@ -118,8 +136,14 @@ const AddNoteDialog = props => {
             <div>
               <div className={styles.title}>筆記名稱</div>
               <div>
-                <input type="text" />
-                {formValidate ? null : (
+                <input
+                  type="text"
+                  value={noteName}
+                  onChange={event => {
+                    setNoteName(event.target.value);
+                  }}
+                />
+                {formValidate.name ? null : (
                   <div className={styles.error}>請填寫筆記名稱</div>
                 )}
               </div>
@@ -128,7 +152,7 @@ const AddNoteDialog = props => {
               <div className={styles.title}>選擇封面</div>
               <div>
                 {coverDOM}
-                {formValidate ? null : (
+                {formValidate.cover ? null : (
                   <div className={styles.error}>請選擇封面</div>
                 )}
               </div>
@@ -139,13 +163,51 @@ const AddNoteDialog = props => {
           <div className={styles.save_button} onClick={saveClick}>
             確定
           </div>
-          {/* <Button onClick={handleClose} color="primary">
-            確定
-          </Button> */}
         </DialogActions>
       </Dialog>
     </div>
   );
 };
 
-export default AddNoteDialog;
+const mapStateToProps = ({ note }, props) => {
+  const { dialogVisible } = note;
+
+  return {
+    dialogVisible,
+    note: note.note
+  };
+};
+const mapDispatchToProps = dispatch => ({
+  setDialogVisible: value => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'dialogVisible',
+        value
+      }
+    });
+  },
+  setNote: value => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'note',
+        value
+      }
+    });
+  },
+  setDisplayCard: value => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'displayCard',
+        value
+      }
+    });
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddNoteDialog);

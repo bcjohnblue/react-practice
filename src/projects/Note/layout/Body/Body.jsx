@@ -43,19 +43,6 @@ const Body = props => {
     }
   ];
 
-  // const [open, setOpen] = React.useState(false);
-
-  // const addNoteDialogDOM = (() => {
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
-  //   const handleClose = () => {
-  //     setOpen(false);
-  //   };
-
-  //   return <AddNoteDialog open={open} setOpen={setOpen}></AddNoteDialog>
-  // })()
-
   const { displayMode } = props;
   const dataListDOM = useMemo(() => {
     const dataList = [
@@ -78,20 +65,26 @@ const Body = props => {
     });
   }, [data, displayMode]);
 
+  const { displayCard } = props;
+  const mapDisplayCardToDOM = {
+    list: dataListDOM,
+    edit: <EditNoteCard></EditNoteCard>
+  };
+
   return (
     <main className={styles.body}>
-      {dataListDOM}
-      {/* <EditNoteCard></EditNoteCard> */}
-      {/* <AddNoteDialog></AddNoteDialog> */}
+      {mapDisplayCardToDOM[displayCard]}
+      <AddNoteDialog></AddNoteDialog>
     </main>
   );
 };
 
 const mapStateToProps = ({ note }, props) => {
-  const { displayMode } = note;
+  const { displayMode, displayCard } = note;
 
   return {
-    displayMode
+    displayMode,
+    displayCard
   };
 };
 

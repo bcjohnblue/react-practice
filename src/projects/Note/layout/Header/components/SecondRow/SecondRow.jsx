@@ -13,70 +13,121 @@ import { ReactComponent as CardIcon } from '../../../../assets/icon/card-01.svg'
 const SecondRow = props => {
   const { isBright } = props;
 
-  const { displayMode, setDisplayMode } = props;
-  const iconDOM = useMemo(() => {
-    const iconList = [
-      {
-        Component: RowIcon,
-        mode: 'row'
-      },
-      {
-        Component: CardIcon,
-        mode: 'card'
-      }
-    ];
-    const DOM = iconList.map(item => {
-      const { Component, mode } = item;
-      const onClick = () => {
-        setDisplayMode(mode);
-      };
+  const { displayMode } = props;
 
-      return (
-        <Component
+  const listDOM = useMemo(() => {
+    const iconDOM = (() => {
+      const iconList = [
+        {
+          Component: RowIcon,
+          mode: 'row'
+        },
+        {
+          Component: CardIcon,
+          mode: 'card'
+        }
+      ];
+      const DOM = iconList.map(item => {
+        const { setDisplayMode } = props;
+        const onClick = () => {
+          setDisplayMode(mode);
+        };
+
+        const { Component, mode } = item;
+
+        return (
+          <Component
+            className={clsx({
+              [styles.active]: mode === displayMode,
+              [styles.dark]: !isBright
+            })}
+            key={mode}
+            onClick={onClick}
+          ></Component>
+        );
+      });
+
+      return <div className={styles.icon_container}>{DOM}</div>;
+    })();
+
+    return (
+      <>
+        <Button
           className={clsx({
-            [styles.active]: mode === displayMode,
+            [styles.button]: true,
             [styles.dark]: !isBright
           })}
-          key={mode}
-          onClick={onClick}
-        ></Component>
-      );
-    });
-
-    return <div className={styles.icon_container}>{DOM}</div>;
+        >
+          <StarIcon
+            className={clsx({
+              [styles.star_icon]: true,
+              [styles.dark]: !isBright
+            })}
+          ></StarIcon>
+          <span
+            className={clsx({ [styles.text]: true, [styles.dark]: !isBright })}
+          >
+            顯示星號筆記
+          </span>
+        </Button>
+        {iconDOM}
+      </>
+    );
   }, [displayMode, isBright]);
 
-  return (
-    <div className={styles.second_row}>
-      <Button
-        className={clsx({
-          [styles.button]: true,
-          [styles.dark]: !isBright
-        })}
-      >
-        <StarIcon
+  const { setDisplayCard } = props;
+  const editDOM = useMemo(() => {
+    return (
+      <>
+        <Button
           className={clsx({
-            [styles.star_icon]: true,
+            [styles.button]: true,
             [styles.dark]: !isBright
           })}
-        ></StarIcon>
-        <span
-          className={clsx({ [styles.text]: true, [styles.dark]: !isBright })}
+          onClick={() => {
+            setDisplayCard('list');
+          }}
         >
-          顯示星號筆記
-        </span>
-      </Button>
-      {iconDOM}
-    </div>
+          <span
+            className={clsx({ [styles.text]: true, [styles.dark]: !isBright })}
+          >
+            返回列表
+          </span>
+        </Button>
+        <Button
+          className={clsx({
+            [styles.save_button]: true,
+            [styles.dark]: !isBright
+          })}
+        >
+          <span
+            className={clsx({ [styles.text]: true, [styles.dark]: !isBright })}
+          >
+            儲存進度
+          </span>
+        </Button>
+      </>
+    );
+  }, [isBright]);
+
+  const { displayCard } = props;
+  const mapDisplayCardToDOM = {
+    list: listDOM,
+    edit: editDOM
+  };
+
+  return (
+    <div className={styles.second_row}>{mapDisplayCardToDOM[displayCard]}</div>
   );
 };
 
 const mapStateToProps = ({ note }, props) => {
-  const { displayMode, isBright } = note;
+  const { displayMode, isBright, displayCard } = note;
 
   return {
     displayMode,
-    isBright
+    isBright,
+    displayCard
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -86,6 +137,14 @@ const mapDispatchToProps = dispatch => ({
       params: {
         field: 'displayMode',
         value: mode
+      }
+    }),
+  setDisplayCard: value =>
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'displayCard',
+        value
       }
     })
 });

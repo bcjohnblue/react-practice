@@ -3,16 +3,21 @@ import styles from './RowItem.module.sass';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
+import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
 import Button from '../Button/Button';
 import StarIcon from '../StarIcon/StarIcon';
 import { ReactComponent as PlusIcon } from '../../assets/icon/plus-solid.svg';
 
 const RowItem = props => {
-  const { isBright } = props;
+  const { isBright, setDialogVisible } = props;
   const {
-    item: { title, isStar, cover, isFirstData }
+    item: { title, isStar, isFirstData }
   } = props;
+
+  const onClick = () => {
+    if (isFirstData) setDialogVisible(true);
+  };
 
   return (
     <Button
@@ -21,6 +26,7 @@ const RowItem = props => {
         [styles.is_first_data]: isFirstData,
         [styles.dark]: !isBright
       })}
+      onClick={onClick}
     >
       <span
         className={clsx({ [styles.title]: true, [styles.dark]: !isBright })}
@@ -48,5 +54,19 @@ const mapStateToProps = ({ note }, props) => {
     isBright
   };
 };
+const mapDispatchToProps = dispatch => ({
+  setDialogVisible: value => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'dialogVisible',
+        value
+      }
+    });
+  }
+});
 
-export default connect(mapStateToProps)(RowItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RowItem);

@@ -3,7 +3,13 @@ import * as actionTypes from './actionTypes';
 
 const initState = {
   isBright: true, // 是否日間模式
-  displayMode: 'card' // ['card', 'row'] 筆記呈現模式
+  displayMode: 'card', // ['card', 'row'] 筆記呈現模式
+  dialogVisible: false,
+  note: {
+    name: '',
+    cover: ''
+  },
+  displayCard: 'edit' // ['list', 'edit'] [列表, 編輯]
 };
 
 const reducer = (state = initState, action) => {

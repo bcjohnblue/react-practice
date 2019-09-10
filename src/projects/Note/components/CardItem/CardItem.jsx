@@ -3,6 +3,7 @@ import styles from './CardItem.module.sass';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
+import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
 import coverImages from '../../utils/coverImages';
 
@@ -10,13 +11,20 @@ import { ReactComponent as PlusIcon } from '../../assets/icon/plus-solid.svg';
 import StarIcon from '../StarIcon/StarIcon';
 
 const CardItem = props => {
+  const { isBright, setDialogVisible } = props;
   const {
-    isBright,
     item: { title, isStar, cover, isFirstData }
   } = props;
 
   const style = {
     backgroundImage: `url(${coverImages[cover]})`
+  };
+
+  const onClick = () => {
+    if (isFirstData) {
+      setDialogVisible(true);
+      return;
+    }
   };
 
   return (
@@ -27,6 +35,7 @@ const CardItem = props => {
         [styles.dark]: !isBright
       })}
       style={style}
+      onClick={onClick}
     >
       <div className={styles.title}>{title}</div>
       {isFirstData ? (
@@ -45,5 +54,19 @@ const mapStateToProps = ({ note }, props) => {
     isBright
   };
 };
+const mapDispatchToProps = dispatch => ({
+  setDialogVisible: value => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'dialogVisible',
+        value
+      }
+    });
+  }
+});
 
-export default connect(mapStateToProps)(CardItem);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CardItem);
