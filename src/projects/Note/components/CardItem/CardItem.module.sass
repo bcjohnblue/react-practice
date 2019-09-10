@@ -8,14 +8,34 @@
   border-radius: 10px
   padding: 15px 15px 10px
   position: relative
+  cursor: pointer
+  z-index: 2
+  &.is_first_data
+    display: flex
+    flex-direction: column-reverse
+    align-items: center
+    justify-content: center
+    background: rgba(255,255,255,0.50)
+    border: 1px solid #000000
+    border-radius: 9px
+    &.dark
+      background: rgba(19,19,19,0.50)
+      border: 1px solid #FFFFFF
+      .title
+        color: #fff
+      .plus_icon
+        color: #fff
   .title
-    // margin-left: 15px
-    // margin-top: 15px
     font-family: NotoSansCJKtc-DemiLight
     font-size: 16px
     color: #000000
     font-weight: bold
-  .star
+    user-select: none
+  .plus_icon
+    width: 35px
+    height: 35px
+    margin-bottom: 10px
+  .star_icon
     position: absolute
     bottom: 20px
     width: 25px

@@ -3,11 +3,34 @@
   justify-content: space-between
   align-items: center
   margin-top: 20px
+  .text
+    font-family: NotoSansCJKtc-DemiLight
+    font-size: 12px
+    color: #000000
+    text-align: left
+    margin-left: 10px
+    user-select: none
+    &.dark
+      color: #fff
+  .button
+    &.dark
+      color: #fff
+      background-color: #424255
+  .star_icon
+    &.dark
+      fill: #fff
   .icon_container
     svg
       width: 25px
       height: 25px
       margin-left: 20px
       cursor: pointer
+      &.active
+        &.dark
+          path
+            fill: #fff
+        path
+          fill: #000000
       path
-        fill: #000000
+        fill: #B2B2B2
+        stroke: none

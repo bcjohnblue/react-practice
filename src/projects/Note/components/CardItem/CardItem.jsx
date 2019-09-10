@@ -2,38 +2,48 @@ import React from 'react';
 import styles from './CardItem.module.sass';
 import clsx from 'clsx';
 
-import TriangleImage from '../../assets/cover/三角.jpg';
-// import TrapezoidImage from '../../assets/cover/梯形.jpg';
-import WatercolorImage from '../../assets/cover/水彩.jpg';
-import GradientImage from '../../assets/cover/漸層.jpg';
-// import KraftImage from '../../assets/cover/牛皮紙.jpg';
+import { connect } from 'react-redux';
 
-import Star from '../Star/Star';
+import coverImages from '../../utils/coverImages';
+
+import { ReactComponent as PlusIcon } from '../../assets/icon/plus-solid.svg';
+import StarIcon from '../StarIcon/StarIcon';
 
 const CardItem = props => {
   const {
-    item: { title, isStar, cover },
-    className
+    isBright,
+    item: { title, isStar, cover, isFirstData }
   } = props;
 
-  const mapCoverToImage = {
-    Triangle: TriangleImage,
-    // Trapezoid: TrapezoidImage,
-    Watercolor: WatercolorImage,
-    Gradient: GradientImage
-    // Kraft: KraftImage
-  };
-
   const style = {
-    backgroundImage: `url(${mapCoverToImage[cover]})`
+    backgroundImage: `url(${coverImages[cover]})`
   };
 
   return (
-    <div className={clsx(styles.card_item, className)} style={style}>
+    <div
+      className={clsx({
+        [styles.card_item]: true,
+        [styles.is_first_data]: isFirstData,
+        [styles.dark]: !isBright
+      })}
+      style={style}
+    >
       <div className={styles.title}>{title}</div>
-      <Star isStar={isStar} className={styles.star}></Star>
+      {isFirstData ? (
+        <PlusIcon className={styles.plus_icon}></PlusIcon>
+      ) : (
+        <StarIcon isStar={isStar} className={styles.star_icon}></StarIcon>
+      )}
     </div>
   );
 };
 
-export default CardItem;
+const mapStateToProps = ({ note }, props) => {
+  const { isBright } = note;
+
+  return {
+    isBright
+  };
+};
+
+export default connect(mapStateToProps)(CardItem);

@@ -1,26 +1,54 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './CardList.module.sass';
+import clsx from 'clsx';
+
+import { connect } from 'react-redux';
 
 import CardItem from '../CardItem/CardItem.jsx';
 
 const CardList = props => {
-  const { data } = props;
+  const { isBright } = props;
+  const { data, style = {} } = props;
 
-  const DOM = data.map((item, index) => {
-    const rowBackgroundDOM = (() => {
-      if ((index + 1) % 4 !== 0) return null;
-      return <div className={styles.background}></div>; 
-    })();
+  const DOM = useMemo(
+    () =>
+      data.map((item, index) => {
+        const rowBackgroundDOM = (() => {
+          const ITEM_NUMBER_PER_ROW = 4;
+          if ((index + 1) % ITEM_NUMBER_PER_ROW !== 0) return null;
+          return (
+            <div
+              className={clsx({
+                [styles.background]: true,
+                [styles.dark]: !isBright
+              })}
+            ></div>
+          );
+        })();
 
-    return (
-      <React.Fragment key={index}>
-        <CardItem item={item} className={styles.card_item}></CardItem>
-        {rowBackgroundDOM}
-      </React.Fragment>
-    );
-  });
+        return (
+          <React.Fragment key={index}>
+            <CardItem item={item}></CardItem>
+            {rowBackgroundDOM}
+          </React.Fragment>
+        );
+      }),
+    [data, isBright]
+  );
 
-  return <div className={styles.card_list}>{DOM}</div>;
+  return (
+    <div className={styles.card_list} style={style}>
+      {DOM}
+    </div>
+  );
 };
 
-export default CardList;
+const mapStateToProps = ({ note }, props) => {
+  const { isBright } = note;
+
+  return {
+    isBright
+  };
+};
+
+export default connect(mapStateToProps)(CardList);

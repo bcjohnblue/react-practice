@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Star.module.sass';
+import styles from './StarIcon.module.sass';
 import clsx from 'clsx';
 
 import { useMemo } from 'react';
