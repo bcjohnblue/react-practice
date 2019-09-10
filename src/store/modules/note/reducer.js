@@ -9,7 +9,8 @@ const initState = {
     name: '',
     cover: ''
   },
-  displayCard: 'edit' // ['list', 'edit'] [列表, 編輯]
+  displayCard: 'list', // ['list', 'edit'] [列表, 編輯]
+  data: []
 };
 
 const reducer = (state = initState, action) => {
@@ -24,21 +25,45 @@ const reducer = (state = initState, action) => {
         [field]: value
       };
     }
-    // case actionTypes.OPEN_FILE_CONTROL_LIST: {
-    //   const { dataType, clientX, clientY, fullPath } = action;
+    case actionTypes.INIT_DATA: {
+      const data = JSON.parse(localStorage.getItem('data'));
 
-    //   return {
-    //     ...state,
-    //     fileControlList: {
-    //       ...state.fileControlList,
-    //       isVisible: true,
-    //       dataType,
-    //       clientX,
-    //       clientY,
-    //       fullPath
-    //     }
-    //   };
-    // }
+      return {
+        ...state,
+        data
+      };
+    }
+    case actionTypes.FILTER_DATA: {
+      const filterAll = () => {
+        return JSON.parse(localStorage.getItem('data'));
+      };
+      const filterStar = () => {
+        const newData = state.data.filter(item => item.isStar);
+        return [state.data[0], ...newData];
+      };
+      const filterName = name => {
+        if (name === '') return filterAll();
+
+        const newData = state.data.slice(1).filter(item => {
+          const { title } = item;
+          return ~title.indexOf(name);
+        });
+
+        return [state.data[0], ...newData];
+      };
+
+      const { method, name } = params;
+      const mapMethodToData = {
+        all: filterAll(),
+        star: filterStar(),
+        name: filterName(name)
+      };
+
+      return {
+        ...state,
+        data: mapMethodToData[method]
+      };
+    }
     default:
       return state;
   }

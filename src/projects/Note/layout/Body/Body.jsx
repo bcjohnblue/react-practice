@@ -1,5 +1,4 @@
 import React from 'react';
-import { useMemo } from 'react';
 import styles from './Body.module.sass';
 
 import { connect } from 'react-redux';
@@ -11,40 +10,9 @@ import EditNoteCard from '../../components/EditNoteCard/EditNoteCard';
 import AddNoteDialog from '../../components/AddNoteDialog/AddNoteDialog';
 
 const Body = props => {
-  const data = [
-    {
-      title: '新增筆記',
-      isFirstData: true
-    },
-    {
-      title: '生活雜記',
-      isStar: false,
-      cover: 'Triangle'
-    },
-    {
-      title: '美式動態設計',
-      isStar: true,
-      cover: 'Watercolor'
-    },
-    {
-      title: 'HTML/CSS',
-      isStar: true,
-      cover: 'Gradient'
-    },
-    {
-      title: 'HTML/CSS',
-      isStar: true,
-      cover: 'Gradient'
-    },
-    {
-      title: 'HTML/CSS',
-      isStar: true,
-      cover: 'Gradient'
-    }
-  ];
+  const { data, displayMode } = props;
 
-  const { displayMode } = props;
-  const dataListDOM = useMemo(() => {
+  const dataListDOM = (() => {
     const dataList = [
       {
         Component: CardList,
@@ -63,7 +31,7 @@ const Body = props => {
 
       return <Component data={data} key={mode} style={style}></Component>;
     });
-  }, [data, displayMode]);
+  })();
 
   const { displayCard } = props;
   const mapDisplayCardToDOM = {
@@ -80,11 +48,12 @@ const Body = props => {
 };
 
 const mapStateToProps = ({ note }, props) => {
-  const { displayMode, displayCard } = note;
+  const { displayMode, displayCard, data } = note;
 
   return {
     displayMode,
-    displayCard
+    displayCard,
+    data
   };
 };
 

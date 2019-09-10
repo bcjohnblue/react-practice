@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import styles from './SecondRow.module.sass';
 import clsx from 'clsx';
 
@@ -14,6 +14,8 @@ const SecondRow = props => {
   const { isBright } = props;
 
   const { displayMode } = props;
+
+  const [isStar, setIsStar] = useState(false);
 
   const listDOM = useMemo(() => {
     const iconDOM = (() => {
@@ -50,6 +52,14 @@ const SecondRow = props => {
       return <div className={styles.icon_container}>{DOM}</div>;
     })();
 
+    const { filterData } = props;
+    const onClick = () => {
+      const mode = isStar ? 'all' : 'star';
+
+      filterData(mode);
+      setIsStar(!isStar);
+    };
+
     return (
       <>
         <Button
@@ -57,12 +67,14 @@ const SecondRow = props => {
             [styles.button]: true,
             [styles.dark]: !isBright
           })}
+          onClick={onClick}
         >
           <StarIcon
             className={clsx({
               [styles.star_icon]: true,
               [styles.dark]: !isBright
             })}
+            isStar={isStar}
           ></StarIcon>
           <span
             className={clsx({ [styles.text]: true, [styles.dark]: !isBright })}
@@ -73,7 +85,7 @@ const SecondRow = props => {
         {iconDOM}
       </>
     );
-  }, [displayMode, isBright]);
+  }, [displayMode, isBright, isStar]);
 
   const { setDisplayCard } = props;
   const editDOM = useMemo(() => {
@@ -145,6 +157,13 @@ const mapDispatchToProps = dispatch => ({
       params: {
         field: 'displayCard',
         value
+      }
+    }),
+  filterData: method =>
+    dispatch({
+      type: actionTypes.FILTER_DATA,
+      params: {
+        method
       }
     })
 });
