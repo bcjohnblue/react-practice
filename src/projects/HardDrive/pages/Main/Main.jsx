@@ -15,7 +15,7 @@ const Main = props => {
   return (
     <div className={styles.main}>
       <Suspense fallback={<div></div>}>
-        <Route exact path="/hard-drive/my-drive" component={MyDrive} />
+        <Route path="/hard-drive/my-drive" component={MyDrive} />
         <Redirect from="hard-drive" to="/hard-drive/my-drive"></Redirect>
       </Suspense>
       <ProgressBarDialogContainer></ProgressBarDialogContainer>
