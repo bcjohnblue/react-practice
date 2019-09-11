@@ -5,13 +5,17 @@ import styles from './EditNoteCardContent.module.sass';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
+
 import OnSelectPrompt from '../OnSelectPrompt/OnSelectPrompt';
 
 const EditNoteCardContent = props => {
   // const [value, setValue] = useState('如果您心目中的周潤發');
-  const {note, setNote} =props
+  const { note, setNote } = props;
   const onChange = event => {
-    setNote({...note, text: event.target.value})
+    setNote({ ...note, text: event.target.value });
     // setValue(event.target.value);
   };
 
@@ -92,7 +96,28 @@ const EditNoteCardContent = props => {
       >
         {value}
       </textarea> */}
-      <div
+      <CKEditor
+        editor={ClassicEditor}
+        data="<p>Hello from CKEditor 5!</p>"
+        onInit={editor => {
+          // You can store the "editor" and use when it is needed.
+          // editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+          //   return new Base64UploadAdapter(loader);
+          // };
+          console.log('Editor is ready to use!', editor);
+        }}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          console.log({ event, editor, data });
+        }}
+        onBlur={(event, editor) => {
+          console.log('Blur.', editor);
+        }}
+        onFocus={(event, editor) => {
+          console.log('Focus.', editor);
+        }}
+      />
+      {/* <div
         contentEditable="true"
         onChange={onChange}
         onKeyDown={onKeyDown}
@@ -107,7 +132,7 @@ const EditNoteCardContent = props => {
         value={note.text}
         setValue={setNote}
         selected={selected}
-      ></OnSelectPrompt>
+      ></OnSelectPrompt> */}
     </div>
   );
 };
@@ -129,4 +154,7 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditNoteCardContent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditNoteCardContent);
