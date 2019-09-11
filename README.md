@@ -89,3 +89,15 @@
 **使用技術** &nbsp;`Firebase`
 <br />
 <br />
+
+## 第九關--筆記軟體
+
+<a href="https://bcjohnblue.github.io/F2E_2nd/#/note" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/Note" target="_blank">原始碼</a>
+
+**練習目標**
+
+1. HTML 文字編輯器
+
+**使用技術** &nbsp;
+<br />
+<br />
