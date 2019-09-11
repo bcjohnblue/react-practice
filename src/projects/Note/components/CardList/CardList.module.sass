@@ -1,20 +1,16 @@
 .card_list
-  height: 60vh
   display: grid
   grid-template-columns: repeat(4, 1fr)
   grid-column-gap: 5vh
-  grid-row-gap: 7vh
+  grid-row-gap: 70px
   position: relative
   .background
     position: absolute
-    background-image: linear-gradient(180deg, #F1F0F0 0%, #F5F5F5 100%)
     width: 1000px
-    // top: 270px
-    top: 77px
-    transform: rotate3d(20, -1, 1, 70deg)
-    height: 350px
-    z-index: -1
+    top: 110px
+    transform: rotate3d(1, 0, 0, 70deg) skew(-10deg)
+    border-top: 300px solid #F1F0F0
     margin-left: -50px
     z-index: 1
     &.dark
-      background: #454558
+      border-top-color: #454558

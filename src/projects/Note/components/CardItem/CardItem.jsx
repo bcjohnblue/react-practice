@@ -13,18 +13,21 @@ import StarIcon from '../StarIcon/StarIcon';
 const CardItem = props => {
   const { isBright, setDialogVisible } = props;
   const {
-    item: { title, isStar, cover, isFirstData }
+    item: { title, text, cover, isStar, isFirstData }
   } = props;
 
   const style = {
     backgroundImage: `url(${coverImages[cover]})`
   };
 
+  const {setNote, gotoEdit} = props
   const onClick = () => {
     if (isFirstData) {
       setDialogVisible(true);
       return;
     }
+    setNote({name: title, text, cover})
+    gotoEdit()
   };
 
   return (
@@ -61,6 +64,24 @@ const mapDispatchToProps = dispatch => ({
       params: {
         field: 'dialogVisible',
         value
+      }
+    });
+  },
+  setNote: value => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'note',
+        value
+      }
+    });
+  },
+  gotoEdit: () => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'displayCard',
+        value: 'edit'
       }
     });
   }

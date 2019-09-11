@@ -7,6 +7,7 @@ const initState = {
   dialogVisible: false,
   note: {
     name: '',
+    text: '',
     cover: ''
   },
   displayCard: 'list', // ['list', 'edit'] [列表, 編輯]
@@ -19,7 +20,7 @@ const reducer = (state = initState, action) => {
   switch (type) {
     case actionTypes.SET: {
       const { field, value } = params;
-
+      
       return {
         ...state,
         [field]: value

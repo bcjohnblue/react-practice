@@ -1,15 +1,18 @@
 import React from 'react';
+import { useState } from 'react';
 import styles from './EditNoteCardContent.module.sass';
 
-import { useState } from 'react';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
 import OnSelectPrompt from '../OnSelectPrompt/OnSelectPrompt';
 
 const EditNoteCardContent = props => {
-  const [value, setValue] = useState('如果您心目中的周潤發');
-
+  // const [value, setValue] = useState('如果您心目中的周潤發');
+  const {note, setNote} =props
   const onChange = event => {
-    setValue(event.target.value);
+    setNote({...note, text: event.target.value})
+    // setValue(event.target.value);
   };
 
   const onKeyDown = event => {
@@ -39,7 +42,7 @@ const EditNoteCardContent = props => {
       const endIndex = selection.extentOffset;
       console.log(startIndex, endIndex);
 
-      const selectedText = value.substring(startIndex, endIndex);
+      const selectedText = note.text.substring(startIndex, endIndex);
       console.log(selectedText);
 
       setSelected({
@@ -95,18 +98,35 @@ const EditNoteCardContent = props => {
         onKeyDown={onKeyDown}
         onSelect={onSelect}
         onMouseUp={onMouseUp}
-        dangerouslySetInnerHTML={createMarkup(value)}
+        dangerouslySetInnerHTML={createMarkup(note.text)}
       ></div>
       <OnSelectPrompt
         visible={selectPromptVisible}
         setVisible={setSelectPromptVisible}
         position={promptPosition}
-        value={value}
-        setValue={setValue}
+        value={note.text}
+        setValue={setNote}
         selected={selected}
       ></OnSelectPrompt>
     </div>
   );
 };
 
-export default EditNoteCardContent;
+const mapStateToProps = ({ note }, props) => {
+  return {
+    note: note.note
+  };
+};
+const mapDispatchToProps = dispatch => ({
+  setNote: value => {
+    dispatch({
+      type: actionTypes.SET,
+      params: {
+        field: 'note',
+        value
+      }
+    });
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditNoteCardContent);

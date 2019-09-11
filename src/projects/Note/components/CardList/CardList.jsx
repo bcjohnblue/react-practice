@@ -15,21 +15,27 @@ const CardList = props => {
       data.map((item, index) => {
         const rowBackgroundDOM = (() => {
           const ITEM_NUMBER_PER_ROW = 4;
-          if ((index + 1) % ITEM_NUMBER_PER_ROW !== 0) return null;
-          return (
-            <div
-              className={clsx({
-                [styles.background]: true,
-                [styles.dark]: !isBright
-              })}
-            ></div>
-          );
+          if (index % ITEM_NUMBER_PER_ROW === 0) {
+            const style = {
+              top: 110 + 320 * (index / ITEM_NUMBER_PER_ROW) + 'px'
+            };
+
+            return (
+              <div
+                className={clsx({
+                  [styles.background]: true,
+                  [styles.dark]: !isBright
+                })}
+                style={style}
+              ></div>
+            );
+          }
         })();
 
         return (
           <React.Fragment key={index}>
-            <CardItem item={item}></CardItem>
             {rowBackgroundDOM}
+            <CardItem item={item}></CardItem>
           </React.Fragment>
         );
       }),
