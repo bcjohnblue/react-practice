@@ -98,6 +98,6 @@
 
 1. HTML 文字編輯器
 
-**使用技術** &nbsp;
+**使用技術** &nbsp; `CKEditor 5`
 <br />
 <br />
