@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
 import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 // import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
 
 import OnSelectPrompt from '../OnSelectPrompt/OnSelectPrompt';
