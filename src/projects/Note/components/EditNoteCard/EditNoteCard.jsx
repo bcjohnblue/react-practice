@@ -23,10 +23,11 @@ const useStyles = makeStyles({
 });
 
 const EditNoteCard = props => {
+  const { style } = props;
   const classes = useStyles();
 
   return (
-    <div className={styles.edit_note_card}>
+    <div className={styles.edit_note_card} style={style}>
       <EditNoteCardBackground></EditNoteCardBackground>
       <Card className={classes.card}>
         <CardHeader component={EditNoteCardHeader} />

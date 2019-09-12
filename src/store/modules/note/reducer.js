@@ -22,10 +22,12 @@ const initState = {
 
 const reducer = (state = initState, action) => {
   const { type, params } = action;
+  // console.log(action);
 
   switch (type) {
     case actionTypes.SET: {
       const { field, value } = params;
+      console.log(params);
 
       return {
         ...state,
@@ -72,7 +74,7 @@ const reducer = (state = initState, action) => {
       };
     }
     case actionTypes.SAVE_DATA: {
-      console.log(state.note);
+      // console.log(state.note);
 
       const storageData = JSON.parse(localStorage.getItem('data'));
       const { id, title, text, cover, isStar } = state.note;

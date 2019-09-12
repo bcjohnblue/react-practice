@@ -39,8 +39,22 @@ const Body = props => {
     edit: <EditNoteCard></EditNoteCard>
   };
 
+  // const DOM = (() => {
+  //   return (
+  //     <>
+  //       <div style={{ display: displayCard === 'list' ? 'block' : 'none' }}>
+  //         {dataListDOM}
+  //       </div>
+  //       <EditNoteCard
+  //         style={{ display: displayCard === 'edit' ? 'block' : 'none' }}
+  //       ></EditNoteCard>
+  //     </>
+  //   );
+  // })();
+
   return (
     <main className={styles.body}>
+      {/* {DOM} */}
       {mapDisplayCardToDOM[displayCard]}
       <AddNoteDialog></AddNoteDialog>
     </main>

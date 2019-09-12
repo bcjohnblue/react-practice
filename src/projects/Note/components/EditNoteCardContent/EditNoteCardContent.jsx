@@ -9,6 +9,17 @@ import CKEditor from '../CKEditor/CKEditor';
 const EditNoteCardContent = props => {
   const { note, setNote } = props;
 
+  // const onChange = useCallback(
+  //   (event, editor) => {
+  //     if (note.id === undefined) return;
+  //     const text = editor.getData();
+  //     // console.log({ event, editor, text });
+
+  //     setNote({ ...note, text });
+  //   },
+  //   [note]
+  // );
+
   return (
     <div className={styles.edit_note_card_content}>
       <CKEditor
@@ -22,9 +33,12 @@ const EditNoteCardContent = props => {
         }}
         onChange={(event, editor) => {
           const text = editor.getData();
-          console.log({ event, editor, text });
+          // console.log({ event, editor, text });
+          console.log(note, text);
+
           setNote({ ...note, text });
         }}
+        // onChange={onChange}
         onBlur={(event, editor) => {
           // console.log('Blur.', editor);
         }}
