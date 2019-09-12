@@ -50,10 +50,16 @@ const mockData = [
   }
 ];
 
-const setMockData = () => {
-  localStorage.setItem('data', JSON.stringify(mockData));
-};
-
 export const initMockData = () => {
-  if (!localStorage.getItem('data')) setMockData();
+  const needSetMockData = (() => {
+    if (!localStorage.getItem('data')) return true;
+
+    const storageData = JSON.parse(localStorage.getItem('data'));
+    if (Array.isArray(storageData) && !storageData.some(item => item.id === 0))
+      return true;
+
+    return false;
+  })();
+
+  if (needSetMockData) localStorage.setItem('data', JSON.stringify(mockData));
 };
