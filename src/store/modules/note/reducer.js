@@ -91,8 +91,8 @@ const reducer = (state = initState, action) => {
         return storageData;
       };
       const insertData = () => {
-        const newId = storageData.slice(-1)[0];
-        newData.id = newId;
+        const newId = storageData.slice(-1)[0].id;
+        newData.id = newId + 1;
 
         storageData.push(newData);
         return storageData;
