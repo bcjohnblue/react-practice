@@ -1,104 +1,20 @@
 import React from 'react';
-import { useState } from 'react';
 import styles from './EditNoteCardContent.module.sass';
 
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-// import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
+import CKEditor from '../CKEditor/CKEditor';
 
-import OnSelectPrompt from '../OnSelectPrompt/OnSelectPrompt';
+// import OnSelectPrompt from '../OnSelectPrompt/OnSelectPrompt';
 
 const EditNoteCardContent = props => {
-  // const [value, setValue] = useState('如果您心目中的周潤發');
   const { note, setNote } = props;
-  const onChange = event => {
-    setNote({ ...note, text: event.target.value });
-    // setValue(event.target.value);
-  };
-
-  const onKeyDown = event => {
-    const self = event.target;
-
-    self.style.height = '1px';
-    self.style.height = 25 + self.scrollHeight + 'px';
-  };
-
-  const [selectPromptVisible, setSelectPromptVisible] = useState(false);
-  const [promptPosition, setPromptPosition] = useState({ x: 0, y: 0 });
-  const [selected, setSelected] = useState({
-    text: '',
-    startIndex: 0,
-    endIndex: 0
-  });
-
-  const onSelect = event => {
-    console.log('select');
-    // console.log(event.target.value);
-
-    if (document.getSelection !== undefined) {
-      const selection = document.getSelection();
-      console.log(selection);
-
-      const startIndex = selection.baseOffset;
-      const endIndex = selection.extentOffset;
-      console.log(startIndex, endIndex);
-
-      const selectedText = note.text.substring(startIndex, endIndex);
-      console.log(selectedText);
-
-      setSelected({
-        text: selectedText,
-        startIndex,
-        endIndex
-      });
-
-      if (selectedText.length) {
-        setSelectPromptVisible(true);
-      }
-    }
-    // if (event.target.selectionStart !== undefined) {
-    //   const startIndex = event.target.selectionStart;
-    //   const endIndex = event.target.selectionEnd;
-
-    //   const selectedText = event.target.value.substring(startIndex, endIndex);
-    //   setSelected({
-    //     text: selectedText,
-    //     startIndex,
-    //     endIndex
-    //   });
-
-    //   if (selectedText.length) {
-    //     setSelectPromptVisible(true);
-    //   }
-    // }
-  };
-
-  const onMouseUp = event => {
-    const { clientX: x, clientY: y } = event;
-    console.log(x, y);
-
-    setPromptPosition({ x, y });
-  };
-  const createMarkup = value => ({ __html: value });
 
   return (
     <div className={styles.edit_note_card_content}>
-      {/* <textarea
-        // value={value}
-        // dangerouslySetInnerHTML={createMarkup(value)}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        onSelect={onSelect}
-        onMouseUp={onMouseUp}
-      >
-        {value}
-      </textarea> */}
       <CKEditor
-        editor={ClassicEditor}
-        data="<p>Hello from CKEditor 5!</p>"
+        data={note.text}
         onInit={editor => {
           // You can store the "editor" and use when it is needed.
           // editor.plugins.get('FileRepository').createUploadAdapter = loader => {
@@ -107,8 +23,9 @@ const EditNoteCardContent = props => {
           console.log('Editor is ready to use!', editor);
         }}
         onChange={(event, editor) => {
-          const data = editor.getData();
-          console.log({ event, editor, data });
+          const text = editor.getData();
+          console.log({ event, editor, text });
+          setNote({ ...note, text });
         }}
         onBlur={(event, editor) => {
           console.log('Blur.', editor);
@@ -116,23 +33,7 @@ const EditNoteCardContent = props => {
         onFocus={(event, editor) => {
           console.log('Focus.', editor);
         }}
-      />
-      {/* <div
-        contentEditable="true"
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        onSelect={onSelect}
-        onMouseUp={onMouseUp}
-        dangerouslySetInnerHTML={createMarkup(note.text)}
-      ></div>
-      <OnSelectPrompt
-        visible={selectPromptVisible}
-        setVisible={setSelectPromptVisible}
-        position={promptPosition}
-        value={note.text}
-        setValue={setNote}
-        selected={selected}
-      ></OnSelectPrompt> */}
+      ></CKEditor>
     </div>
   );
 };

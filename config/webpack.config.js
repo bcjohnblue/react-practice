@@ -24,6 +24,7 @@ const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
 // ckeditor5
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
+const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -506,6 +507,11 @@ module.exports = function(webpackEnv) {
       ]
     },
     plugins: [
+      // 設定 CKEditor 語言
+      new CKEditorWebpackPlugin({
+        // The UI language. Language codes follow the https://en.wikipedia.org/wiki/ISO_639-1 format.
+        language: 'zh'
+      }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
