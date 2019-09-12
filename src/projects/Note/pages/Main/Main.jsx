@@ -8,6 +8,7 @@ import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
 import Header from '../../layout/Header/Header';
 import Body from '../../layout/Body/Body';
+import MessageContainer from '../../container/MessageContainer/MessageContainer';
 
 import { initMockData } from '../../utils/mockData';
 
@@ -27,6 +28,7 @@ const Main = props => {
         <Header></Header>
         <Body></Body>
       </div>
+      <MessageContainer></MessageContainer>
     </div>
   );
 };

@@ -4,15 +4,24 @@ import styles from './EditNoteCardHeader.module.sass';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
+import StarIcon from '../StarIcon/StarIcon';
+
 const EditNoteCardHeader = props => {
-  const {note, setNote} = props
+  const { note, setNote } = props;
   const onChange = event => {
-    setNote({...note, name: event.target.value})
-  }
+    setNote({ ...note, title: event.target.value });
+  };
 
   return (
     <div className={styles.edit_note_card_header}>
-      <input type="text" value={note.name} onChange={onChange}/>
+      <input type="text" value={note.title} onChange={onChange} />
+      <StarIcon
+        style={{ marginLeft: 'auto' }}
+        isStar={note.isStar}
+        onClick={() => {
+          setNote({ ...note, isStar: !note.isStar });
+        }}
+      ></StarIcon>
     </div>
   );
 };
@@ -34,4 +43,7 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditNoteCardHeader);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditNoteCardHeader);

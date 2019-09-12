@@ -87,7 +87,8 @@ const SecondRow = props => {
     );
   }, [displayMode, isBright, isStar]);
 
-  const { setDisplayCard } = props;
+  const { setDisplayCard, saveData } = props;
+  const { showMessange, closeMessange } = props;
   const editDOM = useMemo(() => {
     return (
       <>
@@ -111,6 +112,14 @@ const SecondRow = props => {
             [styles.save_button]: true,
             [styles.dark]: !isBright
           })}
+          onClick={() => {
+            saveData();
+            setDisplayCard('list');
+            showMessange({ status: 'success', title: '修改成功' });
+            setTimeout(() => {
+              closeMessange();
+            }, 3000);
+          }}
         >
           <span
             className={clsx({ [styles.text]: true, [styles.dark]: !isBright })}
@@ -165,6 +174,22 @@ const mapDispatchToProps = dispatch => ({
       params: {
         method
       }
+    }),
+  saveData: () =>
+    dispatch({
+      type: actionTypes.SAVE_DATA
+    }),
+  showMessange: ({ status, title }) =>
+    dispatch({
+      type: actionTypes.SHOW_NOTE_MESSANGE,
+      params: {
+        status,
+        title
+      }
+    }),
+  closeMessange: () =>
+    dispatch({
+      type: actionTypes.CLOSE_NOTE_MESSANGE
     })
 });
 

@@ -12,17 +12,23 @@ import { ReactComponent as PlusIcon } from '../../assets/icon/plus-solid.svg';
 const RowItem = props => {
   const { isBright, setDialogVisible } = props;
   const {
-    item: { title, text, cover, isStar,  isFirstData }
+    item: { id, title, text, cover, isStar, isFirstData }
   } = props;
 
-  const {setNote, gotoEdit} = props
-  const onClick = () => {
+  const { setNote, gotoEdit } = props;
+  const onItemClick = () => {
     if (isFirstData) {
       setDialogVisible(true);
-      return
+      return;
     }
-    setNote({name: title, text, cover})
-    gotoEdit()
+    setNote({ id, title, text, cover, isStar });
+    gotoEdit();
+  };
+
+  const { saveStarData } = props;
+  const onStarIconClick = event => {
+    event.stopPropagation();
+    saveStarData({ id });
   };
 
   return (
@@ -32,7 +38,7 @@ const RowItem = props => {
         [styles.is_first_data]: isFirstData,
         [styles.dark]: !isBright
       })}
-      onClick={onClick}
+      onClick={onItemClick}
     >
       <span
         className={clsx({ [styles.title]: true, [styles.dark]: !isBright })}
@@ -47,6 +53,7 @@ const RowItem = props => {
         <StarIcon
           className={clsx({ [styles.icon]: true, [styles.dark]: !isBright })}
           isStar={isStar}
+          onClick={onStarIconClick}
         ></StarIcon>
       )}
     </Button>
@@ -85,6 +92,14 @@ const mapDispatchToProps = dispatch => ({
       params: {
         field: 'displayCard',
         value: 'edit'
+      }
+    });
+  },
+  saveStarData: ({ id }) => {
+    dispatch({
+      type: actionTypes.SAVE_STAR_DATA,
+      params: {
+        id
       }
     });
   }

@@ -108,10 +108,16 @@ const AddNoteDialog = props => {
 
     setDialogVisible(false);
     setNote({
-      name: noteName,
+      title: noteName,
       cover: coverImg
     });
     setDisplayCard('edit');
+
+    (() => {
+      // reset data
+      setNoteName('');
+      setCoverImg(null);
+    })();
   };
 
   return (

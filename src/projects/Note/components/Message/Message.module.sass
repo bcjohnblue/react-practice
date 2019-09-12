@@ -1,0 +1,42 @@
+.message
+  position: absolute
+  text-align: center
+  left: 0
+  right: 0
+  top: -50px
+  display: flex
+  justify-content: center
+  svg
+    margin-right: 10px
+  div
+    padding: 9px 25px
+    border-radius: 6px
+    min-width: 300px
+    text-align: left
+    user-select: none
+  &.success
+    div
+      color: #67C23A
+      background-color: #F0F9EB
+      border: 1px solid #E1F3D8
+  &.error
+    div
+      color: #F56C6C
+      background-color: #FEF0F0
+      border: 1px solid #FDE2E2
+.enter_active
+  opacity: 0
+  // top: 30px
+  transform: top
+.enter_done
+  opacity: 1
+  transform: translateY(80px)
+  transition: opacity 1600ms ease-out, transform 1600ms ease-out
+.exit
+  opacity: 1
+  top: 30px
+.exit_done
+  opacity: 0
+  top: 30px
+  transform: translateY(-80px)
+  transition: opacity 1600ms ease-out, transform 1600ms ease-out

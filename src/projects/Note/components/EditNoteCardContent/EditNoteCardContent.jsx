@@ -6,8 +6,6 @@ import * as actionTypes from '../../../../store/modules/note/actionTypes';
 
 import CKEditor from '../CKEditor/CKEditor';
 
-// import OnSelectPrompt from '../OnSelectPrompt/OnSelectPrompt';
-
 const EditNoteCardContent = props => {
   const { note, setNote } = props;
 
@@ -20,7 +18,7 @@ const EditNoteCardContent = props => {
           // editor.plugins.get('FileRepository').createUploadAdapter = loader => {
           //   return new Base64UploadAdapter(loader);
           // };
-          console.log('Editor is ready to use!', editor);
+          // console.log('Editor is ready to use!', editor);
         }}
         onChange={(event, editor) => {
           const text = editor.getData();
@@ -28,10 +26,10 @@ const EditNoteCardContent = props => {
           setNote({ ...note, text });
         }}
         onBlur={(event, editor) => {
-          console.log('Blur.', editor);
+          // console.log('Blur.', editor);
         }}
         onFocus={(event, editor) => {
-          console.log('Focus.', editor);
+          // console.log('Focus.', editor);
         }}
       ></CKEditor>
     </div>

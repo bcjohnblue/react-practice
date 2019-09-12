@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './RowList.module.sass';
 
-// import { useMemo } from 'react';
-
 import RowItem from '../RowItem/RowItem';
 
 const RowList = props => {

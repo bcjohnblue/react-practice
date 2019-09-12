@@ -1,10 +1,9 @@
 .first_row
-  display: flex
-  justify-content: space-between
-  align-items: center
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
   .sticker_container
     display: flex
-    justify-content: space-between
+    justify-content: flex-start
     align-items: center
     .sticker
       width: 49px
@@ -34,6 +33,7 @@
       transform: translateY(-50%)
       cursor: pointer
   .switch_bright_icon_container
+    text-align: right
     .switch_bright_icon
       width: 25px
       height: 25px

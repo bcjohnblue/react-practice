@@ -13,21 +13,35 @@ import StarIcon from '../StarIcon/StarIcon';
 const CardItem = props => {
   const { isBright, setDialogVisible } = props;
   const {
-    item: { title, text, cover, isStar, isFirstData }
+    item: { id, title, text, cover, isStar, isFirstData }
   } = props;
 
   const style = {
     backgroundImage: `url(${coverImages[cover]})`
   };
 
-  const {setNote, gotoEdit} = props
-  const onClick = () => {
+  const { setNote, gotoEdit } = props;
+  const onItemClick = () => {
     if (isFirstData) {
       setDialogVisible(true);
       return;
     }
-    setNote({name: title, text, cover})
-    gotoEdit()
+    setNote({ id, title, text, cover, isStar });
+    gotoEdit();
+  };
+
+  const { saveStarData, showMessange, closeMessange } = props;
+  const onStarIconClick = event => {
+    event.stopPropagation();
+
+    saveStarData({ id });
+    showMessange({
+      status: 'success',
+      title: `${isStar ? '移除' : '添加'}星號成功`
+    });
+    setTimeout(() => {
+      closeMessange();
+    }, 3000);
   };
 
   return (
@@ -38,13 +52,17 @@ const CardItem = props => {
         [styles.dark]: !isBright
       })}
       style={style}
-      onClick={onClick}
+      onClick={onItemClick}
     >
       <div className={styles.title}>{title}</div>
       {isFirstData ? (
         <PlusIcon className={styles.plus_icon}></PlusIcon>
       ) : (
-        <StarIcon isStar={isStar} className={styles.star_icon}></StarIcon>
+        <StarIcon
+          isStar={isStar}
+          className={styles.star_icon}
+          onClick={onStarIconClick}
+        ></StarIcon>
       )}
     </div>
   );
@@ -83,6 +101,28 @@ const mapDispatchToProps = dispatch => ({
         field: 'displayCard',
         value: 'edit'
       }
+    });
+  },
+  saveStarData: ({ id }) => {
+    dispatch({
+      type: actionTypes.SAVE_STAR_DATA,
+      params: {
+        id
+      }
+    });
+  },
+  showMessange: ({ status, title }) => {
+    dispatch({
+      type: actionTypes.SHOW_NOTE_MESSANGE,
+      params: {
+        status,
+        title
+      }
+    });
+  },
+  closeMessange: () => {
+    dispatch({
+      type: actionTypes.CLOSE_NOTE_MESSANGE
     });
   }
 });
