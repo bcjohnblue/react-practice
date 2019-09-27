@@ -44,15 +44,6 @@
 
 ## 第五關--90 秒遊戲 (未完成)
 
-<a href="https://bcjohnblue.github.io/F2E_2nd/#/game" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/Game" target="_blank">原始碼</a>
-
-**待完成部分**
-
-1. 碰撞判定
-2. Keyboard event block setInterval
-   <br />
-   <br />
-
 ## 第六關--旅館預約服務
 
 <a href="https://bcjohnblue.github.io/F2E_2nd/#/hotel" target="_blank">線上展示</a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/bcjohnblue/F2E_2nd/tree/master/src/projects/Hotel" target="_blank">原始碼</a>
