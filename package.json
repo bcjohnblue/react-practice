@@ -174,7 +174,7 @@
     "@ckeditor/ckeditor5-heading": "^11.0.5",
     "@ckeditor/ckeditor5-image": "^14.0.0",
     "@ckeditor/ckeditor5-link": "^11.1.2",
-    "@ckeditor/ckeditor5-list": "^12.1.0",
+    "@ckeditor/ckeditor5-list": "^27.0.0",
     "gh-pages": "^2.0.1",
     "plop": "^2.4.0",
     "style-loader": "^1.0.0"
